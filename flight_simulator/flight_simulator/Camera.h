@@ -8,7 +8,6 @@
 
 #include <GL/glew.h>
 
-const GLfloat ZOOM = 45.0f;
 const float SPEED = 7.0f;
 
 class Camera
@@ -43,8 +42,6 @@ public:
 	void MouseControl(float xPos, float yPos);
 	void ProcessMouseScroll(float yOffset);
 
-	GLfloat GetZoom();
-
 	void ProcessMouseMovement(float xOffset, float yOffset, bool constrainPitch = true);
 
 private:
@@ -68,13 +65,10 @@ protected:
 	glm::vec3 up;
 	glm::vec3 worldUp;
 
-	GLfloat m_zoom;
-
 	float yaw;
 	float pitch;
 
 	bool bFirstMouseMove = true;
 	float lastX = 0.f, lastY = 0.f;
-
 };
 

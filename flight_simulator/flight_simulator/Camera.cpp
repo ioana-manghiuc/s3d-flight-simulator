@@ -11,7 +11,6 @@
 
 Camera::Camera(const int width, const int height, const glm::vec3& position) {
 	startPosition = position;
-	m_zoom = ZOOM;
 	Set(width, height, position);
 }
 
@@ -123,10 +122,6 @@ void Camera::ProcessMouseScroll(float yOffset) {
 		FoVy = 1.0f;
 	if (FoVy >= 90.0f)
 		FoVy = 90.0f;
-}
-
-GLfloat Camera::GetZoom() {
-	return this->m_zoom;
 }
 
 void Camera::ProcessMouseMovement(float xOffset, float yOffset, bool constrainPitch) {
