@@ -79,11 +79,11 @@
     <LibraryPath>..\external\glfw-3.3.10.bin.WIN64\lib-vc2022;..\external\glew-2.1.0\lib\Release\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>..\external\glfw-3.3.10.bin.WIN64\include\GLFW;..\external\glew-2.1.0\include;..\external\glm;$(IncludePath)</IncludePath>
+    <IncludePath>..\external\stb;..\external\glfw-3.3.10.bin.WIN64\include\GLFW;..\external\glew-2.1.0\include;..\external\glm;$(IncludePath)</IncludePath>
     <LibraryPath>..\external\glfw-3.3.10.bin.WIN64\lib-vc2022;..\external\glew-2.1.0\lib\Release\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>..\external\glfw-3.3.10.bin.WIN64\include\GLFW;..\external\glew-2.1.0\include;..\external\glm;$(IncludePath)</IncludePath>
+    <IncludePath>..\external\stb;..\external\glfw-3.3.10.bin.WIN64\include\GLFW;..\external\glew-2.1.0\include;..\external\glm;$(IncludePath)</IncludePath>
     <LibraryPath>..\external\glfw-3.3.10.bin.WIN64\lib-vc2022;..\external\glew-2.1.0\lib\Release\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
