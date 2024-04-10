@@ -148,14 +148,30 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="ECameraMovementType.cpp" />
+    <ClCompile Include="EBO.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="VAO.cpp" />
+    <ClCompile Include="VBO.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
-    <ClInclude Include="ECameraMovementType.h" />
+    <ClInclude Include="EBO.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="Texture.h" />
+    <ClInclude Include="VAO.h" />
+    <ClInclude Include="VBO.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="default.frag" />
+    <None Include="default.vert" />
+    <None Include="light.frag" />
+    <None Include="light.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="brick.png" />
+    <Image Include="bricks.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

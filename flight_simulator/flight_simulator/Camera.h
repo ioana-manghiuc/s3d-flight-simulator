@@ -1,74 +1,45 @@
-﻿#pragma once
-#include "ECameraMovementType.h"
-
-#pragma once
-
-#include <vec3.hpp>
-#include <mat4x4.hpp>
+#ifndef CAMERA_CLASS_H
+#define CAMERA_CLASS_H
 
 #include <GL/glew.h>
+#include <glfw3.h>
 
-const float SPEED = 7.0f;
+#include <GLM.hpp>
+#include <gtc/matrix_transform.hpp>
+#include <gtc/type_ptr.hpp>
+
+#define GLM_ENABLE_EXPERIMENTAL
+#include<gtx/rotate_vector.hpp>
+#include<gtx/vector_angle.hpp>
+
+#include "Shader.h"
 
 class Camera
 {
-
-private:
-
-	const float zNEAR = 0.1f;
-	const float zFAR = 1000.f;
-	const float YAW = -90.0f;
-	const float PITCH = 0.0f;
-	const float FOV = 45.0f;
-
-
 public:
+	glm::vec3 Position;
+	glm::vec3 Orientation = glm::vec3(0.0f, 0.0f, -1.0f);
+	glm::vec3 Up = glm::vec3(0.0f, 1.0f, 0.0f);
+	glm::mat4 cameraMatrix = glm::mat4(1.0f);
 
-	glm::vec3 startPosition;
-	glm::vec3 position;
+	bool firstClick = true;
 
-	Camera(const int width, const int height, const glm::vec3& position);
-
-	void Set(const int width, const int height, const glm::vec3& position);
-
-	void Reset(const int width, const int height);
-	void Reshape(int windowWidth, int windowHeight);
-
-	const glm::mat4 GetViewMatrix() const;
-	const glm::vec3 GetPosition() const;
-	const glm::mat4 GetProjectionMatrix() const;
-
-	void ProcessKeyboard(ECameraMovementType direction, float deltaTime);
-	void MouseControl(float xPos, float yPos);
-	void ProcessMouseScroll(float yOffset);
-
-	void ProcessMouseMovement(float xOffset, float yOffset, bool constrainPitch = true);
-
-private:
-
-	void UpdateCameraVectors();
-
-protected:
-
-	const float cameraSpeedFactor = 2.5f;
-	const float mouseSensitivity = 0.1f;
-
-	float zNear;
-	float zFar;
-	float FoVy;
 	int width;
 	int height;
-	bool isPerspective;
 
-	glm::vec3 forward;
-	glm::vec3 right;
-	glm::vec3 up;
-	glm::vec3 worldUp;
+	float speed = 0.001f;
+	float sensitivity = 100.0f;
 
-	float yaw;
-	float pitch;
+	// Camera constructor to set up initial values
+	Camera(int width, int height, glm::vec3 position);
 
-	bool bFirstMouseMove = true;
-	float lastX = 0.f, lastY = 0.f;
+	// Updates the camera matrix to the Vertex Shader
+	void updateMatrix(float FOVdeg, float nearPlane, float farPlane);
+
+	// Exports the camera matrix to a shader
+	void Matrix(Shader& shader, const char* uniform);
+
+	// Handles camera inputs
+	void Inputs(GLFWwindow* window);
 };
-
+#endif
