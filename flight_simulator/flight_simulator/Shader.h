@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <iostream>
+#include <fstream>
 #include <GLM.hpp>
 #include <vec3.hpp>
 #include <mat4x4.hpp>
@@ -8,7 +9,6 @@
 
 class Shader
 {
-
 public:
 	Shader(const char* vertexPath, const char* fragmentPath);
 	~Shader();
