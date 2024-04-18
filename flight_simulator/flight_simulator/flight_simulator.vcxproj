@@ -185,12 +185,12 @@
     <Image Include="..\..\..\flight_simulator\flight_simulator\bottom.jpg" />
     <Image Include="..\..\..\flight_simulator\flight_simulator\front.jpg" />
     <Image Include="..\..\..\flight_simulator\flight_simulator\left.jpg" />
-    <Image Include="..\..\..\flight_simulator\flight_simulator\right.jpg" />
     <Image Include="..\..\..\flight_simulator\flight_simulator\top.jpg" />
     <Image Include="brick.png" />
     <Image Include="bricks.jpg" />
     <Image Include="planks.png" />
     <Image Include="planksSpec.png" />
+    <Image Include="right.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

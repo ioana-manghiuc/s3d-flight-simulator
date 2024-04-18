@@ -106,9 +106,6 @@
     <Image Include="..\..\..\flight_simulator\flight_simulator\top.jpg">
       <Filter>Resource Files\Skybox</Filter>
     </Image>
-    <Image Include="..\..\..\flight_simulator\flight_simulator\right.jpg">
-      <Filter>Resource Files\Skybox</Filter>
-    </Image>
     <Image Include="..\..\..\flight_simulator\flight_simulator\front.jpg">
       <Filter>Resource Files\Skybox</Filter>
     </Image>
@@ -119,6 +116,9 @@
       <Filter>Resource Files\Skybox</Filter>
     </Image>
     <Image Include="..\..\..\flight_simulator\flight_simulator\back.jpg">
+      <Filter>Resource Files\Skybox</Filter>
+    </Image>
+    <Image Include="right.jpg">
       <Filter>Resource Files\Skybox</Filter>
     </Image>
   </ItemGroup>

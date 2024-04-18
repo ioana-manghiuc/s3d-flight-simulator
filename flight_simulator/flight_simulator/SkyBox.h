@@ -67,10 +67,10 @@ void LoadCubemap(std::vector<std::string> faces)
 	for (unsigned int i = 0; i < 6; i++)
 	{
 		int width, height, nrChannels;
+		stbi_set_flip_vertically_on_load(false);
 		unsigned char* data = stbi_load(faces[i].c_str(), &width, &height, &nrChannels, 0);
 		if (data)
 		{
-			stbi_set_flip_vertically_on_load(false);
 			glTexImage2D
 			(
 				GL_TEXTURE_CUBE_MAP_POSITIVE_X + i,
