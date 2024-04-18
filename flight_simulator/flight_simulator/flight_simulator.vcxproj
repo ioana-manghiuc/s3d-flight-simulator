@@ -161,11 +161,14 @@
     <ClInclude Include="EBO.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="SkyBox.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="VAO.h" />
     <ClInclude Include="VBO.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="cubemap.frag" />
+    <None Include="cubemap.vert" />
     <None Include="default.frag" />
     <None Include="default.vert" />
     <None Include="light.frag" />
@@ -174,12 +177,6 @@
     <None Include="skybox.vert" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\skybox\back.jpg" />
-    <Image Include="..\skybox\down.jpg" />
-    <Image Include="..\skybox\front.jpg" />
-    <Image Include="..\skybox\left.jpg" />
-    <Image Include="..\skybox\right.jpg" />
-    <Image Include="..\skybox\up.jpg" />
     <Image Include="brick.png" />
     <Image Include="bricks.jpg" />
     <Image Include="planks.png" />
