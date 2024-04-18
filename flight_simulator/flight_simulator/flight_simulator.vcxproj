@@ -71,19 +71,19 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>..\external\glfw-3.3.10.bin.WIN64\include\GLFW;..\external\glew-2.1.0\include;..\external\glm;$(IncludePath)</IncludePath>
+    <IncludePath>..\external\glfw-3.3.10.bin.WIN64\include\GLFW;..\external\glew-2.1.0\include;..\external\glm;$(IncludePath);..\external\json</IncludePath>
     <LibraryPath>..\external\glfw-3.3.10.bin.WIN64\lib-vc2022;..\external\glew-2.1.0\lib\Release\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>..\external\glfw-3.3.10.bin.WIN64\include\GLFW;..\external\glew-2.1.0\include;..\external\glm;$(IncludePath)</IncludePath>
+    <IncludePath>..\external\glfw-3.3.10.bin.WIN64\include\GLFW;..\external\glew-2.1.0\include;..\external\glm;$(IncludePath);..\external\json</IncludePath>
     <LibraryPath>..\external\glfw-3.3.10.bin.WIN64\lib-vc2022;..\external\glew-2.1.0\lib\Release\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>..\external\stb;..\external\glfw-3.3.10.bin.WIN64\include\GLFW;..\external\glew-2.1.0\include;..\external\glm;$(IncludePath)</IncludePath>
+    <IncludePath>..\external\stb;..\external\glfw-3.3.10.bin.WIN64\include\GLFW;..\external\glew-2.1.0\include;..\external\glm;$(IncludePath);..\external\json</IncludePath>
     <LibraryPath>..\external\glfw-3.3.10.bin.WIN64\lib-vc2022;..\external\glew-2.1.0\lib\Release\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>..\external\stb;..\external\glfw-3.3.10.bin.WIN64\include\GLFW;..\external\glew-2.1.0\include;..\external\glm;$(IncludePath)</IncludePath>
+    <IncludePath>..\external\stb;..\external\glfw-3.3.10.bin.WIN64\include\GLFW;..\external\glew-2.1.0\include;..\external\glm;$(IncludePath);..\external\json</IncludePath>
     <LibraryPath>..\external\glfw-3.3.10.bin.WIN64\lib-vc2022;..\external\glew-2.1.0\lib\Release\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -151,6 +151,7 @@
     <ClCompile Include="EBO.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="Model.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="VAO.cpp" />
@@ -159,12 +160,15 @@
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="EBO.h" />
+    <ClInclude Include="Init.h" />
     <ClInclude Include="Mesh.h" />
+    <ClInclude Include="Model.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="SkyBox.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="VAO.h" />
     <ClInclude Include="VBO.h" />
+    <ClInclude Include="Vertices.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cubemap.frag" />
@@ -177,6 +181,12 @@
     <None Include="skybox.vert" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\..\..\flight_simulator\flight_simulator\back.jpg" />
+    <Image Include="..\..\..\flight_simulator\flight_simulator\bottom.jpg" />
+    <Image Include="..\..\..\flight_simulator\flight_simulator\front.jpg" />
+    <Image Include="..\..\..\flight_simulator\flight_simulator\left.jpg" />
+    <Image Include="..\..\..\flight_simulator\flight_simulator\right.jpg" />
+    <Image Include="..\..\..\flight_simulator\flight_simulator\top.jpg" />
     <Image Include="brick.png" />
     <Image Include="bricks.jpg" />
     <Image Include="planks.png" />
