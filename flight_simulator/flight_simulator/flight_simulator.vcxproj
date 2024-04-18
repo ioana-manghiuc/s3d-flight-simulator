@@ -170,8 +170,16 @@
     <None Include="default.vert" />
     <None Include="light.frag" />
     <None Include="light.vert" />
+    <None Include="skybox.frag" />
+    <None Include="skybox.vert" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\skybox\back.jpg" />
+    <Image Include="..\skybox\down.jpg" />
+    <Image Include="..\skybox\front.jpg" />
+    <Image Include="..\skybox\left.jpg" />
+    <Image Include="..\skybox\right.jpg" />
+    <Image Include="..\skybox\up.jpg" />
     <Image Include="brick.png" />
     <Image Include="bricks.jpg" />
     <Image Include="planks.png" />

@@ -15,10 +15,12 @@ public:
 	std::vector<Vertex> vertices;
 	std::vector<GLuint> indices;
 	std::vector<Texture> textures;
+	unsigned int texture;
 
 	VAO VAO;
 
 	Mesh(std::vector<Vertex>& vertices, std::vector<GLuint>& indices, std::vector<Texture>& textures);
+	Mesh(std::vector<Vertex> vertices, std::vector<GLuint> indices, unsigned int texture);
 
 	void Draw(Shader& shader, Camera& camera);
 };
