@@ -27,62 +27,11 @@ void Camera::Matrix(Shader& shader, const char* uniform)
 	glUniformMatrix4fv(glGetUniformLocation(shader.ID, uniform), 1, GL_FALSE, glm::value_ptr(cameraMatrix));
 }
 
-void Camera::ProcessMouseMovement(float xOffset, float yOffset, GLboolean constrainPitch)
-{
-	FoVy -= yOffset * 0.1f; // You can adjust the sensitivity factor as needed
-
-	// Clamp the field of view to reasonable values
-	if (FoVy < 1.0f)
-		FoVy = 1.0f;
-	if (FoVy > 90.0f)
-		FoVy = 90.0f;
-
-	UpdateMatrix(FoVy, 0.1f, 400.0f);
-}
-
 void Camera::ProcessMouseScroll(float yOffset)
 {
 	float scrollSpeed = 1.0f;
 	Position += static_cast<float>(yOffset) * scrollSpeed * Orientation;
 }
-
-void Camera::UpdateCameraVectors()
-{
-    // Calculate the new forward vector
-    glm::vec3 front;
-    front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
-    front.y = sin(glm::radians(pitch));
-    front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-    Orientation = glm::normalize(front);
-
-    // Also re-calculate the Right and Up vector
-    Right = glm::normalize(glm::cross(Orientation, WorldUp));
-    Up = glm::normalize(glm::cross(Right, Orientation));
-}
-
-void Camera::MouseControl(float xPos, float yPos)
-{
-	if (firstClick)
-	{
-		lastX = xPos;
-		lastY = yPos;
-		firstClick = false;
-	}
-
-	float xChange = xPos - lastX;
-	float yChange = lastY - yPos;
-	lastX = xPos;
-	lastY = yPos;
-
-	if (fabs(xChange) <= 1e-6 && fabs(yChange) <= 1e-6) {
-		return;
-	}
-	xChange *= sensitivity;
-	yChange *= sensitivity;
-
-	ProcessMouseMovement(xChange, yChange);
-}
-
 
 void Camera::Inputs(GLFWwindow* window)
 {
