@@ -24,6 +24,7 @@ int main()
 	InitializeWindow(window);
 
 	Camera camera(width, height, glm::vec3(0.0f, 0.0f, 2.0f));
+	Model landModel("models/land/scene.gltf");
 	Model model("models/plane/scene.gltf");
 
 	Shader shaderProgram("default.vert", "default.frag");
@@ -52,6 +53,7 @@ int main()
 		camera.UpdateMatrix(45.0f, 0.1f, 400.0f);
 		
 		model.Draw(shaderProgram, camera);
+		landModel.Draw(shaderProgram, camera);
 
 		glDepthFunc(GL_LEQUAL);
 		glDisable(GL_CULL_FACE);

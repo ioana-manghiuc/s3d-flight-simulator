@@ -1,0 +1,11 @@
+Model Information:
+* title:	Belsay (largely a medieval landscape)
+* source:	https://sketchfab.com/3d-models/belsay-largely-a-medieval-landscape-a850df0aa10644c4960143b25a83c241
+* author:	Altogether Archaeology (https://sketchfab.com/altogetherarchaeology)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Belsay (largely a medieval landscape)" (https://sketchfab.com/3d-models/belsay-largely-a-medieval-landscape-a850df0aa10644c4960143b25a83c241) by Altogether Archaeology (https://sketchfab.com/altogetherarchaeology) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
