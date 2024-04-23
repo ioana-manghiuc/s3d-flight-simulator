@@ -1,6 +1,6 @@
 #include "Shader.h"
-const unsigned width = 800;
-const unsigned height = 800;
+const unsigned width = 900;
+const unsigned height = 900;
 
 void InitializeWindow(GLFWwindow*& window)
 {
@@ -16,7 +16,6 @@ void InitializeWindow(GLFWwindow*& window)
 	}
 
 	glfwMakeContextCurrent(window);
-
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	glewInit();

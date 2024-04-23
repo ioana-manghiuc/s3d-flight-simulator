@@ -10,10 +10,21 @@
 #pragma comment (lib, "glew32.lib")
 #pragma comment (lib, "OpenGL32.lib")
 
+void ScrollCallback(GLFWwindow* window, double xoffset, double yoffset)
+{
+	Camera* camera = static_cast<Camera*>(glfwGetWindowUserPointer(window));
+	if (camera) {
+		camera->ProcessMouseScroll(static_cast<float>(yoffset));
+	}
+}
+
 int main()
 {
 	GLFWwindow* window = glfwCreateWindow(width, height, "Title", NULL, NULL);
 	InitializeWindow(window);
+
+	Camera camera(width, height, glm::vec3(0.0f, 0.0f, 2.0f));
+	Model model("models/plane/scene.gltf");
 
 	Shader shaderProgram("default.vert", "default.frag");
 	Shader skyboxShader("skybox.vert", "skybox.frag");
@@ -27,10 +38,10 @@ int main()
 	glCullFace(GL_FRONT);
 	glFrontFace(GL_CCW);
 
-	Camera camera(width, height, glm::vec3(0.0f, 0.0f, 2.0f));
-	Model model("models/plane/scene.gltf");
-
 	BuildSkyBox(skyboxShader);
+
+	glfwSetWindowUserPointer(window, &camera);
+	glfwSetScrollCallback(window, ScrollCallback);
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -38,7 +49,7 @@ int main()
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		camera.Inputs(window);
-		camera.updateMatrix(45.0f, 0.1f, 400.0f);
+		camera.UpdateMatrix(45.0f, 0.1f, 400.0f);
 		
 		model.Draw(shaderProgram, camera);
 

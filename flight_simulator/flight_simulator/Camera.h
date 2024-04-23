@@ -16,10 +16,23 @@
 
 class Camera
 {
+public:	
+	Camera(int width, int height, glm::vec3 position); // Camera constructor to set up initial values
+
+	void UpdateMatrix(float FOVdeg, float nearPlane, float farPlane); // Updates the camera matrix to the Vertex Shader	
+	void Matrix(Shader& shader, const char* uniform); // Exports the camera matrix to a shader
+	void ProcessMouseMovement(float xOffset, float yOffset, GLboolean constrainPitch = true); // Processes mouse movement
+	void ProcessMouseScroll(float yOffset); // Processes mouse scrolling
+	void UpdateCameraVectors(); // Updates camera vectors
+	void MouseControl(float xPos, float yPos);
+	void Inputs(GLFWwindow* window); 	// Handles camera inputs
+
 public:
 	glm::vec3 Position;
 	glm::vec3 Orientation = glm::vec3(0.0f, 0.0f, -1.0f);
 	glm::vec3 Up = glm::vec3(0.0f, 1.0f, 0.0f);
+	glm::vec3 Right;
+	glm::vec3 WorldUp;
 	glm::mat4 cameraMatrix = glm::mat4(1.0f);
 
 	bool firstClick = true;
@@ -30,16 +43,8 @@ public:
 	float speed = 0.001f;
 	float sensitivity = 100.0f;
 
-	// Camera constructor to set up initial values
-	Camera(int width, int height, glm::vec3 position);
-
-	// Updates the camera matrix to the Vertex Shader
-	void updateMatrix(float FOVdeg, float nearPlane, float farPlane);
-
-	// Exports the camera matrix to a shader
-	void Matrix(Shader& shader, const char* uniform);
-
-	// Handles camera inputs
-	void Inputs(GLFWwindow* window);
+	float yaw, pitch; // Euler angles
+	float FoVy; // Field of View, y-axis
+	float lastX = 0.f, lastY = 0.f;
 };
 #endif
