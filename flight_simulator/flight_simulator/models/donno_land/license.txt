@@ -1,0 +1,11 @@
+Model Information:
+* title:	Donno Land
+* source:	https://sketchfab.com/3d-models/donno-land-22690cfe4daf402197cf41f4fbdf26e3
+* author:	hirnlaich (https://sketchfab.com/hirnlaich)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Donno Land" (https://sketchfab.com/3d-models/donno-land-22690cfe4daf402197cf41f4fbdf26e3) by hirnlaich (https://sketchfab.com/hirnlaich) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
