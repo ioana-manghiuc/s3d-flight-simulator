@@ -11,6 +11,7 @@ uniform sampler2D specular0;
 uniform vec4 lightColor;
 uniform vec3 lightPos;
 uniform vec3 camPos;
+uniform float colorScale;
 
 vec4 direcLight()
 {
@@ -31,5 +32,5 @@ vec4 direcLight()
 
 void main()
 {
-	FragColor = direcLight();
+	FragColor = direcLight()*colorScale;
 }

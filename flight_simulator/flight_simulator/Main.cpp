@@ -9,7 +9,10 @@
 #pragma comment (lib, "glfw3dll.lib")
 #pragma comment (lib, "glew32.lib")
 #pragma comment (lib, "OpenGL32.lib")
-
+float scale = 1.0f;
+float shaderLocation;
+float skyboxLocation;
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 void ScrollCallback(GLFWwindow* window, double xoffset, double yoffset)
 {
 	Camera* camera = static_cast<Camera*>(glfwGetWindowUserPointer(window));
@@ -24,15 +27,28 @@ int main()
 	InitializeWindow(window);
 
 	Camera camera(width, height, glm::vec3(0.0f, 0.0f, 2.0f));
-	Model landModel("models/land/scene.gltf");
-	Model model("models/plane/scene.gltf");
+	Model model("models/land/scene.gltf");
+	Model landModel("models/plane/scene.gltf");
 
 	Shader shaderProgram("default.vert", "default.frag");
 	Shader skyboxShader("skybox.vert", "skybox.frag");
-	ActivateShader(shaderProgram);	
+	glm::vec4 lightColor = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
+	glm::vec3 lightPos = glm::vec3(0.5f, 0.5f, 0.5f);
+	glm::mat4 lightModel = glm::mat4(1.0f);
+	lightModel = glm::translate(lightModel, lightPos);
+	shaderLocation = glGetUniformLocation(shaderProgram.ID, "colorScale");
+	skyboxLocation = glGetUniformLocation(skyboxShader.ID, "colorScale");
+
+	shaderProgram.Activate();
+	glUniform4f(glGetUniformLocation(shaderProgram.ID, "lightColor"), lightColor.x, lightColor.y, lightColor.z, lightColor.w);
+	glUniform3f(glGetUniformLocation(shaderProgram.ID, "lightPos"), lightPos.x, lightPos.y, lightPos.z);
+	glUniform1f(shaderLocation, scale);
 
 	skyboxShader.Activate();
 	glUniform1i(glGetUniformLocation(skyboxShader.ID, "skybox"), 0);
+	glUniform1f(skyboxLocation, scale);
+
+
 
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
@@ -43,6 +59,7 @@ int main()
 
 	glfwSetWindowUserPointer(window, &camera);
 	glfwSetScrollCallback(window, ScrollCallback);
+	glfwSetKeyCallback(window, key_callback);   
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -89,4 +106,13 @@ int main()
 	glfwDestroyWindow(window);
 	glfwTerminate();
 	return 0;
+}
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
+{
+	if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS)
+	{
+		scale *= 0.8f;
+		glUniform1f(shaderLocation, scale);
+		glUniform1f(skyboxLocation, scale);
+	}
 }
