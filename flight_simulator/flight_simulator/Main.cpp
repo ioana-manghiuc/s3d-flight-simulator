@@ -9,10 +9,16 @@
 #pragma comment (lib, "glfw3dll.lib")
 #pragma comment (lib, "glew32.lib")
 #pragma comment (lib, "OpenGL32.lib")
+
 float scale = 1.0f;
 float shaderLocation;
 float skyboxLocation;
+
+Shader shaderProgram;
+Shader skyboxShader;
+
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
+
 void ScrollCallback(GLFWwindow* window, double xoffset, double yoffset)
 {
 	Camera* camera = static_cast<Camera*>(glfwGetWindowUserPointer(window));
@@ -30,8 +36,8 @@ int main()
 	Model model("models/land/scene.gltf");
 	Model landModel("models/plane/scene.gltf");
 
-	Shader shaderProgram("default.vert", "default.frag");
-	Shader skyboxShader("skybox.vert", "skybox.frag");
+	shaderProgram = Shader("default.vert", "default.frag");
+	skyboxShader = Shader("skybox.vert", "skybox.frag");
 	glm::vec4 lightColor = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 	glm::vec3 lightPos = glm::vec3(0.5f, 0.5f, 0.5f);
 	glm::mat4 lightModel = glm::mat4(1.0f);
@@ -112,7 +118,9 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 	if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS)
 	{
 		scale *= 0.8f;
+		shaderProgram.Activate();
 		glUniform1f(shaderLocation, scale);
+		skyboxShader.Activate();
 		glUniform1f(skyboxLocation, scale);
 	}
 }
