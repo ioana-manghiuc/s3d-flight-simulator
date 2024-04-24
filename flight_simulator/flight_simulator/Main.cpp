@@ -33,8 +33,8 @@ int main()
 	InitializeWindow(window);
 
 	Camera camera(width, height, glm::vec3(0.0f, 0.0f, 2.0f));
-	Model model("models/land2/scene.gltf");
-	Model landModel("models/plane/scene.gltf");
+	Model model("models/plane/scene.gltf");
+	Model landModel("models/land2/scene.gltf");
 
 	shaderProgram = Shader("default.vert", "default.frag");
 	skyboxShader = Shader("skybox.vert", "skybox.frag");
@@ -73,10 +73,9 @@ int main()
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		camera.Inputs(window);
-		camera.UpdateMatrix(45.0f, 0.1f, 400.0f);
-		
-		model.Draw(shaderProgram, camera);
-		landModel.Draw(shaderProgram, camera);
+		camera.UpdateMatrix(45.0f, 0.1f, 1000.0f);
+		model.Draw(shaderProgram, camera, glm::vec3(-125.0f, 500.0f, 0.0f), glm::quat(1.0f, 0.0f, -0.45f, 0.0f), glm::vec3(0.1f, 0.1f, 0.1f));
+		landModel.Draw(shaderProgram, camera, glm::vec3(0.0f, 0.0f, 0.0f), glm::quat(1.0f, 0.0f, 0.0f, 0.0f), glm::vec3(100.0f, 100.0f, 100.0f));
 
 		glDepthFunc(GL_LEQUAL);
 		glDisable(GL_CULL_FACE);

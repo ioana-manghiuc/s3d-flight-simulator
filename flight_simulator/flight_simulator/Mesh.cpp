@@ -25,10 +25,10 @@ void Mesh::Draw
 (
 	Shader& shader,
 	Camera& camera,
-	glm::mat4 matrix,
 	glm::vec3 translation,
 	glm::quat rotation,
-	glm::vec3 scale
+	glm::vec3 scale,
+	glm::mat4 matrix
 )
 {
 	shader.Activate();
