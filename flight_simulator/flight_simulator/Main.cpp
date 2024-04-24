@@ -32,7 +32,7 @@ int main()
 	GLFWwindow* window = glfwCreateWindow(width, height, "Title", NULL, NULL);
 	InitializeWindow(window);
 
-	Camera camera(width, height, glm::vec3(0.0f, 0.0f, 2.0f));
+	Camera camera(width, height, glm::vec3(300.0f, 70.0f, -200.0f));
 	Model model("models/plane/scene.gltf");
 	Model landModel("models/land2/scene.gltf");
 
@@ -86,7 +86,7 @@ int main()
 		// We make the mat4 into a mat3 and then a mat4 again in order to get rid of the last row and column
 		// The last row and column affect the translation of the skybox (which we don't want to affect)
 		view = glm::mat4(glm::mat3(glm::lookAt(camera.Position, camera.Position + camera.Orientation, camera.Up)));
-		projection = glm::perspective(glm::radians(45.0f), (float)width / height, 0.1f, 400.0f);
+		projection = glm::perspective(glm::radians(45.0f), (float)width / height, 0.1f, 1000.0f);
 		glUniformMatrix4fv(glGetUniformLocation(skyboxShader.ID, "view"), 1, GL_FALSE, glm::value_ptr(view));
 		glUniformMatrix4fv(glGetUniformLocation(skyboxShader.ID, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 
