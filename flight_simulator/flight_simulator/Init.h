@@ -1,6 +1,6 @@
 #include "Shader.h"
-const unsigned width = 900;
-const unsigned height = 900;
+const unsigned width = 1920;
+const unsigned height = 1080;
 
 void InitializeWindow(GLFWwindow*& window)
 {

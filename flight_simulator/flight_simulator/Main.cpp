@@ -117,10 +117,22 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 {
 	if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS)
 	{
-		scale *= 0.8f;
-		shaderProgram.Activate();
-		glUniform1f(shaderLocation, scale);
-		skyboxShader.Activate();
-		glUniform1f(skyboxLocation, scale);
+		if (scale >= 0.2) {
+			scale -= 0.1f;
+			shaderProgram.Activate();
+			glUniform1f(shaderLocation, scale);
+			skyboxShader.Activate();
+			glUniform1f(skyboxLocation, scale);
+		}
+	}
+	if (glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS)
+	{
+		if (scale < 1) {
+			scale += 0.1f;
+			shaderProgram.Activate();
+			glUniform1f(shaderLocation, scale);
+			skyboxShader.Activate();
+			glUniform1f(skyboxLocation, scale);
+		}
 	}
 }
