@@ -33,7 +33,7 @@ int main()
 	InitializeWindow(window);
 
 	Camera camera(width, height, glm::vec3(0.0f, 0.0f, 2.0f));
-	Model model("models/land/scene.gltf");
+	Model model("models/land2/scene.gltf");
 	Model landModel("models/plane/scene.gltf");
 
 	shaderProgram = Shader("default.vert", "default.frag");
