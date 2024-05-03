@@ -27,8 +27,33 @@ void Model::Draw(Shader& shader, Camera& camera)
 {
 	for (unsigned int i = 0; i < meshes.size(); i++)
 	{
-		meshes[i].Mesh::Draw(shader, camera, matricesMeshes[i]);
+		meshes[i].Mesh::Draw(shader, camera, translation, rotation, scale, matricesMeshes[i]);
 	}
+}
+
+void Model::Inputs(GLFWwindow* window)
+{
+	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+	{
+		translation += glm::vec3(speed, 0, 0);
+		std::cout << translation.x << " " << translation.y << " " << translation.z << '\n';
+	}
+	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+	{
+		translation += glm::vec3(0, speed, 0);
+		std::cout << translation.x << " " << translation.y << " " << translation.z << '\n';
+	}
+	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+	{
+		translation += glm::vec3(-speed, 0, 0);
+		std::cout << translation.x << " " << translation.y << " " << translation.z << '\n';
+	}
+	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+	{
+		translation += glm::vec3(0, -speed, 0);
+		std::cout << translation.x << " " << translation.y << " " << translation.z << '\n';
+	}
+	
 }
 
 void Model::loadMesh(unsigned int indMesh)

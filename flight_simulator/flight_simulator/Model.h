@@ -8,12 +8,20 @@ using json = nlohmann::json;
 
 class Model
 {
+public: 
+	glm::vec3 translation = glm::vec3(0.0f, 0.0f, 0.0f);
+	glm::quat rotation = glm::quat(1.0f, 0.0f, 0.0f, 0.0f);
+	glm::vec3 scale = glm::vec3(1.0f, 1.0f, 1.0f);
+
+	float speed = 1.0f;
 public:
 	// Loads in a model from a file and stores tha information in 'data', 'JSON', and 'file'
 	Model(const char* file);
 
 	void Draw(Shader& shader, Camera& camera, glm::vec3 translation, glm::quat rotation, glm::vec3 scale);
 	void Draw(Shader& shader, Camera& camera);
+
+	void Inputs(GLFWwindow* window);
 
 private:
 	// Variables for easy access

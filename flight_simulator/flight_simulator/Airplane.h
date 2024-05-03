@@ -5,13 +5,11 @@
 class Airplane
 {
 public:
-	glm::vec3 translation;
-	glm::quat rotation;
-	glm::vec3 scale;
-
 	Airplane();
 
 	void Draw(Shader& shader, Camera& camera);
+	
+	void Inputs(GLFWwindow* window);
 private:
 	Model model;
 };

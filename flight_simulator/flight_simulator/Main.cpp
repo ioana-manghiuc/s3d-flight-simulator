@@ -18,6 +18,8 @@ float skyboxLocation;
 Shader shaderProgram;
 Shader skyboxShader;
 
+bool cameraControl = true;
+
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 
 void ScrollCallback(GLFWwindow* window, double xoffset, double yoffset)
@@ -74,7 +76,14 @@ int main()
 		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		camera.Inputs(window);
+		if(cameraControl)
+			camera.Inputs(window);
+		else
+		{
+			//model you want to move here
+			airplane.Inputs(window);
+		}
+
 		camera.UpdateMatrix(45.0f, 0.1f, 1000.0f);
 		//model.Draw(shaderProgram, camera, glm::vec3(-125.0f, 500.0f, 0.0f), glm::quat(1.0f, 0.0f, -0.45f, 0.0f), glm::vec3(0.1f, 0.1f, 0.1f));
 		airplane.Draw(shaderProgram, camera);
@@ -136,5 +145,9 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 			skyboxShader.Activate();
 			glUniform1f(skyboxLocation, scale);
 		}
+	}
+	if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS)
+	{
+		cameraControl = !cameraControl;
 	}
 }
