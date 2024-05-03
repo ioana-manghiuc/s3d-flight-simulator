@@ -3,6 +3,7 @@
 #include "SkyBox.h"
 #include "Vertices.h"
 #include "Init.h"
+#include "Airplane.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 
@@ -33,7 +34,8 @@ int main()
 	InitializeWindow(window);
 
 	Camera camera(width, height, glm::vec3(300.0f, 70.0f, -200.0f));
-	Model model("models/plane/scene.gltf");
+	//Model model("models/plane/scene.gltf");
+	Airplane airplane;
 	Model landModel("models/land2/scene.gltf");
 
 	shaderProgram = Shader("default.vert", "default.frag");
@@ -74,7 +76,8 @@ int main()
 
 		camera.Inputs(window);
 		camera.UpdateMatrix(45.0f, 0.1f, 1000.0f);
-		model.Draw(shaderProgram, camera, glm::vec3(-125.0f, 500.0f, 0.0f), glm::quat(1.0f, 0.0f, -0.45f, 0.0f), glm::vec3(0.1f, 0.1f, 0.1f));
+		//model.Draw(shaderProgram, camera, glm::vec3(-125.0f, 500.0f, 0.0f), glm::quat(1.0f, 0.0f, -0.45f, 0.0f), glm::vec3(0.1f, 0.1f, 0.1f));
+		airplane.Draw(shaderProgram, camera);
 		landModel.Draw(shaderProgram, camera, glm::vec3(0.0f, 0.0f, 0.0f), glm::quat(1.0f, 0.0f, 0.0f, 0.0f), glm::vec3(100.0f, 100.0f, 100.0f));
 
 		glDepthFunc(GL_LEQUAL);

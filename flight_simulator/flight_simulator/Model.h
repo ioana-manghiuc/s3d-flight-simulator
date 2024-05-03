@@ -13,6 +13,7 @@ public:
 	Model(const char* file);
 
 	void Draw(Shader& shader, Camera& camera, glm::vec3 translation, glm::quat rotation, glm::vec3 scale);
+	void Draw(Shader& shader, Camera& camera);
 
 private:
 	// Variables for easy access

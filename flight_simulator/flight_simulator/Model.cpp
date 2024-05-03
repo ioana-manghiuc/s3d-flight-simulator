@@ -19,7 +19,15 @@ void Model::Draw(Shader& shader, Camera& camera, glm::vec3 translation, glm::qua
 	// Go over all meshes and draw each one
 	for (unsigned int i = 0; i < meshes.size(); i++)
 	{
-		meshes[i].Mesh::Draw(shader, camera,translation,rotation,scale, matricesMeshes[i]);
+		meshes[i].Mesh::Draw(shader, camera, translation, rotation, scale, matricesMeshes[i]);
+	}
+}
+
+void Model::Draw(Shader& shader, Camera& camera)
+{
+	for (unsigned int i = 0; i < meshes.size(); i++)
+	{
+		meshes[i].Mesh::Draw(shader, camera, matricesMeshes[i]);
 	}
 }
 
