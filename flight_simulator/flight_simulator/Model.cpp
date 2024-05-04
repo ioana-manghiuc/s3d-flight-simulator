@@ -1,6 +1,7 @@
 #include"Model.h"
 
-Model::Model(const char* file)
+Model::Model(const char* file):
+	changed{ false }
 {
 	// Make a JSON object
 	std::string text = get_file_contents(file);
@@ -14,12 +15,19 @@ Model::Model(const char* file)
 	traverseNode(0);
 }
 
-void Model::Draw(Shader& shader, Camera& camera, glm::vec3 translation, glm::quat rotation,glm::vec3 scale)
+void Model::Draw(Shader& shader, Camera& camera, glm::vec3 translation, glm::vec3 rotation,glm::vec3 scale)
 {
 	// Go over all meshes and draw each one
 	for (unsigned int i = 0; i < meshes.size(); i++)
 	{
+		// normal
 		meshes[i].Mesh::Draw(shader, camera, translation, rotation, scale, matricesMeshes[i]);
+		
+		// changing rotation
+		//meshes[i].Mesh::Draw(shader, camera, translation, basicRotation, scale, matricesMeshes[i]);
+		
+		// changing translation
+		//meshes[i].Mesh::Draw(shader, camera, this->translation, rotation, scale, matricesMeshes[i]);
 	}
 }
 
@@ -31,8 +39,10 @@ void Model::Draw(Shader& shader, Camera& camera)
 	}
 }
 
-void Model::Inputs(GLFWwindow* window)
+void Model::Translation(GLFWwindow* window)
 {
+	static const float speed = 0.3f;
+
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
 	{
 		translation += glm::vec3(speed, 0, 0);
@@ -41,6 +51,11 @@ void Model::Inputs(GLFWwindow* window)
 	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
 	{
 		translation += glm::vec3(0, speed, 0);
+		std::cout << translation.x << " " << translation.y << " " << translation.z << '\n';
+	}
+	if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
+	{
+		translation += glm::vec3(0, 0, speed);
 		std::cout << translation.x << " " << translation.y << " " << translation.z << '\n';
 	}
 	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
@@ -53,7 +68,48 @@ void Model::Inputs(GLFWwindow* window)
 		translation += glm::vec3(0, -speed, 0);
 		std::cout << translation.x << " " << translation.y << " " << translation.z << '\n';
 	}
-	
+	if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
+	{
+		translation += glm::vec3(0, 0, -speed);
+		std::cout << translation.x << " " << translation.y << " " << translation.z << '\n';
+	}
+}
+
+void Model::Rotation(GLFWwindow* window)
+{
+	static const float speed = 1.0f;
+	static const float angle = 0.5f;
+	//rotation
+	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+	{
+		rotation += glm::vec3(speed, 0.0f, 0.0f);
+		std::cout << rotation.x << " " << rotation.y << " " << rotation.z << '\n';
+	}
+	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+	{
+		rotation += glm::vec3(0.0f, speed, 0.0f);
+		std::cout << rotation.x << " " << rotation.y << " " << rotation.z << '\n';
+	}
+	if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
+	{
+		rotation += glm::vec3(0.0f, 0.0f, speed);
+		std::cout << rotation.x << " " << rotation.y << " " << rotation.z << '\n';
+	}
+	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+	{
+		rotation -= glm::vec3(speed, 0.0f, 0.0f);
+		std::cout << rotation.x << " " << rotation.y << " " << rotation.z << '\n';
+	}
+	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+	{
+		rotation -= glm::vec3(0.0f, speed, 0.0f);
+		std::cout << rotation.x << " " << rotation.y << " " << rotation.z << '\n';
+	}
+	if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
+	{
+		rotation -= glm::vec3(0.0f, 0.0f, speed);
+		std::cout << rotation.x << " " << rotation.y << " " << rotation.z << '\n';
+	}
 }
 
 void Model::loadMesh(unsigned int indMesh)

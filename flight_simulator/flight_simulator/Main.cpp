@@ -81,13 +81,14 @@ int main()
 		else
 		{
 			//model you want to move here
-			airplane.Inputs(window);
+			//! only one model and one movement type
+			// ex. model.Rotation() / model.Translation()
+			airplane.Inputs(window);	
 		}
 
 		camera.UpdateMatrix(45.0f, 0.1f, 1000.0f);
-		//model.Draw(shaderProgram, camera, glm::vec3(-125.0f, 500.0f, 0.0f), glm::quat(1.0f, 0.0f, -0.45f, 0.0f), glm::vec3(0.1f, 0.1f, 0.1f));
 		airplane.Draw(shaderProgram, camera);
-		landModel.Draw(shaderProgram, camera, glm::vec3(0.0f, 0.0f, 0.0f), glm::quat(1.0f, 0.0f, 0.0f, 0.0f), glm::vec3(100.0f, 100.0f, 100.0f));
+		landModel.Draw(shaderProgram, camera, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(7.0f, -200.0f, 0.0f), glm::vec3(100.0f, 100.0f, 100.0f));
 
 		glDepthFunc(GL_LEQUAL);
 		glDisable(GL_CULL_FACE);

@@ -18,10 +18,6 @@ public:
 
 	VAO VAO;
 
-	glm::vec3 translation;
-	glm::quat rotation;
-	glm::vec3 scale;
-
 	Mesh(std::vector<Vertex>& vertices, std::vector<GLuint>& indices, std::vector<Texture>& textures);
 
 	void Draw
@@ -29,15 +25,8 @@ public:
 		Shader& shader,
 		Camera& camera,
 		glm::vec3 translation,
-		glm::quat rotation,
+		glm::vec3 rotation,
 		glm::vec3 scale,
-		glm::mat4 matrix = glm::mat4(1.0f)
-	);
-
-	void Draw
-	(
-		Shader& shader,
-		Camera& camera,
 		glm::mat4 matrix = glm::mat4(1.0f)
 	);
 };
