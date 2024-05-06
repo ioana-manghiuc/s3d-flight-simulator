@@ -25,6 +25,8 @@ public:
 	void Translation(GLFWwindow* window);
 	void Rotation(GLFWwindow* window);
 
+	void SetTransformations(glm::vec3 translation, glm::vec3 rotation, glm::vec3 scale);
+
 private:
 	bool changed;
 	// Variables for easy access

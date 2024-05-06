@@ -112,6 +112,13 @@ void Model::Rotation(GLFWwindow* window)
 	}
 }
 
+void Model::SetTransformations(glm::vec3 translation, glm::vec3 rotation, glm::vec3 scale)
+{
+	Model::translation = translation;
+	Model::rotation = rotation;
+	Model::scale = scale;
+}
+
 void Model::loadMesh(unsigned int indMesh)
 {
 	// Get all accessor indices
