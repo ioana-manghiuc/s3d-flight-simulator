@@ -24,7 +24,7 @@ void Model::Draw(Shader& shader, Camera& camera, glm::vec3 translation, glm::vec
 		meshes[i].Mesh::Draw(shader, camera, translation, rotation, scale, matricesMeshes[i]);
 		
 		// changing rotation
-		//meshes[i].Mesh::Draw(shader, camera, translation, basicRotation, scale, matricesMeshes[i]);
+		//meshes[i].Mesh::Draw(shader, camera, translation, this->rotation, scale, matricesMeshes[i]);
 		
 		// changing translation
 		//meshes[i].Mesh::Draw(shader, camera, this->translation, rotation, scale, matricesMeshes[i]);
@@ -41,7 +41,7 @@ void Model::Draw(Shader& shader, Camera& camera)
 
 void Model::Translation(GLFWwindow* window)
 {
-	static const float speed = 0.3f;
+	static const float speed = 10.0f;
 
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
 	{
