@@ -94,13 +94,15 @@ int main()
 		airplane.Draw(shaderProgram, camera);
 
 		glm::vec3 landScale = glm::vec3(200.0f, 200.0f, 200.0f);
-		glm::vec3 landRotation = glm::vec3(7.0f, -200.0f, 0.0f);
+		glm::vec3 landRotation = glm::vec3(1, -232, 0);
 		landModel.SetTransformations(glm::vec3(0.0f, 0.0f, 0.0f), landRotation, landScale);
-		landModel2.SetTransformations(glm::vec3(849120.0f, 29730.0f, -523900.0f), landRotation, landScale);
-		landModel3.SetTransformations(glm::vec3(-526270.0f, 14910.0f, -837920.0f), landRotation, landScale);
+		landModel2.SetTransformations(glm::vec3(849090, 3690, -524190), landRotation, landScale);
+		landModel3.SetTransformations(glm::vec3(-524655, 960, -849915), landRotation, landScale);
+		landModel4.SetTransformations(glm::vec3(325040, 4040, -1.37414e+06), landRotation, landScale);
 		landModel.Draw(shaderProgram, camera);
 		landModel2.Draw(shaderProgram, camera);
 		landModel3.Draw(shaderProgram, camera);
+		landModel4.Draw(shaderProgram, camera);
 
 		glDepthFunc(GL_LEQUAL);
 		glDisable(GL_CULL_FACE);
