@@ -42,6 +42,7 @@ int main()
 	Model landModel2("models/land2/scene.gltf");
 	Model landModel3("models/land2/scene.gltf");
 	Model landModel4("models/land2/scene.gltf");
+	Model road("models/road/scene.gltf");
 
 	shaderProgram = Shader("default.vert", "default.frag");
 	skyboxShader = Shader("skybox.vert", "skybox.frag");
@@ -86,15 +87,15 @@ int main()
 			//model you want to move here
 			//! only one model and one movement type
 			// ex. model.Rotation() / model.Translation()
-			//airplane.Inputs(window);
-			landModel3.Translation(window);
+			airplane.Inputs(window);
+			//road.Rotation(window);
 		}
 
 		camera.UpdateMatrix(45.0f, 0.1f, 5000.0f);
 		airplane.Draw(shaderProgram, camera);
-
 		glm::vec3 landScale = glm::vec3(200.0f, 200.0f, 200.0f);
 		glm::vec3 landRotation = glm::vec3(1, -232, 0);
+		//road.Draw(shaderProgram, camera,glm::vec3( 1.0f,1.0f,1.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(10.0f, 10.0f, 10.0f));
 		landModel.SetTransformations(glm::vec3(0.0f, 0.0f, 0.0f), landRotation, landScale);
 		landModel2.SetTransformations(glm::vec3(849090, 3690, -524190), landRotation, landScale);
 		landModel3.SetTransformations(glm::vec3(-524655, 960, -849915), landRotation, landScale);
