@@ -147,11 +147,5 @@
     <None Include="skybox.frag">
       <Filter>Resource Files\Shaders</Filter>
     </None>
-    <None Include="cubemap.frag">
-      <Filter>Resource Files\Shaders</Filter>
-    </None>
-    <None Include="cubemap.vert">
-      <Filter>Resource Files\Shaders</Filter>
-    </None>
   </ItemGroup>
 </Project>

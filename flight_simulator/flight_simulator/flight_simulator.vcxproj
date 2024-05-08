@@ -173,8 +173,6 @@
     <ClInclude Include="Vertices.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="cubemap.frag" />
-    <None Include="cubemap.vert" />
     <None Include="default.frag" />
     <None Include="default.vert" />
     <None Include="light.frag" />

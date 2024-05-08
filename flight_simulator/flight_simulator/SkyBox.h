@@ -55,6 +55,16 @@ std::vector<std::string> faces
 	"back.jpg"
 };
 
+std::vector<std::string> nightFaces
+{
+	"nright.jpg",
+	"nleft.jpg",
+	"ntop.jpg",
+	"nbottom.jpg",
+	"nfront.jpg",
+	"nback.jpg"
+};
+
 void LoadCubemap(std::vector<std::string> faces)
 {
 	glGenTextures(1, &cubemapTexture);

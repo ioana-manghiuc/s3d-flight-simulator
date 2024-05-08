@@ -39,7 +39,8 @@ int main()
 	////Model model("models/plane/scene.gltf");
 	//Airplane airplane;
 	Airplane airplane;
-	Camera camera(width, height, glm::vec3(300.0f, 70.0f, -200.0f));
+	Camera camera(width, height, glm::vec3(204.159, 83.0502, -443.938));
+	camera.Orientation = glm::vec3(-0.405053, -0.0952021, 0.909321);
 	Model landModel("models/land2/scene.gltf");
 	Model landModel2("models/land2/scene.gltf");
 	Model landModel3("models/land2/scene.gltf");
@@ -96,6 +97,8 @@ int main()
 		camera.UpdateMatrix(45.0f, 0.1f, 5000.0f);
 
 		airplane.Draw(shaderProgram, camera);
+		//std::cout << "CAMERA POS: (" << camera.Position.x << ", " << camera.Position.y << ", " << camera.Position.z << ")\n";
+		//std::cout << "CAMERA ORIENTATION: (" << camera.Orientation.x << ", " << camera.Orientation.y << ", " << camera.Orientation.z << ")\n";
 		airplane.model.translation = camera.PlanePosition;
 		glm::vec3 landScale = glm::vec3(500.0f, 500.0f, 500.0f);
 		glm::vec3 landRotation = glm::vec3(1, -232, 0);
@@ -144,12 +147,18 @@ int main()
 	glfwTerminate();
 	return 0;
 }
+
+
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
 	if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS)
 	{
-		if (scale >= 0.2) {
+		if (scale >= 0.2)
+		{
 			scale -= 0.1f;
+			if (scale < 0.2) {
+				LoadCubemap(nightFaces);
+			}
 			shaderProgram.Activate();
 			glUniform1f(shaderLocation, scale);
 			skyboxShader.Activate();
@@ -158,7 +167,11 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 	}
 	if (glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS)
 	{
-		if (scale < 1) {
+		if (scale < 1)
+		{
+			if (scale >= 0.2) {
+				LoadCubemap(faces);
+			}
 			scale += 0.1f;
 			shaderProgram.Activate();
 			glUniform1f(shaderLocation, scale);
