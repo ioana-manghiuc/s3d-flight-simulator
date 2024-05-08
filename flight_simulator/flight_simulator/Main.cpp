@@ -82,7 +82,7 @@ int main()
 		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		if(cameraControl)
+		if (cameraControl)
 			camera.Inputs(window);
 		else
 		{
@@ -94,8 +94,10 @@ int main()
 		}
 		camera.Inputs(window);
 		camera.UpdateMatrix(45.0f, 0.1f, 5000.0f);
+
 		airplane.Draw(shaderProgram, camera);
-		glm::vec3 landScale = glm::vec3(1920.0f, 1920.0f, 1920.0f);
+		airplane.model.translation = camera.PlanePosition;
+		glm::vec3 landScale = glm::vec3(500.0f, 500.0f, 500.0f);
 		glm::vec3 landRotation = glm::vec3(1, -232, 0);
 		//road.Draw(shaderProgram, camera,glm::vec3( 1.0f,1.0f,1.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(10.0f, 10.0f, 10.0f));
 		landModel.SetTransformations(glm::vec3(0.0f, -100.0f, 0.0f), landRotation, landScale);

@@ -10,7 +10,6 @@ Airplane::Airplane():
 	model.translation = glm::vec3(-95.9f, 400.0f, 50.0f);
 	model.rotation = glm::vec3(163.0f, -1171.0f, 174.55f);
 	model.scale = glm::vec3(0.1f, 0.1f, 0.1f);
-	
 }
 
 void Airplane::Draw(Shader& shader, Camera& camera)
