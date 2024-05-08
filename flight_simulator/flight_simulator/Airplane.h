@@ -8,9 +8,9 @@ public:
 	Airplane();
 
 	void Draw(Shader& shader, Camera& camera);
-	
 	void Inputs(GLFWwindow* window);
-private:
+
+public:
 	Model model;
 };
 #endif

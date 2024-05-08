@@ -35,9 +35,11 @@ int main()
 	GLFWwindow* window = glfwCreateWindow(width, height, "Title", NULL, NULL);
 	InitializeWindow(window);
 
-	Camera camera(width, height, glm::vec3(300.0f, 70.0f, -200.0f));
-	//Model model("models/plane/scene.gltf");
+	//Camera camera(width, height, glm::vec3(300.0f, 70.0f, -200.0f));
+	////Model model("models/plane/scene.gltf");
+	//Airplane airplane;
 	Airplane airplane;
+	Camera camera(width, height, glm::vec3(300.0f, 70.0f, -200.0f));
 	Model landModel("models/land2/scene.gltf");
 	Model landModel2("models/land2/scene.gltf");
 	Model landModel3("models/land2/scene.gltf");
@@ -90,20 +92,20 @@ int main()
 			airplane.Inputs(window);
 			//road.Rotation(window);
 		}
-
+		camera.Inputs(window);
 		camera.UpdateMatrix(45.0f, 0.1f, 5000.0f);
 		airplane.Draw(shaderProgram, camera);
 		glm::vec3 landScale = glm::vec3(200.0f, 200.0f, 200.0f);
 		glm::vec3 landRotation = glm::vec3(1, -232, 0);
 		//road.Draw(shaderProgram, camera,glm::vec3( 1.0f,1.0f,1.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(10.0f, 10.0f, 10.0f));
 		landModel.SetTransformations(glm::vec3(0.0f, 0.0f, 0.0f), landRotation, landScale);
-		landModel2.SetTransformations(glm::vec3(849090, 3690, -524190), landRotation, landScale);
+		/*landModel2.SetTransformations(glm::vec3(849090, 3690, -524190), landRotation, landScale);
 		landModel3.SetTransformations(glm::vec3(-524655, 960, -849915), landRotation, landScale);
-		landModel4.SetTransformations(glm::vec3(325040, 4040, -1.37414e+06), landRotation, landScale);
+		landModel4.SetTransformations(glm::vec3(325040, 4040, -1.37414e+06), landRotation, landScale);*/
 		landModel.Draw(shaderProgram, camera);
-		landModel2.Draw(shaderProgram, camera);
+		/*landModel2.Draw(shaderProgram, camera);
 		landModel3.Draw(shaderProgram, camera);
-		landModel4.Draw(shaderProgram, camera);
+		landModel4.Draw(shaderProgram, camera);*/
 
 		glDepthFunc(GL_LEQUAL);
 		glDisable(GL_CULL_FACE);
