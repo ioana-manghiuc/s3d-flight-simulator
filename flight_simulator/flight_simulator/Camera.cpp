@@ -34,30 +34,25 @@ void Camera::ProcessMouseScroll(float yOffset)
 }
 
 void Camera::Inputs(GLFWwindow* window) {
-    // Handles key inputs
+    // Handles key inputs translate la o locatie (camerei + un vecttor offset)
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
         Position += speed * Orientation;
-        PlanePosition += speed * -Up;
+        PlanePosition = Position;
     }
     if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
         Position += speed * -glm::normalize(glm::cross(Orientation, Up));
-        PlanePosition -= speed * Orientation;
     }
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
         Position += speed * -Orientation;
-        PlanePosition += speed * Up;
     }
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
         Position += speed * glm::normalize(glm::cross(Orientation, Up));
-        PlanePosition += speed * Orientation;
     }
     if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
         Position += speed * Up;
-        PlanePosition += speed * -glm::normalize(glm::cross(Orientation, Up));
     }
     if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS) {
         Position += speed * -Up;
-        PlanePosition += speed * glm::normalize(glm::cross(Orientation, Up));
     }
     if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) {
         speed = 0.5f;

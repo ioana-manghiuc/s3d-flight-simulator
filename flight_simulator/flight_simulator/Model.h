@@ -12,8 +12,8 @@ public:
 	glm::vec3 translation = glm::vec3(0.0f, 0.0f, 0.0f);
 	glm::vec3 rotation = glm::vec3(1.0f,1.0f,1.0f);
 	glm::vec3 scale = glm::vec3(1.0f, 1.0f, 1.0f);
-	
-
+	std::vector<Mesh> meshes;
+	std::vector<glm::mat4> matricesMeshes;
 	//float speed = 1.0f;
 public:
 	// Loads in a model from a file and stores tha information in 'data', 'JSON', and 'file'
@@ -27,6 +27,8 @@ public:
 
 	void SetTransformations(glm::vec3 translation, glm::vec3 rotation, glm::vec3 scale);
 
+	void Move(GLFWwindow* window, Camera camera);
+
 private:
 	bool changed;
 	// Variables for easy access
@@ -35,11 +37,11 @@ private:
 	json JSON;
 
 	// All the meshes and transformations
-	std::vector<Mesh> meshes;
+	
 	std::vector<glm::vec3> translationsMeshes;
 	std::vector<glm::quat> rotationsMeshes;
 	std::vector<glm::vec3> scalesMeshes;
-	std::vector<glm::mat4> matricesMeshes;
+	
 
 	// Prevents textures from being loaded twice
 	std::vector<std::string> loadedTexName;

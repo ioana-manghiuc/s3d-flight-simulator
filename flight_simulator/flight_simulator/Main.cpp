@@ -35,16 +35,19 @@ int main()
 	GLFWwindow* window = glfwCreateWindow(width, height, "Title", NULL, NULL);
 	InitializeWindow(window);
 
-	//Camera camera(width, height, glm::vec3(300.0f, 70.0f, -200.0f));
-	////Model model("models/plane/scene.gltf");
-	//Airplane airplane;
-	Airplane airplane;
+	auto campos = glm::vec3(205.0f, 83.0f, -444.0f);
+	auto planepos = glm::vec3(-96.0f, 400.0f, 50.0f);
+	auto dist = campos - planepos;
+	std::cout << "offset: " << dist.x << "," << dist.y << "," << dist.z << std::endl;
+
+	//Airplane airplane(planepos);
+	Model airplane("models/plane/scene.gltf");
+	
 	Camera camera(width, height, glm::vec3(204.159, 83.0502, -443.938));
+	airplane.SetTransformations(camera.Position - dist, glm::vec3(163.0f, -1171.0f, 174.55f), glm::vec3(0.1f, 0.1f, 0.1f));
+	airplane.translation = planepos;
 	camera.Orientation = glm::vec3(-0.405053, -0.0952021, 0.909321);
 	Model landModel("models/land2/scene.gltf");
-	Model landModel2("models/land2/scene.gltf");
-	Model landModel3("models/land2/scene.gltf");
-	Model landModel4("models/land2/scene.gltf");
 	Model road("models/road/scene.gltf");
 
 	shaderProgram = Shader("default.vert", "default.frag");
@@ -65,8 +68,6 @@ int main()
 	glUniform1i(glGetUniformLocation(skyboxShader.ID, "skybox"), 0);
 	glUniform1f(skyboxLocation, scale);
 
-
-
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_FRONT);
@@ -83,34 +84,34 @@ int main()
 		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		if (cameraControl)
-			camera.Inputs(window);
-		else
-		{
-			//model you want to move here
-			//! only one model and one movement type
-			// ex. model.Rotation() / model.Translation()
-			airplane.Inputs(window);
-			//road.Rotation(window);
-		}
+		//if (cameraControl)
+		//	camera.Inputs(window);
+		//else
+		//{
+		//	//model you want to move here
+		//	//! only one model and one movement type
+		//	// ex. model.Rotation() / model.Translation()
+		//	airplane.Inputs(window);
+		//	//road.Rotation(window);
+		//}
 		camera.Inputs(window);
 		camera.UpdateMatrix(45.0f, 0.1f, 5000.0f);
-
-		airplane.Draw(shaderProgram, camera);
+		
 		//std::cout << "CAMERA POS: (" << camera.Position.x << ", " << camera.Position.y << ", " << camera.Position.z << ")\n";
 		//std::cout << "CAMERA ORIENTATION: (" << camera.Orientation.x << ", " << camera.Orientation.y << ", " << camera.Orientation.z << ")\n";
-		airplane.model.translation = camera.PlanePosition;
+		//airplane.model.translation = camera.Position - dist;
+		//airplane.Draw(shaderProgram, camera, airplane.model.translation, airplane.model.rotation, airplane.model.scale);
+		
+		//airplane.translation = camera.Position - dist;
+		//airplane.Move(window, camera);
+		//airplane.Draw(shaderProgram, camera);		
+		airplane.Draw(shaderProgram, camera, airplane.translation, glm::vec3(163.0f, -1171.0f, 174.55f), glm::vec3(0.1f, 0.1f, 0.1f));
+		
 		glm::vec3 landScale = glm::vec3(500.0f, 500.0f, 500.0f);
 		glm::vec3 landRotation = glm::vec3(1, -232, 0);
 		//road.Draw(shaderProgram, camera,glm::vec3( 1.0f,1.0f,1.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(10.0f, 10.0f, 10.0f));
 		landModel.SetTransformations(glm::vec3(0.0f, -100.0f, 0.0f), landRotation, landScale);
-		/*landModel2.SetTransformations(glm::vec3(849090, 3690, -524190), landRotation, landScale);
-		landModel3.SetTransformations(glm::vec3(-524655, 960, -849915), landRotation, landScale);
-		landModel4.SetTransformations(glm::vec3(325040, 4040, -1.37414e+06), landRotation, landScale);*/
 		landModel.Draw(shaderProgram, camera);
-		/*landModel2.Draw(shaderProgram, camera);
-		landModel3.Draw(shaderProgram, camera);
-		landModel4.Draw(shaderProgram, camera);*/
 
 		glDepthFunc(GL_LEQUAL);
 		glDisable(GL_CULL_FACE);
@@ -147,7 +148,6 @@ int main()
 	glfwTerminate();
 	return 0;
 }
-
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {

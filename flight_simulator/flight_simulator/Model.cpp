@@ -1,5 +1,7 @@
 #include"Model.h"
 
+auto planepos = glm::vec3(-96.0f, 400.0f, 50.0f);
+
 Model::Model(const char* file):
 	changed{ false }
 {
@@ -21,10 +23,10 @@ void Model::Draw(Shader& shader, Camera& camera, glm::vec3 translation, glm::vec
 	for (unsigned int i = 0; i < meshes.size(); i++)
 	{
 		// normal
-		//meshes[i].Mesh::Draw(shader, camera, translation, rotation, scale, matricesMeshes[i]);
+		meshes[i].Mesh::Draw(shader, camera, translation, rotation, scale, matricesMeshes[i]);
 		
 		// changing rotation
-		meshes[i].Mesh::Draw(shader, camera, translation, this->rotation, scale, matricesMeshes[i]);
+		//meshes[i].Mesh::Draw(shader, camera, translation, this->rotation, scale, matricesMeshes[i]);
 		
 		// changing translation
 		//meshes[i].Mesh::Draw(shader, camera, this->translation, rotation, scale, matricesMeshes[i]);
@@ -117,6 +119,85 @@ void Model::SetTransformations(glm::vec3 translation, glm::vec3 rotation, glm::v
 	Model::translation = translation;
 	Model::rotation = rotation;
 	Model::scale = scale;
+}
+
+void Model::Move(GLFWwindow* window, Camera camera)
+{
+	glm::vec3 Orientation = glm::vec3(0.0f, 0.0f, -1.0f);
+	glm::vec3 Up = glm::vec3(0.0f, 1.0f, 0.0f);
+	glm::mat4 cameraMatrix = glm::mat4(1.0f);
+	auto dist = camera.Position - planepos;
+	bool firstClick = true;
+
+	int width;
+	int height;
+
+	float speed = 0.001f;
+	float sensitivity = 100.0f;
+
+	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
+		translation += speed * Orientation;
+		//translation += speed * -Up;
+	}
+	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
+		//translation += speed * -glm::normalize(glm::cross(Orientation, Up));
+	}
+	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
+		translation += speed * -Orientation;
+		//translation += speed * Up;
+	}
+	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
+		//translation += speed * glm::normalize(glm::cross(Orientation, Up));
+	}
+	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
+		translation += speed * Up;
+		//translation += speed * -glm::normalize(glm::cross(Orientation, Up));
+	}
+	if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS) {
+		translation += speed * -Up;
+		//translation += speed * glm::normalize(glm::cross(Orientation, Up));
+	}
+	if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) {
+		speed = 0.5f;
+	}
+	else if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_RELEASE) {
+		speed = 0.1f;
+	}
+	//if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
+	//	// Hides mouse cursor
+	//	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+	//	// Prevents camera from jumping on the first click
+	//	if (camera.firstClick) {
+	//		glfwSetCursorPos(window, (camera.width / 2), (camera.height / 2));
+	//		camera.firstClick = false;
+	//	}
+	//	double mouseX;
+	//	double mouseY;
+	//	// Fetches the coordinates of the cursor
+	//	glfwGetCursorPos(window, &mouseX, &mouseY);
+	//	// Normalizes and shifts the coordinates of the cursor such that they begin in the middle of the screen
+	//	// and then "transforms" them into degrees
+	//	float rotX = camera.sensitivity * (float)(mouseY - (camera.height / 2)) / camera.height;
+	//	float rotY = camera.sensitivity * (float)(mouseX - (camera.width / 2)) / camera.width;
+	//	// Calculates upcoming vertical change in the Orientation
+	//	glm::vec3 newOrientation = glm::rotate(camera.Orientation, glm::radians(-rotX), glm::normalize(glm::cross(camera.Orientation, camera.Up)));
+	//	// Decides whether or not the next vertical Orientation is legal or not
+	//	if (abs(glm::angle(newOrientation, camera.Up) - glm::radians(90.0f)) <= glm::radians(85.0f)) {
+	//		camera.Orientation = newOrientation;
+	//	}
+	//	// Rotates the Orientation left and right
+	//	camera.Orientation = glm::rotate(camera.Orientation, glm::radians(-rotY), camera.Up);
+	//	// Sets mouse cursor to the middle of the screen so that it doesn't end up roaming around
+	//	glfwSetCursorPos(window, (camera.width / 2), (camera.height / 2));
+	//}
+	//else if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_RELEASE) {
+	//	// Unhides cursor since camera is not looking around anymore
+	//	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+	//	// Makes sure the next time the camera looks around it doesn't jump
+	//	camera.firstClick = true;
+	//}
+	//camera.Inputs(window);
+	//translation = translation - dist;
 }
 
 void Model::loadMesh(unsigned int indMesh)
