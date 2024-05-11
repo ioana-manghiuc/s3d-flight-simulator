@@ -36,23 +36,70 @@ void Camera::ProcessMouseScroll(float yOffset)
 void Camera::Inputs(GLFWwindow* window) {
     // Handles key inputs translate la o locatie (camerei + un vecttor offset)
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
-        Position += speed * Orientation;
-        PlanePosition = Position;
+        if (Position.y > 22.0f) {
+            Position += speed * Orientation;
+            PlanePosition = Position;
+        std::cout << Position.x << " " << Position.y << " " << Position.z << "\n";
+        }
+        else
+        {
+            Position.y = 22.01f;
+        }
     }
     if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
-        Position += speed * -glm::normalize(glm::cross(Orientation, Up));
+        if (Position.y > 22.0f) {
+            Position += speed * -glm::normalize(glm::cross(Orientation, Up));
+            std::cout << Position.x << " " << Position.y << " " << Position.z << "\n";
+        }
+        else
+        {
+            Position.y = 22.01f;
+        }
+
     }
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
-        Position += speed * -Orientation;
+        if (Position.y > 22.0f) {
+            Position += speed * -Orientation;
+            std::cout << Position.x << " " << Position.y << " " << Position.z << "\n";
+        }
+        else
+        {
+            Position.y = 22.01f;
+        }
+
     }
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
-        Position += speed * glm::normalize(glm::cross(Orientation, Up));
+        if (Position.y > 22.0f) {
+            Position += speed * glm::normalize(glm::cross(Orientation, Up));
+            std::cout << Position.x << " " << Position.y << " " << Position.z << "\n";
+        }
+        else
+        {
+            Position.y = 22.01f;
+        }
+
     }
     if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
-        Position += speed * Up;
+        if (Position.y > 22.0f) {
+            Position += speed * Up;
+            std::cout << Position.x << " " << Position.y << " " << Position.z << "\n";
+        }
+        else
+        {
+            Position.y = 22.01f;
+        }
+
     }
     if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS) {
-        Position += speed * -Up;
+        if (Position.y > 22.0f) {
+            Position += speed * -Up;
+            std::cout << Position.x << " " << Position.y << " " << Position.z << "\n";
+        }
+        else
+        {
+            Position.y = 22.01f;
+        }
+
     }
     if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) {
         speed = 0.5f;
