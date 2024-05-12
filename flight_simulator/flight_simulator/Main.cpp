@@ -22,14 +22,6 @@ bool cameraControl = true;
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 
-void ScrollCallback(GLFWwindow* window, double xoffset, double yoffset)
-{
-	Camera* camera = static_cast<Camera*>(glfwGetWindowUserPointer(window));
-	if (camera) {
-		camera->ProcessMouseScroll(static_cast<float>(yoffset));
-	}
-}
-
 int main()
 {
 	GLFWwindow* window = glfwCreateWindow(width, height, "Title", NULL, NULL);
@@ -47,7 +39,7 @@ int main()
 	airplane.SetTransformations(camera.Position - dist, glm::vec3(163.0f, -1171.0f, 174.55f), glm::vec3(0.1f, 0.1f, 0.1f));
 	airplane.translation = planepos;
 	camera.Orientation = glm::vec3(-0.405053, -0.0952021, 0.909321);
-	Model landModel("models/land2/scene.gltf");
+	Model landModel("models/terrain/scene.gltf");
 	Model road("models/road/scene.gltf");
 
 	shaderProgram = Shader("default.vert", "default.frag");
@@ -157,7 +149,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		{
 			scale -= 0.1f;
 			if (scale < 0.2) {
-				LoadCubemap(nightFaces);
+				LoadCubemap(nightSkybox);
 			}
 			shaderProgram.Activate();
 			glUniform1f(shaderLocation, scale);
@@ -170,7 +162,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		if (scale < 1)
 		{
 			if (scale >= 0.2) {
-				LoadCubemap(faces);
+				LoadCubemap(daySkybox);
 			}
 			scale += 0.1f;
 			shaderProgram.Activate();

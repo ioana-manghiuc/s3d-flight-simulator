@@ -1,0 +1,11 @@
+Model Information:
+* title:	Airfield Hangar
+* source:	https://sketchfab.com/3d-models/airfield-hangar-bb630d26096d4dffab6a21147e44d8cb
+* author:	xplanepilot (https://sketchfab.com/xplanepilot)
+
+Model License:
+* license type:	CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)
+* requirements:	Author must be credited. No commercial use.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Airfield Hangar" (https://sketchfab.com/3d-models/airfield-hangar-bb630d26096d4dffab6a21147e44d8cb) by xplanepilot (https://sketchfab.com/xplanepilot) licensed under CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)

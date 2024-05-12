@@ -45,7 +45,7 @@ unsigned int skyboxIndices[] =
 	6, 2, 3
 };
 
-std::vector<std::string> faces
+std::vector<std::string> daySkybox
 {
 	"right.jpg",
 	"left.jpg",
@@ -55,7 +55,7 @@ std::vector<std::string> faces
 	"back.jpg"
 };
 
-std::vector<std::string> nightFaces
+std::vector<std::string> nightSkybox
 {
 	"nright.jpg",
 	"nleft.jpg",
@@ -119,5 +119,5 @@ void BuildSkyBox(Shader shaderSkybox)
 	glBindVertexArray(0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
-	LoadCubemap(faces);
+	LoadCubemap(daySkybox);
 }

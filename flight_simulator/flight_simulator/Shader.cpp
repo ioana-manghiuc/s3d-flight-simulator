@@ -31,20 +31,20 @@ Shader::Shader(const char* vertexFile, const char* fragmentFile)
 	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
 	glShaderSource(vertexShader, 1, &vertexSource, NULL);
 	glCompileShader(vertexShader);
-	compileErrors(vertexShader, "VERTEX");
+	CompileErrors(vertexShader, "VERTEX");
 
 	//create fragment shader
 	GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
 	glShaderSource(fragmentShader, 1, &fragmentSource, NULL);
 	glCompileShader(fragmentShader);
-	compileErrors(fragmentShader, "FRAGMENT");
+	CompileErrors(fragmentShader, "FRAGMENT");
 
 	//create program
 	ID = glCreateProgram();
 	glAttachShader(ID, vertexShader);
 	glAttachShader(ID, fragmentShader);
 	glLinkProgram(ID);
-	compileErrors(ID, "PROGRAM");
+	CompileErrors(ID, "PROGRAM");
 
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);
@@ -85,7 +85,7 @@ void Shader::SetMat4(const std::string& name, const glm::mat4& mat) const
 	glUniformMatrix4fv(glGetUniformLocation(this->ID, name.c_str()), 1, GL_FALSE, &mat[0][0]);
 }
 
-void Shader::compileErrors(unsigned int shader, const char* type)
+void Shader::CompileErrors(unsigned int shader, const char* type)
 {
 	// Stores status of compilation
 	GLint hasCompiled;

@@ -50,7 +50,7 @@ void Mesh::Draw
 		{
 			num = std::to_string(numSpecular++);
 		}
-		textures[i].texUnit(shader, (type + num).c_str(), i);
+		textures[i].AssignTexUnit(shader, (type + num).c_str(), i);
 		textures[i].Bind();
 	}
 	glUniform3f(glGetUniformLocation(shader.ID, "camPos"), camera.Position.x, camera.Position.y, camera.Position.z);

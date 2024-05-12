@@ -23,3 +23,12 @@ void InitializeWindow(GLFWwindow*& window)
 	glViewport(0, 0, width, height);
 }
 
+void ScrollCallback(GLFWwindow* window, double xoffset, double yoffset)
+{
+	Camera* camera = static_cast<Camera*>(glfwGetWindowUserPointer(window));
+	if (camera) {
+		camera->ProcessMouseScroll(static_cast<float>(yoffset));
+	}
+}
+
+

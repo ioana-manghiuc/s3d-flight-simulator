@@ -19,9 +19,6 @@
     <Filter Include="Resource Files\Shaders">
       <UniqueIdentifier>{9aa54969-922b-4833-98d6-449195eb62f5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files\Skybox">
-      <UniqueIdentifier>{6bffbca3-1a29-49df-b451-fb787e615b0a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Initialize">
       <UniqueIdentifier>{9a168e31-7997-4a97-96ee-01984626f6e2}</UniqueIdentifier>
     </Filter>
@@ -108,24 +105,6 @@
     </Image>
     <Image Include="planksSpec.png">
       <Filter>Resource Files\Textures</Filter>
-    </Image>
-    <Image Include="..\..\..\flight_simulator\flight_simulator\top.jpg">
-      <Filter>Resource Files\Skybox</Filter>
-    </Image>
-    <Image Include="..\..\..\flight_simulator\flight_simulator\front.jpg">
-      <Filter>Resource Files\Skybox</Filter>
-    </Image>
-    <Image Include="..\..\..\flight_simulator\flight_simulator\left.jpg">
-      <Filter>Resource Files\Skybox</Filter>
-    </Image>
-    <Image Include="..\..\..\flight_simulator\flight_simulator\bottom.jpg">
-      <Filter>Resource Files\Skybox</Filter>
-    </Image>
-    <Image Include="..\..\..\flight_simulator\flight_simulator\back.jpg">
-      <Filter>Resource Files\Skybox</Filter>
-    </Image>
-    <Image Include="right.jpg">
-      <Filter>Resource Files\Skybox</Filter>
     </Image>
   </ItemGroup>
   <ItemGroup>
