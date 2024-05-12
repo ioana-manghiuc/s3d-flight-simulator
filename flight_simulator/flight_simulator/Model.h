@@ -15,6 +15,8 @@ public:
 	std::vector<Mesh> meshes;
 	std::vector<glm::mat4> matricesMeshes;
 	//float speed = 1.0f;
+	glm::vec3 Position = glm::vec3(0.0f, 0.0f, 0.0f);
+
 public:
 	// Loads in a model from a file and stores tha information in 'data', 'JSON', and 'file'
 	Model(const char* file);
@@ -26,8 +28,6 @@ public:
 	void Rotation(GLFWwindow* window);
 
 	void SetTransformations(glm::vec3 translation, glm::vec3 rotation, glm::vec3 scale);
-
-	void Move(GLFWwindow* window, Camera camera);
 
 private:
 	bool changed;

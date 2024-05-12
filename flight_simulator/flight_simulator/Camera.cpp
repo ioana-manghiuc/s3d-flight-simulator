@@ -5,6 +5,7 @@ Camera::Camera(int width, int height, glm::vec3 position)
 	Camera::width = width;
 	Camera::height = height;
 	Position = position; 
+    PlanePosition = position;
 }
 
 void Camera::UpdateMatrix(float FOVdeg, float nearPlane, float farPlane)
@@ -38,7 +39,7 @@ void Camera::Inputs(GLFWwindow* window) {
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
         if (Position.y > 22.0f) {
             Position += speed * Orientation;
-            PlanePosition = Position;
+            PlanePosition += speed * -Up;
         //std::cout << Position.x << " " << Position.y << " " << Position.z << "\n";
         }
         else
@@ -49,6 +50,8 @@ void Camera::Inputs(GLFWwindow* window) {
     if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
         if (Position.y > 22.0f) {
             Position += speed * -glm::normalize(glm::cross(Orientation, Up));
+            PlanePosition += speed * -glm::normalize(glm::cross(PlaneOrientation, Up));
+
             //std::cout << Position.x << " " << Position.y << " " << Position.z << "\n";
         }
         else
@@ -60,6 +63,7 @@ void Camera::Inputs(GLFWwindow* window) {
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
         if (Position.y > 22.0f) {
             Position += speed * -Orientation;
+            PlanePosition += speed * Up;
            // std::cout << Position.x << " " << Position.y << " " << Position.z << "\n";
         }
         else
@@ -71,6 +75,7 @@ void Camera::Inputs(GLFWwindow* window) {
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
         if (Position.y > 22.0f) {
             Position += speed * glm::normalize(glm::cross(Orientation, Up));
+            PlanePosition += speed * glm::normalize(glm::cross(PlaneOrientation, Up));
           //  std::cout << Position.x << " " << Position.y << " " << Position.z << "\n";
         }
         else
@@ -80,8 +85,10 @@ void Camera::Inputs(GLFWwindow* window) {
 
     }
     if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
+        
         if (Position.y > 22.0f) {
             Position += speed * Up;
+            PlanePosition += speed;
            // std::cout << Position.x << " " << Position.y << " " << Position.z << "\n";
         }
         else
@@ -91,8 +98,10 @@ void Camera::Inputs(GLFWwindow* window) {
 
     }
     if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS) {
+        
         if (Position.y > 22.0f) {
             Position += speed * -Up;
+            PlanePosition -= speed;
           //  std::cout << Position.x << " " << Position.y << " " << Position.z << "\n";
         }
         else

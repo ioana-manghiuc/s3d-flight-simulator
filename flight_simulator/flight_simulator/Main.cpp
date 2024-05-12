@@ -36,8 +36,8 @@ int main()
 	Model airplane("models/plane/scene.gltf");
 	
 	Camera camera(width, height, glm::vec3(204.159, 83.0502, -443.938));
-	airplane.SetTransformations(camera.Position - dist, glm::vec3(163.0f, -1171.0f, 174.55f), glm::vec3(0.1f, 0.1f, 0.1f));
-	airplane.translation = planepos;
+	airplane.SetTransformations(glm::vec3(-96.0f, 400.0f, 50.0f), glm::vec3(163.0f, -1171.0f, 174.55f), glm::vec3(0.1f, 0.1f, 0.1f));
+	//airplane.translation = planepos;
 	camera.Orientation = glm::vec3(-0.405053, -0.0952021, 0.909321);
 	Model landModel("models/terrain/scene.gltf");
 	Model road("models/road/scene.gltf");
@@ -91,11 +91,7 @@ int main()
 		
 		//std::cout << "CAMERA POS: (" << camera.Position.x << ", " << camera.Position.y << ", " << camera.Position.z << ")\n";
 		//std::cout << "CAMERA ORIENTATION: (" << camera.Orientation.x << ", " << camera.Orientation.y << ", " << camera.Orientation.z << ")\n";
-		//airplane.model.translation = camera.Position - dist;
-		//airplane.Draw(shaderProgram, camera, airplane.model.translation, airplane.model.rotation, airplane.model.scale);
-		
-		//airplane.translation = camera.Position - dist;
-		//airplane.Move(window, camera);
+		airplane.translation = camera.PlanePosition - dist;
 		//airplane.Draw(shaderProgram, camera);		
 		airplane.Draw(shaderProgram, camera, airplane.translation, glm::vec3(163.0f, -1171.0f, 174.55f), glm::vec3(0.1f, 0.1f, 0.1f));
 		
