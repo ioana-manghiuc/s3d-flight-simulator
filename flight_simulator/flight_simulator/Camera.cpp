@@ -1,6 +1,5 @@
 ﻿#include "Camera.h"
 #include "PositionValidations.h"
-
 Camera::Camera(int width, int height, glm::vec3 position)
 {
 	Camera::width = width;
@@ -38,59 +37,58 @@ void Camera::ProcessMouseScroll(float yOffset)
 void Camera::Inputs(GLFWwindow* window) {
     // Handles key inputs translate la o locatie (camerei + un vecttor offset)
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
-        if (BorderValidation(Position,speed,Orientation)) {
+        if (BorderValidation(Position,speed, Orientation)) {
             Position += speed * Orientation;
             PlanePosition += speed * -Up;
-            std::cout << Position.x << " " << Position.y << " " << Position.z << "\n";
+        //std::cout << Position.x << " " << Position.y << " " << Position.z << "\n";
         }
-        else
-        {
-            Position.y = 22.01f;
-        }
+
     }
     if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
-        if (BorderValidation(Position,speed, -glm::normalize(glm::cross(Orientation, Up)))) {
+        if (BorderValidation(Position, speed, -glm::normalize(glm::cross(Orientation, Up)))) {
             Position += speed * -glm::normalize(glm::cross(Orientation, Up));
             PlanePosition += speed * -glm::normalize(glm::cross(PlaneOrientation, Up));
 
-            std::cout << Position.x << " " << Position.y << " " << Position.z << "\n";
+            //std::cout << Position.x << " " << Position.y << " " << Position.z << "\n";
         }
+
 
     }
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
-        if (BorderValidation(Position,speed,-Orientation)) {
+        if (BorderValidation(Position, speed, -Orientation)) {
             Position += speed * -Orientation;
             PlanePosition += speed * Up;
-            std::cout << Position.x << " " << Position.y << " " << Position.z << "\n";
+           // std::cout << Position.x << " " << Position.y << " " << Position.z << "\n";
         }
-    
+
     }
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
-        if (BorderValidation(Position,speed, glm::normalize(glm::cross(Orientation, Up)))) {
+        if (BorderValidation(Position, speed, glm::normalize(glm::cross(Orientation, Up)))) {
             Position += speed * glm::normalize(glm::cross(Orientation, Up));
             PlanePosition += speed * glm::normalize(glm::cross(PlaneOrientation, Up));
-            std::cout << Position.x << " " << Position.y << " " << Position.z << "\n";
+          //  std::cout << Position.x << " " << Position.y << " " << Position.z << "\n";
         }
 
 
     }
     if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
         
-        if (BorderValidation(Position,speed,Up)) {
+        if (BorderValidation(Position, speed, Up)) {
             Position += speed * Up;
             PlanePosition += speed;
-            std::cout << Position.x << " " << Position.y << " " << Position.z << "\n";
+           // std::cout << Position.x << " " << Position.y << " " << Position.z << "\n";
         }
 
 
     }
     if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS) {
         
-        if (BorderValidation(Position,speed,-Up)) {
+        if (BorderValidation(Position, speed, -Up)) {
             Position += speed * -Up;
             PlanePosition -= speed;
-            std::cout << Position.x << " " << Position.y << " " << Position.z << "\n";
+          //  std::cout << Position.x << " " << Position.y << " " << Position.z << "\n";
         }
+
 
     }
     if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) {
