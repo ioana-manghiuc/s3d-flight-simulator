@@ -34,6 +34,7 @@ int main()
 
 	//Airplane airplane(planepos);
 	Model airplane("models/plane/scene.gltf");
+	Model propeller("models/airplane_propeller/scene.gltf");
 	
 	Camera camera(width, height, glm::vec3(204.159, 83.0502, -443.938));
 	airplane.SetTransformations(glm::vec3(-96.0f, 400.0f, 50.0f), glm::vec3(163.0f, -1171.0f, 174.55f), glm::vec3(0.1f, 0.1f, 0.1f));
@@ -98,6 +99,7 @@ int main()
 		glm::vec3 landScale = glm::vec3(500.0f, 500.0f, 500.0f);
 		glm::vec3 landRotation = glm::vec3(1, -232, 0);
 		//road.Draw(shaderProgram, camera,glm::vec3( 1.0f,1.0f,1.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(10.0f, 10.0f, 10.0f));
+		propeller.Draw(shaderProgram, camera,glm::vec3( 1.0f,1.0f,1.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(10.0f, 10.0f, 10.0f));
 		landModel.SetTransformations(glm::vec3(0.0f, -100.0f, 0.0f), landRotation, landScale);
 		landModel.Draw(shaderProgram, camera);
 

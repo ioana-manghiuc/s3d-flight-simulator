@@ -1,0 +1,11 @@
+Model Information:
+* title:	N486c Airplane Propeller
+* source:	https://sketchfab.com/3d-models/n486c-airplane-propeller-569aad15e70543d39767588aa02ede8c
+* author:	CCN/LoG (https://sketchfab.com/darashayda)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "N486c Airplane Propeller" (https://sketchfab.com/3d-models/n486c-airplane-propeller-569aad15e70543d39767588aa02ede8c) by CCN/LoG (https://sketchfab.com/darashayda) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
