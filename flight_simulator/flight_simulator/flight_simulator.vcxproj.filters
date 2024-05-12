@@ -54,6 +54,9 @@
     <ClCompile Include="Airplane.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="PositionValidations.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -90,6 +93,9 @@
       <Filter>Header Files\Initialize</Filter>
     </ClInclude>
     <ClInclude Include="Airplane.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PositionValidations.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
