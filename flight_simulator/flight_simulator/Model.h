@@ -12,6 +12,8 @@ public:
 	glm::vec3 translation = glm::vec3(0.0f, 0.0f, 0.0f);
 	glm::vec3 rotation = glm::vec3(1.0f,1.0f,1.0f);
 	glm::vec3 scale = glm::vec3(1.0f, 1.0f, 1.0f);
+	float angle = 0;
+
 	std::vector<Mesh> meshes;
 	std::vector<glm::mat4> matricesMeshes;
 	//float speed = 1.0f;
@@ -23,11 +25,12 @@ public:
 
 	void Draw(Shader& shader, Camera& camera, glm::vec3 translation, glm::vec3 rotation, glm::vec3 scale);
 	void Draw(Shader& shader, Camera& camera);
+	void NoViewDraw(Shader& shader, Camera& camera);
 
 	void Translation(GLFWwindow* window);
 	void Rotation(GLFWwindow* window);
 
-	void SetTransformations(glm::vec3 translation, glm::vec3 rotation, glm::vec3 scale);
+	void SetTransformations(glm::vec3 translation, glm::vec3 rotation, glm::vec3 scale, float angle = 0);
 
 private:
 	bool changed;

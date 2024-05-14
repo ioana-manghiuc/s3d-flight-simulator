@@ -96,13 +96,17 @@ int main()
 	Mesh floor(verts, ind, tex);
 
 	//Airplane airplane(planepos);
-	Model airplane("models/plane/scene.gltf");
+	//Model airplane("models/plane/scene.gltf");
 	Model propeller("models/airplane_propeller/scene.gltf");
 	
-	Camera camera(width, height, glm::vec3(204.159, 83.0502, -443.938));
-	airplane.SetTransformations(glm::vec3(-96.0f, 400.0f, 50.0f), glm::vec3(163.0f, -1171.0f, 175.0f), glm::vec3(0.1f, 0.1f, 0.1f));
+	glm::vec3 cameraPosition = glm::vec3(1557.73, 45.2891, -944.709);
+	// old camera position
+	//glm::vec3 cameraPosition = glm::vec3(204.159, 83.0502, -443.938);
+	Camera camera(width, height, cameraPosition);
+	//airplane.SetTransformations(glm::vec3(-96.0f, 400.0f, 50.0f), glm::vec3(163.0f, -1171.0f, 175.0f), glm::vec3(0.1f, 0.1f, 0.1f));
 	//airplane.translation = planepos;
 	camera.Orientation = glm::vec3(-0.405053, -0.0952021, 0.909321);
+	Airplane airplane;
 	Model landModel("models/terrain/scene.gltf");
 	Model road("models/road/scene.gltf");
 
@@ -149,20 +153,25 @@ int main()
 			// ex. model.Rotation() / model.Translation()
 			//airplane.Inputs(window);
 			//road.Rotation(window);
-			FloorRotation(window);
+			//FloorRotation(window);
 		}
-		//camera.Inputs(window);
-		camera.UpdateMatrix(45.0f, 0.1f, 50000.0f);
-		
 
-		floor.Draw(shaderProgram, camera, floorTranslation, floorRotation, floorScale);
+		camera.UpdateMatrix(45.0f, 0.1f, 50000.0f);
+
+		// normal plane
+		airplane.Draw(shaderProgram, camera);
+		
+		//attached plane
+		//airplane.NoViewDraw(shaderProgram, camera);
+		
+		//floor.Draw(shaderProgram, camera, floorTranslation, floorRotation, floorScale);
 
 		//std::cout << "CAMERA POS: (" << camera.Position.x << ", " << camera.Position.y << ", " << camera.Position.z << ")\n";
 		//std::cout << "CAMERA ORIENTATION: (" << camera.Orientation.x << ", " << camera.Orientation.y << ", " << camera.Orientation.z << ")\n";
-		airplane.translation = camera.PlanePosition - dist;
-		airplane.rotation = camera.PlaneRotation;
+		//airplane.translation = camera.PlanePosition - dist;
+		//airplane.rotation = camera.PlaneRotation;
 		//airplane.Draw(shaderProgram, camera);		
-		airplane.Draw(shaderProgram, camera);
+		//airplane.Draw(shaderProgram, camera);
 		
 		glm::vec3 landScale = glm::vec3(500.0f, 500.0f, 500.0f);
 		glm::vec3 landRotation = glm::vec3(1, -232, 0);

@@ -21,6 +21,7 @@ public:
 
 	void UpdateMatrix(float FOVdeg, float nearPlane, float farPlane); // Updates the camera matrix to the Vertex Shader	
 	void Matrix(Shader& shader, const char* uniform); // Exports the camera matrix to a shader
+	void NoViewMatrix(Shader& shader, const char* uniform);
 	void ProcessMouseScroll(float yOffset); // Processes mouse scrolling
 	void Inputs(GLFWwindow* window); 	// Handles camera inputs
 
@@ -32,6 +33,8 @@ public:
 	glm::vec3 PlaneRotation = glm::vec3(163.0f, -1171.0f, 175.0f);
 	glm::vec3 Up = glm::vec3(0.0f, 1.0f, 0.0f);
 	glm::mat4 cameraMatrix = glm::mat4(1.0f);
+
+	glm::mat4 projection = glm::mat4(1.0f);
 
 	bool firstClick = true;
 

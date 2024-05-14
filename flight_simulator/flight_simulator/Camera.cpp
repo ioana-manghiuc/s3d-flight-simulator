@@ -12,7 +12,6 @@ void Camera::UpdateMatrix(float FOVdeg, float nearPlane, float farPlane)
 {
 	// Initializes matrices since otherwise they will be the null matrix
 	glm::mat4 view = glm::mat4(1.0f);
-	glm::mat4 projection = glm::mat4(1.0f);
 
 	// Makes camera look in the right direction from the right position
 	view = glm::lookAt(Position, Position + Orientation, Up);
@@ -26,6 +25,11 @@ void Camera::UpdateMatrix(float FOVdeg, float nearPlane, float farPlane)
 void Camera::Matrix(Shader& shader, const char* uniform)
 {
 	glUniformMatrix4fv(glGetUniformLocation(shader.ID, uniform), 1, GL_FALSE, glm::value_ptr(cameraMatrix));
+}
+
+void Camera::NoViewMatrix(Shader& shader, const char* uniform)
+{
+    glUniformMatrix4fv(glGetUniformLocation(shader.ID, uniform), 1, GL_FALSE, glm::value_ptr(projection));
 }
 
 void Camera::ProcessMouseScroll(float yOffset)

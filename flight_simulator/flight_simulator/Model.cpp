@@ -17,27 +17,21 @@ Model::Model(const char* file):
 	traverseNode(0);
 }
 
-void Model::Draw(Shader& shader, Camera& camera, glm::vec3 translation, glm::vec3 rotation,glm::vec3 scale)
-{
-	// Go over all meshes and draw each one
-	for (unsigned int i = 0; i < meshes.size(); i++)
-	{
-		// normal
-		meshes[i].Mesh::Draw(shader, camera, translation, rotation, scale, matricesMeshes[i]);
-		
-		// changing rotation
-		//meshes[i].Mesh::Draw(shader, camera, translation, this->rotation, scale, matricesMeshes[i]);
-		
-		// changing translation
-		//meshes[i].Mesh::Draw(shader, camera, this->translation, rotation, scale, matricesMeshes[i]);
-	}
-}
-
 void Model::Draw(Shader& shader, Camera& camera)
 {
 	for (unsigned int i = 0; i < meshes.size(); i++)
 	{
-		meshes[i].Mesh::Draw(shader, camera, translation, rotation, scale, matricesMeshes[i]);
+		glm::mat4 rotMatrix = glm::rotate(glm::mat4(1.0f), angle, rotation);
+		meshes[i].Mesh::Draw(shader, camera, translation, rotMatrix, scale, matricesMeshes[i]);
+	}
+}
+
+void Model::NoViewDraw(Shader& shader, Camera& camera)
+{
+	for (unsigned int i = 0; i < meshes.size(); i++)
+	{
+		glm::mat4 rotMatrix = glm::rotate(glm::mat4(1.0f), angle, rotation);
+		meshes[i].Mesh::NoViewDraw(shader, camera, translation, rotMatrix, scale, matricesMeshes[i]);
 	}
 }
 
@@ -114,11 +108,12 @@ void Model::Rotation(GLFWwindow* window)
 	}
 }
 
-void Model::SetTransformations(glm::vec3 translation, glm::vec3 rotation, glm::vec3 scale)
+void Model::SetTransformations(glm::vec3 translation, glm::vec3 rotation, glm::vec3 scale, float angle)
 {
 	Model::translation = translation;
 	Model::rotation = rotation;
 	Model::scale = scale;
+	Model::angle = angle;
 }
 
 void Model::loadMesh(unsigned int indMesh)

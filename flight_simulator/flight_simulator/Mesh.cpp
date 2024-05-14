@@ -22,15 +22,7 @@ Mesh::Mesh(std::vector<Vertex>& vertices, std::vector<GLuint>& indices, std::vec
 	EBO.Unbind();
 }
 
-void Mesh::Draw
-(
-	Shader& shader,
-	Camera& camera,
-	glm::vec3 translation,
-	glm::vec3 rotation,
-	glm::vec3 scale,
-	glm::mat4 matrix
-)
+void Mesh::LoadTextures(Shader& shader)
 {
 	shader.Activate();
 	VAO.Bind();
@@ -53,6 +45,19 @@ void Mesh::Draw
 		textures[i].AssignTexUnit(shader, (type + num).c_str(), i);
 		textures[i].Bind();
 	}
+}
+
+void Mesh::Draw
+(
+	Shader& shader,
+	Camera& camera,
+	glm::vec3 translation,
+	glm::mat4 rotation,
+	glm::vec3 scale,
+	glm::mat4 matrix
+)
+{
+	LoadTextures(shader);
 	glUniform3f(glGetUniformLocation(shader.ID, "camPos"), camera.Position.x, camera.Position.y, camera.Position.z);
 	camera.Matrix(shader, "camMatrix");
 
@@ -63,8 +68,30 @@ void Mesh::Draw
 	trans = glm::translate(trans, translation);
 	sca = glm::scale(sca, scale);
 
-	matrix = matrix * trans * sca;
-	matrix = glm::rotate(matrix, 45.0f, rotation);
+	matrix = glm::translate(matrix, translation);
+	matrix *= rotation;
+	matrix = glm::scale(matrix, scale);
+
+	glUniformMatrix4fv(glGetUniformLocation(shader.ID, "model"), 1, GL_FALSE, glm::value_ptr(matrix));
+
+	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
+}
+
+void Mesh::NoViewDraw(
+	Shader& shader,
+	Camera& camera,
+	glm::vec3 translation,
+	glm::mat4 rotation,
+	glm::vec3 scale,
+	glm::mat4 matrix)
+{
+	LoadTextures(shader);
+	glUniform3f(glGetUniformLocation(shader.ID, "camPos"), camera.Position.x, camera.Position.y, camera.Position.z);
+	camera.NoViewMatrix(shader, "camMatrix");
+
+	matrix = glm::translate(matrix, translation);
+	matrix *= rotation;
+	matrix = glm::scale(matrix, scale);
 
 	glUniformMatrix4fv(glGetUniformLocation(shader.ID, "model"), 1, GL_FALSE, glm::value_ptr(matrix));
 
