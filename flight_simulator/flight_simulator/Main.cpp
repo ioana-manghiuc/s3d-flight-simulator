@@ -58,6 +58,7 @@ int main()
 	Model road("models/road/scene.gltf");
 	Model hangar("models/hangar/scene.gltf");
 	Model controlTower("models/control_tower/scene.gltf");
+	Model fire("models/fire/scene.gltf");
 
 	shaderProgram = Shader("default.vert", "default.frag");
 	skyboxShader = Shader("skybox.vert", "skybox.frag");
@@ -104,6 +105,7 @@ int main()
 			//road.Rotation(window);
 			//FloorRotation(window);
 			//hangar.Translation(window);
+			fire.Translation(window);
 		}
 
 		camera.UpdateMatrix(45.0f, 0.1f, 50000.0f);
@@ -145,6 +147,9 @@ int main()
 		glm::mat4 towerRotation = glm::rotate(glm::mat4(1.0f), glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		controlTower.SetTransformations(glm::vec3(1621.21, 1100.91, 420.0), glm::vec3(7.0f, 7.0f, 7.0f), towerRotation);
 		controlTower.Draw(shaderProgram, camera);
+
+		fire.SetTransformations(glm::vec3(1621.21, 1700.91, 420.0), glm::vec3(10.0f, 10.0f,10.0f), towerRotation);
+		fire.Draw(shaderProgram, camera);
 
 		glDepthFunc(GL_LEQUAL);
 		glDisable(GL_CULL_FACE);
