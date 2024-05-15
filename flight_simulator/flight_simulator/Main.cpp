@@ -10,22 +10,6 @@
 #pragma comment (lib, "glfw3dll.lib")
 #pragma comment (lib, "glew32.lib")
 #pragma comment (lib, "OpenGL32.lib")
-
-Vertex vertices1[] =
-{ //               COORDINATES           /            COLORS          /           NORMALS         /       TEXTURE COORDINATES    //
-	Vertex{glm::vec3(2702.0f, 22.0f,  -2702.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 0.0f)},
-	Vertex{glm::vec3(-2702.0f, 22.0f, -2702.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 1.0f)},
-	Vertex{glm::vec3(-2702.0f, 22.0f, 2702.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 1.0f)},
-	Vertex{glm::vec3(2702.0f, 22.0f,  2702.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 0.0f)}
-};
-GLuint indices1[] =
-{
-	0, 1, 2,
-	0, 2, 3
-};
-		glm::vec3 floorTranslation(1.0f);
-		glm::vec3 floorScale(1.0f);
-		glm::vec3 floorRotation(1.0f);
 float scale = 1.0f;
 float shaderLocation;
 float skyboxLocation;
@@ -37,42 +21,6 @@ bool cameraControl = true;
 bool attachPlane = false;
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
-void FloorRotation(GLFWwindow* window)
-{
-	static const float speed = 0.001f;
-	static const float angle = 0.5f;
-	//rotation
-	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-	{
-		floorRotation += glm::vec3(speed, 0.0f, 0.0f);
-		std::cout << floorRotation.x << " " << floorRotation.y << " " << floorRotation.z << '\n';
-	}
-	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-	{
-		floorRotation += glm::vec3(0.0f, speed, 0.0f);
-		std::cout << floorRotation.x << " " << floorRotation.y << " " << floorRotation.z << '\n';
-	}
-	if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
-	{
-		floorRotation += glm::vec3(0.0f, 0.0f, speed);
-		std::cout << floorRotation.x << " " << floorRotation.y << " " << floorRotation.z << '\n';
-	}
-	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-	{
-		floorRotation -= glm::vec3(speed, 0.0f, 0.0f);
-		std::cout << floorRotation.x << " " << floorRotation.y << " " << floorRotation.z << '\n';
-	}
-	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-	{
-		floorRotation -= glm::vec3(0.0f, speed, 0.0f);
-		std::cout << floorRotation.x << " " << floorRotation.y << " " << floorRotation.z << '\n';
-	}
-	if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
-	{
-		floorRotation -= glm::vec3(0.0f, 0.0f, speed);
-		std::cout << floorRotation.x << " " << floorRotation.y << " " << floorRotation.z << '\n';
-	}
-}
 int main()
 {
 	GLFWwindow* window = glfwCreateWindow(width, height, "Title", NULL, NULL);
@@ -88,13 +36,6 @@ int main()
 		Texture("planksSpec.png", "specular",1),
 	};
 
-
-
-	std::vector <Vertex> verts(vertices1, vertices1 + sizeof(vertices1) / sizeof(Vertex));
-	std::vector <GLuint> ind(indices1, indices1 + sizeof(indices1) / sizeof(GLuint));
-	std::vector <Texture> tex(textures, textures + sizeof(textures) / sizeof(Texture));
-
-	Mesh floor(verts, ind, tex);
 
 	//Airplane airplane(planepos);
 	//Model airplane("models/plane/scene.gltf");

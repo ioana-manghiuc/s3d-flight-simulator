@@ -38,62 +38,45 @@ void Camera::ProcessMouseScroll(float yOffset)
 	Position += static_cast<float>(yOffset) * scrollSpeed * Orientation;
 }
 
-void Camera::Inputs(GLFWwindow* window) {
+void Camera::Inputs(GLFWwindow* window)
+{
+    glm::vec3 LastPosition = Position;
     // Handles key inputs translate la o locatie (camerei + un vecttor offset)
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
-       if (BorderValidation(Position,speed, Orientation)) {
-            Position += speed * Orientation;
-            PlanePosition += speed * -Up;
-            PlaneRotation.z += 0.5f;
-        //std::cout << Position.x << " " << Position.y << " " << Position.z << "\n";
-        }
-
+        Position += speed * Orientation;
+        PlanePosition += speed * -Up;
+        PlaneRotation.z += 0.5f;
+        std::cout << Position.x << " " << Position.y << " " << Position.z << "\n";
     }
     if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
-        if (BorderValidation(Position, speed, -glm::normalize(glm::cross(Orientation, Up)))) {
-            Position += speed * -glm::normalize(glm::cross(Orientation, Up));
-            PlanePosition += speed * -glm::normalize(glm::cross(PlaneOrientation, Up));
+        Position += speed * -glm::normalize(glm::cross(Orientation, Up));
+        PlanePosition += speed * -glm::normalize(glm::cross(PlaneOrientation, Up));
 
-           // std::cout << Position.x << " " << Position.y << " " << Position.z << "\n";
-        }
-
-
+        std::cout << Position.x << " " << Position.y << " " << Position.z << "\n";
     }
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
-        if (BorderValidation(Position, speed, -Orientation)) {
-            Position += speed * -Orientation;
-            PlanePosition += speed * Up;
-          // std::cout << Position.x << " " << Position.y << " " << Position.z << "\n";
-        }
-
+        Position += speed * -Orientation;
+        PlanePosition += speed * Up;
+        std::cout << Position.x << " " << Position.y << " " << Position.z << "\n";
     }
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
-        if (BorderValidation(Position, speed, glm::normalize(glm::cross(Orientation, Up)))) {
-            Position += speed * glm::normalize(glm::cross(Orientation, Up));
-            PlanePosition += speed * glm::normalize(glm::cross(PlaneOrientation, Up));
-           // std::cout << Position.x << " " << Position.y << " " << Position.z << "\n";
-        }
-
-
+        Position += speed * glm::normalize(glm::cross(Orientation, Up));
+        PlanePosition += speed * glm::normalize(glm::cross(PlaneOrientation, Up));
+        std::cout << Position.x << " " << Position.y << " " << Position.z << "\n";
     }
     if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
         
-        if (BorderValidation(Position, speed, Up)) {
-            Position += speed * Up;
-            PlanePosition += speed;
-            PlanePosition += speed;
-          //  std::cout << Position.x << " " << Position.y << " " << Position.z << "\n";
-       }
-
+        Position += speed * Up;
+        PlanePosition += speed;
+        PlanePosition += speed;
+         std::cout << Position.x << " " << Position.y << " " << Position.z << "\n";
 
     }
     if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS) {
-        
-        if (BorderValidation(Position, speed, -Up)) {
-            Position += speed * -Up;
-            PlanePosition += speed;
-          //  std::cout << Position.x << " " << Position.y << " " << Position.z << "\n";
-        }
+
+        Position += speed * -Up;
+        PlanePosition += speed;
+        std::cout << Position.x << " " << Position.y << " " << Position.z << "\n";
     }
     if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) {
         speed = 0.5f;
@@ -135,6 +118,11 @@ void Camera::Inputs(GLFWwindow* window) {
         glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
         // Makes sure the next time the camera looks around it doesn't jump
         firstClick = true;
+    }
+    if (!BorderValidation(Position))
+    {
+        Position = LastPosition;
+        std::cout << Position.x << " " << Position.y << " " << Position.z << '\n';
     }
 }
 
