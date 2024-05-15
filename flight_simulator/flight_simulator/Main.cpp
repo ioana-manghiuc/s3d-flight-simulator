@@ -121,7 +121,7 @@ int main()
 		}
 
 		airplane.Draw(shaderProgram, camera, attachPlane);
-		camera.isPlaneAttached = attachPlane;
+		camera.SetIsAttached(attachPlane);
 
 		glm::vec3 landScale = glm::vec3(500.0f, 500.0f, 500.0f);
 		glm::vec3 landRotation = glm::vec3(1, -232, 0);
