@@ -21,8 +21,7 @@ void Model::Draw(Shader& shader, Camera& camera)
 {
 	for (unsigned int i = 0; i < meshes.size(); i++)
 	{
-		glm::mat4 rotMatrix = glm::rotate(glm::mat4(1.0f), angle, rotation);
-		meshes[i].Mesh::Draw(shader, camera, translation, rotMatrix, scale, matricesMeshes[i]);
+		meshes[i].Mesh::Draw(shader, camera, translation, rotation, scale, matricesMeshes[i]);
 	}
 }
 
@@ -30,8 +29,7 @@ void Model::NoViewDraw(Shader& shader, Camera& camera)
 {
 	for (unsigned int i = 0; i < meshes.size(); i++)
 	{
-		glm::mat4 rotMatrix = glm::rotate(glm::mat4(1.0f), angle, rotation);
-		meshes[i].Mesh::NoViewDraw(shader, camera, translation, rotMatrix, scale, matricesMeshes[i]);
+		meshes[i].Mesh::NoViewDraw(shader, camera, translation, rotation, scale, matricesMeshes[i]);
 	}
 }
 
@@ -71,49 +69,48 @@ void Model::Translation(GLFWwindow* window)
 	}
 }
 
-void Model::Rotation(GLFWwindow* window)
-{
-	static const float speed = 1.0f;
-	static const float angle = 0.5f;
-	//rotation
-	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-	{
-		rotation += glm::vec3(speed, 0.0f, 0.0f);
-		std::cout << rotation.x << " " << rotation.y << " " << rotation.z << '\n';
-	}
-	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-	{
-		rotation += glm::vec3(0.0f, speed, 0.0f);
-		std::cout << rotation.x << " " << rotation.y << " " << rotation.z << '\n';
-	}
-	if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
-	{
-		rotation += glm::vec3(0.0f, 0.0f, speed);
-		std::cout << rotation.x << " " << rotation.y << " " << rotation.z << '\n';
-	}
-	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-	{
-		rotation -= glm::vec3(speed, 0.0f, 0.0f);
-		std::cout << rotation.x << " " << rotation.y << " " << rotation.z << '\n';
-	}
-	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-	{
-		rotation -= glm::vec3(0.0f, speed, 0.0f);
-		std::cout << rotation.x << " " << rotation.y << " " << rotation.z << '\n';
-	}
-	if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
-	{
-		rotation -= glm::vec3(0.0f, 0.0f, speed);
-		std::cout << rotation.x << " " << rotation.y << " " << rotation.z << '\n';
-	}
-}
+//void Model::Rotation(GLFWwindow* window)
+//{
+//	static const float speed = 1.0f;
+//	static const float angle = 0.5f;
+//	//rotation
+//	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+//	{
+//		rotation += glm::vec3(speed, 0.0f, 0.0f);
+//		std::cout << rotation.x << " " << rotation.y << " " << rotation.z << '\n';
+//	}
+//	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+//	{
+//		rotation += glm::vec3(0.0f, speed, 0.0f);
+//		std::cout << rotation.x << " " << rotation.y << " " << rotation.z << '\n';
+//	}
+//	if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
+//	{
+//		rotation += glm::vec3(0.0f, 0.0f, speed);
+//		std::cout << rotation.x << " " << rotation.y << " " << rotation.z << '\n';
+//	}
+//	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+//	{
+//		rotation -= glm::vec3(speed, 0.0f, 0.0f);
+//		std::cout << rotation.x << " " << rotation.y << " " << rotation.z << '\n';
+//	}
+//	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+//	{
+//		rotation -= glm::vec3(0.0f, speed, 0.0f);
+//		std::cout << rotation.x << " " << rotation.y << " " << rotation.z << '\n';
+//	}
+//	if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
+//	{
+//		rotation -= glm::vec3(0.0f, 0.0f, speed);
+//		std::cout << rotation.x << " " << rotation.y << " " << rotation.z << '\n';
+//	}
+//}
 
-void Model::SetTransformations(glm::vec3 translation, glm::vec3 rotation, glm::vec3 scale, float angle)
+void Model::SetTransformations(glm::vec3 translation, glm::vec3 scale, glm::mat4 rotationMatrix)
 {
 	Model::translation = translation;
-	Model::rotation = rotation;
+	Model::rotation = rotationMatrix;
 	Model::scale = scale;
-	Model::angle = angle;
 }
 
 void Model::loadMesh(unsigned int indMesh)

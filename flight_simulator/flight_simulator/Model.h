@@ -10,7 +10,7 @@ class Model
 {
 public: 
 	glm::vec3 translation = glm::vec3(0.0f, 0.0f, 0.0f);
-	glm::vec3 rotation = glm::vec3(1.0f,1.0f,1.0f);
+	glm::mat4 rotation = glm::mat4(1.0f);
 	glm::vec3 scale = glm::vec3(1.0f, 1.0f, 1.0f);
 	float angle = 0;
 
@@ -30,7 +30,7 @@ public:
 	void Translation(GLFWwindow* window);
 	void Rotation(GLFWwindow* window);
 
-	void SetTransformations(glm::vec3 translation, glm::vec3 rotation, glm::vec3 scale, float angle = 0);
+	void SetTransformations(glm::vec3 translation, glm::vec3 scale, glm::mat4 rotationMatrix = glm::mat4(1.0f));
 
 private:
 	bool changed;

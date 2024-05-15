@@ -21,21 +21,38 @@ Airplane::Airplane() :
 
 void Airplane::Inputs(GLFWwindow* window)
 {
-	// only one active at a time
+	glm::mat4 rotation = glm::mat4(1.0f);
+	rotation *= kBaseRotation;
 
-	Translation(window);
-	//model.Rotation(window);
+	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
+	{
+		rotation *= kUpRotation;
+	}
+	else if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
+	{
+		rotation *= kDownRotation;
+	}
+
+	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+	{
+		rotation *= kRightRotation;
+	}
+	else if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+	{
+		rotation *= kLeftRotation;
+	}
+	SetTransformations(kNoViewTranslation, kScale, rotation);
 }
 
 void Airplane::NoViewDraw(Shader& shader, Camera& camera)
 {
-	SetTransformations(glm::vec3(603.f, -1809.f, -23014.5f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(5.1f, 5.1f, 5.1f), glm::radians(90.f));
 	Model::NoViewDraw(shader, camera);
 }
 
 void Airplane::Draw(Shader& shader, Camera& camera)
 {
-	SetTransformations(glm::vec3(119907.f, 1893.52f, -127622.f), glm::vec3(0.f, -1.f, 0.f), glm::vec3(5.1f, 5.1f, 5.1f), glm::radians(90.f));
+	glm::mat4 rotation = glm::rotate(glm::mat4(1.0f), glm::radians(90.f), glm::vec3(0.f, -1.f, 0.f));
+	SetTransformations(glm::vec3(119907.f, 1893.52f, -127622.f), kScale, rotation);
 	Model::Draw(shader, camera);
 }
 

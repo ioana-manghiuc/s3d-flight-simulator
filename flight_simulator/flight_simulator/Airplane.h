@@ -13,10 +13,13 @@ public:
 	void Draw(Shader& shader, Camera& camera, bool attached);
 
 public:
-	const glm::vec3 kBaseRotation;
-	const glm::vec3 kUpRotation;
-	const glm::vec3 kDownRotation;
-	const glm::vec3 kLeftRotation;
-	const glm::vec3 kRightRotation;
+	const glm::vec3 kNoViewTranslation = glm::vec3(603.f, -1809.f, -23014.5f);
+	const glm::vec3 kScale = glm::vec3(5.1f, 5.1f, 5.1f);
+
+	const glm::mat4 kBaseRotation = glm::rotate(glm::mat4(1.0f), glm::radians(90.f), glm::vec3(0.0f, 1.0f, 0.0f));
+	const glm::mat4 kUpRotation = glm::rotate(glm::mat4(1.0f), glm::radians(30.f), glm::vec3(0.0f, 0.0f, 1.0f));
+	const glm::mat4 kDownRotation = glm::rotate(glm::mat4(1.0f), glm::radians(30.f), glm::vec3(0.0f, 0.0f, -1.0f));
+	const glm::mat4 kLeftRotation = glm::rotate(glm::mat4(1.0f), glm::radians(30.f), glm::vec3(-1.0f, 0.0f, 0.0f));
+	const glm::mat4 kRightRotation = glm::rotate(glm::mat4(1.0f), glm::radians(30.f), glm::vec3(1.0f, 0.0f, 0.0f));
 };
 #endif

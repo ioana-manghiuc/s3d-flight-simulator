@@ -160,7 +160,7 @@ int main()
 		camera.UpdateMatrix(45.0f, 0.1f, 50000.0f);
 
 		// normal plane
-		airplane.Draw(shaderProgram, camera);
+		//airplane.Draw(shaderProgram, camera);
 		
 		//attached plane
 		//airplane.NoViewDraw(shaderProgram, camera);
@@ -174,6 +174,11 @@ int main()
 		//airplane.Draw(shaderProgram, camera);		
 		//airplane.Draw(shaderProgram, camera);
 		
+		if (attachPlane)
+		{
+			airplane.Inputs(window);
+		}
+
 		airplane.Draw(shaderProgram, camera, attachPlane);
 		camera.isPlaneAttached = attachPlane;
 
@@ -181,7 +186,7 @@ int main()
 		glm::vec3 landRotation = glm::vec3(1, -232, 0);
 		//road.Draw(shaderProgram, camera,glm::vec3( 1.0f,1.0f,1.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(10.0f, 10.0f, 10.0f));
 		//propeller.Draw(shaderProgram, camera,glm::vec3( 1.0f,1.0f,1.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(10.0f, 10.0f, 10.0f));
-		landModel.SetTransformations(glm::vec3(0.0f, -100.0f, 0.0f), landRotation, landScale);
+		landModel.SetTransformations(glm::vec3(0.0f, -100.0f, 0.0f), landScale);
 		landModel.Draw(shaderProgram, camera);
 
 		glDepthFunc(GL_LEQUAL);
