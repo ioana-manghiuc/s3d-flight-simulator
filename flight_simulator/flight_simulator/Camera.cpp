@@ -45,7 +45,7 @@ void Camera::Inputs(GLFWwindow* window) {
             Position += speed * Orientation;
             PlanePosition += speed * -Up;
             PlaneRotation.z += 0.5f;
-        std::cout << Position.x << " " << Position.y << " " << Position.z << "\n";
+        //std::cout << Position.x << " " << Position.y << " " << Position.z << "\n";
         }
 
     }
@@ -54,7 +54,7 @@ void Camera::Inputs(GLFWwindow* window) {
             Position += speed * -glm::normalize(glm::cross(Orientation, Up));
             PlanePosition += speed * -glm::normalize(glm::cross(PlaneOrientation, Up));
 
-            std::cout << Position.x << " " << Position.y << " " << Position.z << "\n";
+           // std::cout << Position.x << " " << Position.y << " " << Position.z << "\n";
         }
 
 
@@ -63,7 +63,7 @@ void Camera::Inputs(GLFWwindow* window) {
         if (BorderValidation(Position, speed, -Orientation)) {
             Position += speed * -Orientation;
             PlanePosition += speed * Up;
-           std::cout << Position.x << " " << Position.y << " " << Position.z << "\n";
+          // std::cout << Position.x << " " << Position.y << " " << Position.z << "\n";
         }
 
     }
@@ -71,7 +71,7 @@ void Camera::Inputs(GLFWwindow* window) {
         if (BorderValidation(Position, speed, glm::normalize(glm::cross(Orientation, Up)))) {
             Position += speed * glm::normalize(glm::cross(Orientation, Up));
             PlanePosition += speed * glm::normalize(glm::cross(PlaneOrientation, Up));
-            std::cout << Position.x << " " << Position.y << " " << Position.z << "\n";
+           // std::cout << Position.x << " " << Position.y << " " << Position.z << "\n";
         }
 
 
@@ -82,7 +82,7 @@ void Camera::Inputs(GLFWwindow* window) {
             Position += speed * Up;
             PlanePosition += speed;
             PlanePosition += speed;
-            std::cout << Position.x << " " << Position.y << " " << Position.z << "\n";
+          //  std::cout << Position.x << " " << Position.y << " " << Position.z << "\n";
        }
 
 
@@ -92,18 +92,17 @@ void Camera::Inputs(GLFWwindow* window) {
         if (BorderValidation(Position, speed, -Up)) {
             Position += speed * -Up;
             PlanePosition += speed;
-            std::cout << Position.x << " " << Position.y << " " << Position.z << "\n";
+          //  std::cout << Position.x << " " << Position.y << " " << Position.z << "\n";
         }
-
-
     }
     if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) {
         speed = 0.5f;
     }
-    else if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_RELEASE) {
+    if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_RELEASE) {
         speed = 0.1f;
     }
-    if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
+    if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS && !isPlaneAttached)
+    {
         // Hides mouse cursor
         glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
         // Prevents camera from jumping on the first click
@@ -130,7 +129,8 @@ void Camera::Inputs(GLFWwindow* window) {
         // Sets mouse cursor to the middle of the screen so that it doesn't end up roaming around
         glfwSetCursorPos(window, (width / 2), (height / 2));
     }
-    else if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_RELEASE) {
+    else if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_RELEASE && !isPlaneAttached)
+    {
         // Unhides cursor since camera is not looking around anymore
         glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
         // Makes sure the next time the camera looks around it doesn't jump

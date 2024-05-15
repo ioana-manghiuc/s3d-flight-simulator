@@ -34,6 +34,7 @@ Shader shaderProgram;
 Shader skyboxShader;
 
 bool cameraControl = true;
+bool attachPlane = false;
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 void FloorRotation(GLFWwindow* window)
@@ -173,6 +174,9 @@ int main()
 		//airplane.Draw(shaderProgram, camera);		
 		//airplane.Draw(shaderProgram, camera);
 		
+		airplane.Draw(shaderProgram, camera, attachPlane);
+		camera.isPlaneAttached = attachPlane;
+
 		glm::vec3 landScale = glm::vec3(500.0f, 500.0f, 500.0f);
 		glm::vec3 landRotation = glm::vec3(1, -232, 0);
 		//road.Draw(shaderProgram, camera,glm::vec3( 1.0f,1.0f,1.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(10.0f, 10.0f, 10.0f));
@@ -249,5 +253,9 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 	if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS)
 	{
 		cameraControl = !cameraControl;
+	}
+	if (glfwGetKey(window, GLFW_KEY_Z) == GLFW_PRESS)
+	{
+		attachPlane = !attachPlane;
 	}
 }
