@@ -1,5 +1,9 @@
 #pragma once
 #include <GLM.hpp>
 
-bool BorderValidation(glm::vec3& position);
+bool BorderValidation(const glm::vec3& position);
+
+bool MountainsValidations(const glm::vec3& position);
+
+bool IsValidPosition(const glm::vec3& position);
 

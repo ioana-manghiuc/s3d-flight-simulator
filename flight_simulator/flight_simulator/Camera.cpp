@@ -46,37 +46,37 @@ void Camera::Inputs(GLFWwindow* window)
         Position += speed * Orientation;
         PlanePosition += speed * -Up;
         PlaneRotation.z += 0.5f;
-        std::cout << Position.x << " " << Position.y << " " << Position.z << "\n";
+        //std::cout << Position.x << " " << Position.y << " " << Position.z << "\n";
     }
     if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
         Position += speed * -glm::normalize(glm::cross(Orientation, Up));
         PlanePosition += speed * -glm::normalize(glm::cross(PlaneOrientation, Up));
 
-        std::cout << Position.x << " " << Position.y << " " << Position.z << "\n";
+        //std::cout << Position.x << " " << Position.y << " " << Position.z << "\n";
     }
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
         Position += speed * -Orientation;
         PlanePosition += speed * Up;
-        std::cout << Position.x << " " << Position.y << " " << Position.z << "\n";
+        //std::cout << Position.x << " " << Position.y << " " << Position.z << "\n";
     }
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
         Position += speed * glm::normalize(glm::cross(Orientation, Up));
         PlanePosition += speed * glm::normalize(glm::cross(PlaneOrientation, Up));
-        std::cout << Position.x << " " << Position.y << " " << Position.z << "\n";
+        //std::cout << Position.x << " " << Position.y << " " << Position.z << "\n";
     }
     if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
         
         Position += speed * Up;
         PlanePosition += speed;
         PlanePosition += speed;
-         std::cout << Position.x << " " << Position.y << " " << Position.z << "\n";
+        // std::cout << Position.x << " " << Position.y << " " << Position.z << "\n";
 
     }
     if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS) {
 
         Position += speed * -Up;
         PlanePosition += speed;
-        std::cout << Position.x << " " << Position.y << " " << Position.z << "\n";
+        //std::cout << Position.x << " " << Position.y << " " << Position.z << "\n";
     }
     if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) {
         speed = 0.5f;
@@ -119,10 +119,10 @@ void Camera::Inputs(GLFWwindow* window)
         // Makes sure the next time the camera looks around it doesn't jump
         firstClick = true;
     }
-    if (!BorderValidation(Position))
+    if (!IsValidPosition(Position))
     {
         Position = LastPosition;
-        std::cout << Position.x << " " << Position.y << " " << Position.z << '\n';
+        //std::cout << Position.x << " " << Position.y << " " << Position.z << '\n';
     }
 }
 
