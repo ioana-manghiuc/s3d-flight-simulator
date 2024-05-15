@@ -36,21 +36,28 @@ int main()
 		Texture("planksSpec.png", "specular",1),
 	};
 
+	//CAMERA POS: (1162.91, 41.038, -1905.58)
+	//CAMERA ORIENTATION : (0.748736, -0.0161596, 0.662668)
+
 
 	//Airplane airplane(planepos);
 	//Model airplane("models/plane/scene.gltf");
 	Model propeller("models/airplane_propeller/scene.gltf");
 	
-	glm::vec3 cameraPosition = glm::vec3(1557.73, 45.2891, -944.709);
-	// old camera position
+	glm::vec3 cameraPosition = glm::vec3(1162.91, 41.038, -1905.58);
+	// old camera positions
 	//glm::vec3 cameraPosition = glm::vec3(204.159, 83.0502, -443.938);
+	//glm::vec3 cameraPosition = glm::vec3(1557.73, 45.2891, -944.709);
 	Camera camera(width, height, cameraPosition);
 	//airplane.SetTransformations(glm::vec3(-96.0f, 400.0f, 50.0f), glm::vec3(163.0f, -1171.0f, 175.0f), glm::vec3(0.1f, 0.1f, 0.1f));
 	//airplane.translation = planepos;
-	camera.Orientation = glm::vec3(-0.405053, -0.0952021, 0.909321);
+	//camera.Orientation = glm::vec3(-0.405053, -0.0952021, 0.909321); // old cam orientation
+	camera.Orientation = glm::vec3(0.748736, -0.0161596, 0.662668);
 	Airplane airplane;
 	Model landModel("models/terrain/scene.gltf");
 	Model road("models/road/scene.gltf");
+	Model hangar("models/hangar/scene.gltf");
+	Model controlTower("models/control_tower/scene.gltf");
 
 	shaderProgram = Shader("default.vert", "default.frag");
 	skyboxShader = Shader("skybox.vert", "skybox.frag");
@@ -96,6 +103,7 @@ int main()
 			//airplane.Inputs(window);
 			//road.Rotation(window);
 			//FloorRotation(window);
+			//hangar.Translation(window);
 		}
 
 		camera.UpdateMatrix(45.0f, 0.1f, 50000.0f);
@@ -129,6 +137,14 @@ int main()
 		//propeller.Draw(shaderProgram, camera,glm::vec3( 1.0f,1.0f,1.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(10.0f, 10.0f, 10.0f));
 		landModel.SetTransformations(glm::vec3(0.0f, -100.0f, 0.0f), landScale);
 		landModel.Draw(shaderProgram, camera);
+
+		glm::mat4 hangarRotation = glm::rotate(glm::mat4(1.0f), glm::radians(90.0f), glm::vec3(0.0f, -1.0f,0.0f));
+		hangar.SetTransformations(glm::vec3(1621.21, 1278.91, 2.0), glm::vec3(11.0f, 11.0f, 11.0f), hangarRotation);
+		hangar.Draw(shaderProgram, camera);
+
+		glm::mat4 towerRotation = glm::rotate(glm::mat4(1.0f), glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		controlTower.SetTransformations(glm::vec3(1621.21, 1100.91, 420.0), glm::vec3(7.0f, 7.0f, 7.0f), towerRotation);
+		controlTower.Draw(shaderProgram, camera);
 
 		glDepthFunc(GL_LEQUAL);
 		glDisable(GL_CULL_FACE);

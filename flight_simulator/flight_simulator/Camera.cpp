@@ -60,7 +60,7 @@ void Camera::AttachedInputs(GLFWwindow* window)
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
 	{
 		if (speed <= 2 * kFastSpeed)
-			speed += 0.05;
+			speed += 0.01;
 	}
 	else if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
 	{
@@ -69,16 +69,7 @@ void Camera::AttachedInputs(GLFWwindow* window)
 			speed = 0;
 	}
 
-	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-	{
-		Position += speed * -glm::normalize(glm::cross(Orientation, Up));
-	}
-	else if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-	{
-		Position += speed * glm::normalize(glm::cross(Orientation, Up));
-	}
-
-	float leftRightSensitivity = 0.5;
+	float leftRightSensitivity = 0.25;
 	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
 	{
 		ChangeOrientation(0.0, -leftRightSensitivity);
@@ -126,6 +117,14 @@ void Camera::DetachedInputs(GLFWwindow* window)
 	if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
 	{
 		Position += speed * -Up;
+	}
+	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+	{
+		Position += speed * -glm::normalize(glm::cross(Orientation, Up));
+	}
+	else if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+	{
+		Position += speed * glm::normalize(glm::cross(Orientation, Up));
 	}
 	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
 	{
