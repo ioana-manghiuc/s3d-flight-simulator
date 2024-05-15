@@ -1,7 +1,7 @@
 #include "Airplane.h"
 
 Airplane::Airplane() :
-	Model("models/second_plane/scene.gltf")
+	Model("models/plane/scene.gltf")
 {
 	//glm::vec3(-155.995f, 125.023f, 29.9496f) // no view
 	// glm::vec3(-100.495f, 29.023f, -18.0504f) // no view close

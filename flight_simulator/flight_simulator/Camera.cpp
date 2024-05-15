@@ -49,8 +49,8 @@ void Camera::Inputs(GLFWwindow* window)
 	else
 		DetachedInputs(window);
 
-	if (!IsValidPosition(Position))
-		Position = LastPosition;
+	//if (!IsValidPosition(Position))
+		//Position = LastPosition;
 	//std::cout << Position.x << " " << Position.y << " " << Position.z << '\n';
 }
 

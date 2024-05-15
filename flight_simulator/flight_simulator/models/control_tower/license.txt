@@ -1,11 +1,11 @@
 Model Information:
-* title:	Air Traffic Control Tower
-* source:	https://sketchfab.com/3d-models/air-traffic-control-tower-84f215391662453680e646649d42b264
-* author:	abass20 (https://sketchfab.com/abass20)
+* title:	Apex Control Tower
+* source:	https://sketchfab.com/3d-models/apex-control-tower-b2070e094d1a4fbc9e3aae41af9badad
+* author:	alecbeauregard (https://sketchfab.com/alecbeaureard)
 
 Model License:
 * license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
 * requirements:	Author must be credited. Commercial use is allowed.
 
 If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
-This work is based on "Air Traffic Control Tower" (https://sketchfab.com/3d-models/air-traffic-control-tower-84f215391662453680e646649d42b264) by abass20 (https://sketchfab.com/abass20) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+This work is based on "Apex Control Tower" (https://sketchfab.com/3d-models/apex-control-tower-b2070e094d1a4fbc9e3aae41af9badad) by alecbeauregard (https://sketchfab.com/alecbeaureard) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

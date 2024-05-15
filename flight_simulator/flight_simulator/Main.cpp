@@ -141,15 +141,20 @@ int main()
 		landModel.Draw(shaderProgram, camera);
 
 		glm::mat4 hangarRotation = glm::rotate(glm::mat4(1.0f), glm::radians(90.0f), glm::vec3(0.0f, -1.0f,0.0f));
-		hangar.SetTransformations(glm::vec3(1621.21, 1278.91, 2.0), glm::vec3(11.0f, 11.0f, 11.0f), hangarRotation);
+		hangar.SetTransformations(glm::vec3(1625.0f, 1450.0f, 2.0f), glm::vec3(7.0f, 7.0f, 7.0f), hangarRotation);
 		hangar.Draw(shaderProgram, camera);
 
-		glm::mat4 towerRotation = glm::rotate(glm::mat4(1.0f), glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		controlTower.SetTransformations(glm::vec3(1621.21, 1100.91, 420.0), glm::vec3(7.0f, 7.0f, 7.0f), towerRotation);
+		//old control tower coords
+		//glm::mat4 towerRotation = glm::rotate(glm::mat4(1.0f), glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		//controlTower.SetTransformations(glm::vec3(1621.21, 1100.91, 420.0), glm::vec3(7.0f, 7.0f, 7.0f), towerRotation);
+		//controlTower.Draw(shaderProgram, camera);
+
+		glm::mat4 towerRotation = glm::rotate(glm::mat4(1.0f), glm::radians(90.0f), glm::vec3(0.0f, -1.0f, 0.0f));
+		controlTower.SetTransformations(glm::vec3(1620.0f, 100.0f, -1300.0), glm::vec3(100.0f, 100.0f, 100.0f));
 		controlTower.Draw(shaderProgram, camera);
 
-		fire.SetTransformations(glm::vec3(1621.21, 1700.91, 420.0), glm::vec3(10.0f, 10.0f,10.0f), towerRotation);
-		fire.Draw(shaderProgram, camera);
+		//fire.SetTransformations(glm::vec3(1621.21, 1700.91, 420.0), glm::vec3(10.0f, 10.0f,10.0f), towerRotation);
+		//fire.Draw(shaderProgram, camera);
 
 		glDepthFunc(GL_LEQUAL);
 		glDisable(GL_CULL_FACE);
