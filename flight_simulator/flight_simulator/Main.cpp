@@ -2,9 +2,9 @@
 #include "Model.h"
 #include "SkyBox.h"
 #include "Vertices.h"
-#include "Particles.h"
 #include "Init.h"
 #include "Airplane.h"
+#include "Point.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 
@@ -81,6 +81,8 @@ int main()
 	glfwSetScrollCallback(window, ScrollCallback);
 	glfwSetKeyCallback(window, key_callback);   
 
+	//Point point(camera.kBasePosition, camera.kBasePosition + 10.f);
+
 	while (!glfwWindowShouldClose(window))
 	{
 		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
@@ -114,6 +116,7 @@ int main()
 			airplane.Inputs(window);
 		}
 		
+		//point.Draw(camera);
 		//floor.Draw(shaderProgram, camera, floorTranslation, floorRotation, floorScale);
 
 		//airplane.Draw(shaderProgram, camera);		
