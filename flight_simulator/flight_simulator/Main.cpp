@@ -5,12 +5,15 @@
 #include "Init.h"
 #include "Airplane.h"
 #include "Point.h"
+#include <SFML/Audio.hpp>
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 
 #pragma comment (lib, "glfw3dll.lib")
 #pragma comment (lib, "glew32.lib")
 #pragma comment (lib, "OpenGL32.lib")
+#pragma comment(lib, "sfml-audio.lib")
+
 float scale = 1.0f;
 float shaderLocation;
 float skyboxLocation;
