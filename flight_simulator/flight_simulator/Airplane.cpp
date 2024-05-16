@@ -14,8 +14,6 @@ Airplane::Airplane() :
 	//view
 	//SetTransformations(glm::vec3(119907.f, 1893.52f, -127622.f), glm::vec3(0.f, -1.f, 0.f), glm::vec3(5.1f, 5.1f, 5.1f), glm::radians(90.f));
 
-
-
 	//-104.995 35.023 - 9.0504
 }
 

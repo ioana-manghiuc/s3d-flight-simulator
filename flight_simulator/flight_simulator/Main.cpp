@@ -40,26 +40,14 @@ int main()
 	Particles particles;
 	Shader particleShader("particles.vert", "particles.frag");
 
-	//CAMERA POS: (1162.91, 41.038, -1905.58)
-	//CAMERA ORIENTATION : (0.748736, -0.0161596, 0.662668)
-
-
-	//Airplane airplane(planepos);
-	//Model airplane("models/plane/scene.gltf");
 	Model propeller("models/airplane_propeller/scene.gltf");
 	
-	
-	// old camera positions
-	//glm::vec3 cameraPosition = glm::vec3(204.159, 83.0502, -443.938);
-	//glm::vec3 cameraPosition = glm::vec3(1557.73, 45.2891, -944.709);
 	Camera camera(width, height);
-	//airplane.SetTransformations(glm::vec3(-96.0f, 400.0f, 50.0f), glm::vec3(163.0f, -1171.0f, 175.0f), glm::vec3(0.1f, 0.1f, 0.1f));
-	//airplane.translation = planepos;
-	//camera.Orientation = glm::vec3(-0.405053, -0.0952021, 0.909321); // old cam orientation
 	camera.Orientation = glm::vec3(0.748736, -0.0161596, 0.662668);
+
 	Airplane airplane;
 	Model landModel("models/terrain/scene.gltf");
-	Model road("models/road/scene.gltf");
+	//Model road("models/road/scene.gltf");
 	Model hangar("models/hangar/scene.gltf");
 	Model controlTower("models/control_tower/scene.gltf");
 	Model fire("models/fire/scene.gltf");
@@ -98,18 +86,18 @@ int main()
 		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		if (cameraControl)
+		if (cameraControl && !camera.hasCollided)
 			camera.Inputs(window);
 		else
 		{
 			//model you want to move here
 			//! only one model and one movement type
 			// ex. model.Rotation() / model.Translation()
-			//airplane.Inputs(window);
+			airplane.Translation(window);
 			//road.Rotation(window);
 			//FloorRotation(window);
 			//hangar.Translation(window);
-			fire.Translation(window);
+			//fire.Translation(window);
 		}
 
 		camera.UpdateMatrix(45.0f, 0.1f, 50000.0f);
@@ -117,22 +105,19 @@ int main()
 		if(camera.hasCollided)
 			particles.Draw(particleShader, camera);
 		
-		//floor.Draw(shaderProgram, camera, floorTranslation, floorRotation, floorScale);
-
-		//std::cout << "CAMERA POS: (" << camera.Position.x << ", " << camera.Position.y << ", " << camera.Position.z << ")\n";
-		//std::cout << "CAMERA ORIENTATION: (" << camera.Orientation.x << ", " << camera.Orientation.y << ", " << camera.Orientation.z << ")\n";
-		//airplane.translation = camera.PlanePosition - dist;
-		//airplane.rotation = camera.PlaneRotation;
-		//airplane.Draw(shaderProgram, camera);		
-		//airplane.Draw(shaderProgram, camera);
-		
-		if (attachPlane)
+		camera.SetIsAttached(attachPlane);
+		if (attachPlane && !camera.hasCollided)
 		{
 			airplane.Inputs(window);
 		}
+		
+		//floor.Draw(shaderProgram, camera, floorTranslation, floorRotation, floorScale);
+
+		//airplane.Draw(shaderProgram, camera);		
+		//airplane.NoViewDraw(shaderProgram, camera);
+		
 
 		airplane.Draw(shaderProgram, camera, attachPlane);
-		camera.SetIsAttached(attachPlane);
 
 		glm::vec3 landScale = glm::vec3(500.0f, 500.0f, 500.0f);
 		glm::vec3 landRotation = glm::vec3(1, -232, 0);
@@ -163,15 +148,11 @@ int main()
 		skyboxShader.Activate();
 		glm::mat4 view = glm::mat4(1.0f);
 		glm::mat4 projection = glm::mat4(1.0f);
-		// We make the mat4 into a mat3 and then a mat4 again in order to get rid of the last row and column
-		// The last row and column affect the translation of the skybox (which we don't want to affect)
 		view = glm::mat4(glm::mat3(glm::lookAt(camera.Position, camera.Position + camera.Orientation, camera.Up)));
 		projection = glm::perspective(glm::radians(45.0f), (float)width / height, 0.1f, 1000.0f);
 		glUniformMatrix4fv(glGetUniformLocation(skyboxShader.ID, "view"), 1, GL_FALSE, glm::value_ptr(view));
 		glUniformMatrix4fv(glGetUniformLocation(skyboxShader.ID, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 
-		// Draws the cubemap as the last object so we can save a bit of performance by discarding all fragments
-		// where an object is present (a depth of 1.0f will always fail against any object's depth value)
 		glBindVertexArray(skyboxVAO);
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture);

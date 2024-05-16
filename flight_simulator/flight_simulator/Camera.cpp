@@ -67,8 +67,8 @@ void Camera::AttachedInputs(GLFWwindow* window)
 		if (speed < 0.0)
 			speed = 0;
 	}
-
-	if (!IsValidPosition(Position))
+	glm::vec3 planePosition = Position + 100.f * Orientation;
+	if (!IsValidPosition(planePosition))
 	{
 		Position = LastPosition;
 		hasCollided = true;
