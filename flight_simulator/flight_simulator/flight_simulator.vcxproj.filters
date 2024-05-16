@@ -57,6 +57,9 @@
     <ClCompile Include="PositionValidations.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Particles.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -98,6 +101,9 @@
     <ClInclude Include="PositionValidations.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Particles.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="brick.png">
@@ -130,6 +136,12 @@
       <Filter>Resource Files\Shaders</Filter>
     </None>
     <None Include="skybox.frag">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="particles.frag">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="particles.vert">
       <Filter>Resource Files\Shaders</Filter>
     </None>
   </ItemGroup>

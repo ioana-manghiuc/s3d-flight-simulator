@@ -20,6 +20,7 @@ public:
 	GLuint ID;
 
 	VBO(std::vector<Vertex>& vertices);
+	VBO(GLfloat* vertices, GLsizeiptr size);
 
 	void Bind();
 	void Unbind();

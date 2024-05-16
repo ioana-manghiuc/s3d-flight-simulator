@@ -19,8 +19,10 @@ class Camera
 public:
 	float kSlowSpeed = 0.1f;
 	float kFastSpeed = 1.1f;
+	const glm::vec3 kBasePosition = glm::vec3(1162.91, 45.038, -1905.58);
+	const glm::vec3 kBaseOrientation = glm::vec3(0.748736, -0.0161596, 0.662668);
 public:
-	Camera(int width, int height, glm::vec3 position); // Camera constructor to set up initial values
+	Camera(int width, int height); // Camera constructor to set up initial values
 
 	void UpdateMatrix(float FOVdeg, float nearPlane, float farPlane); // Updates the camera matrix to the Vertex Shader	
 	void Matrix(Shader& shader, const char* uniform); // Exports the camera matrix to a shader
@@ -46,6 +48,7 @@ public:
 
 	glm::mat4 projection = glm::mat4(1.0f);
 
+	bool hasCollided = false;
 	bool firstClick = true;
 
 	int width;

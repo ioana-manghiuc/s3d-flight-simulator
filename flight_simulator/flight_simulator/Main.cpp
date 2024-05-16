@@ -2,6 +2,7 @@
 #include "Model.h"
 #include "SkyBox.h"
 #include "Vertices.h"
+#include "Particles.h"
 #include "Init.h"
 #include "Airplane.h"
 #define STB_IMAGE_IMPLEMENTATION
@@ -36,6 +37,9 @@ int main()
 		Texture("planksSpec.png", "specular",1),
 	};
 
+	Particles particles;
+	Shader particleShader("particles.vert", "particles.frag");
+
 	//CAMERA POS: (1162.91, 41.038, -1905.58)
 	//CAMERA ORIENTATION : (0.748736, -0.0161596, 0.662668)
 
@@ -44,11 +48,11 @@ int main()
 	//Model airplane("models/plane/scene.gltf");
 	Model propeller("models/airplane_propeller/scene.gltf");
 	
-	glm::vec3 cameraPosition = glm::vec3(1162.91, 41.038, -1905.58);
+	
 	// old camera positions
 	//glm::vec3 cameraPosition = glm::vec3(204.159, 83.0502, -443.938);
 	//glm::vec3 cameraPosition = glm::vec3(1557.73, 45.2891, -944.709);
-	Camera camera(width, height, cameraPosition);
+	Camera camera(width, height);
 	//airplane.SetTransformations(glm::vec3(-96.0f, 400.0f, 50.0f), glm::vec3(163.0f, -1171.0f, 175.0f), glm::vec3(0.1f, 0.1f, 0.1f));
 	//airplane.translation = planepos;
 	//camera.Orientation = glm::vec3(-0.405053, -0.0952021, 0.909321); // old cam orientation
@@ -110,11 +114,8 @@ int main()
 
 		camera.UpdateMatrix(45.0f, 0.1f, 50000.0f);
 
-		// normal plane
-		//airplane.Draw(shaderProgram, camera);
-		
-		//attached plane
-		//airplane.NoViewDraw(shaderProgram, camera);
+		if(camera.hasCollided)
+			particles.Draw(particleShader, camera);
 		
 		//floor.Draw(shaderProgram, camera, floorTranslation, floorRotation, floorScale);
 

@@ -1,11 +1,12 @@
 ﻿#include "Camera.h"
 #include "PositionValidations.h"
-Camera::Camera(int width, int height, glm::vec3 position)
+Camera::Camera(int width, int height)
 {
 	Camera::width = width;
 	Camera::height = height;
-	Position = position; 
-    PlanePosition = position;
+	Position = kBasePosition;
+	Orientation = kBaseOrientation;
+    //PlanePosition = position;
 }
 
 void Camera::UpdateMatrix(float FOVdeg, float nearPlane, float farPlane)
@@ -49,8 +50,6 @@ void Camera::Inputs(GLFWwindow* window)
 	else
 		DetachedInputs(window);
 
-	//if (!IsValidPosition(Position))
-		//Position = LastPosition;
 	//std::cout << Position.x << " " << Position.y << " " << Position.z << '\n';
 }
 
@@ -67,6 +66,12 @@ void Camera::AttachedInputs(GLFWwindow* window)
 		speed -= 0.01;
 		if (speed < 0.0)
 			speed = 0;
+	}
+
+	if (!IsValidPosition(Position))
+	{
+		Position = LastPosition;
+		hasCollided = true;
 	}
 
 	float leftRightSensitivity = 0.25;
@@ -173,11 +178,16 @@ void Camera::SetIsAttached(bool isAttached)
 	if (this->isPlaneAttached == isAttached)
 		return;
 
+	Position = kBasePosition;
+	Orientation = kBaseOrientation;
 	this->isPlaneAttached = isAttached;
 	if (isAttached)
 		speed = 0.0f;
 	else
+	{
 		speed = kSlowSpeed;
+		hasCollided = false;
+	}
 
 }
 

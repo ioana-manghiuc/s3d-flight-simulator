@@ -153,6 +153,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Model.cpp" />
+    <ClCompile Include="Particles.cpp" />
     <ClCompile Include="PositionValidations.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Texture.cpp" />
@@ -166,6 +167,7 @@
     <ClInclude Include="Init.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
+    <ClInclude Include="Particles.h" />
     <ClInclude Include="PositionValidations.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="SkyBox.h" />
@@ -175,10 +177,12 @@
     <ClInclude Include="Vertices.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="particles.frag" />
     <None Include="default.frag" />
     <None Include="default.vert" />
     <None Include="light.frag" />
     <None Include="light.vert" />
+    <None Include="particles.vert" />
     <None Include="skybox.frag" />
     <None Include="skybox.vert" />
   </ItemGroup>
