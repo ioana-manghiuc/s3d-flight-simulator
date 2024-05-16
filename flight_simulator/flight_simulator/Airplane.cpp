@@ -22,23 +22,39 @@ void Airplane::Inputs(GLFWwindow* window)
 	glm::mat4 rotation = glm::mat4(1.0f);
 	rotation *= kBaseRotation;
 
+	const float upDownSensitivity = 0.08;
 	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
 	{
-		rotation *= kUpRotation;
+		m_downAngle = 0.0f;
+		rotation *= glm::rotate(glm::mat4(1.0f), glm::radians(m_upAngle), kUpAxis);
+		if (m_upAngle < kMaxUpDownAngle)
+			m_upAngle += upDownSensitivity;
 	}
-	else if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
+	if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
 	{
-		rotation *= kDownRotation;
+		m_upAngle = 0.0f;
+		rotation *= glm::rotate(glm::mat4(1.0f), glm::radians(m_downAngle), kDownAxis);
+		if (m_downAngle < kMaxUpDownAngle)
+			m_downAngle += upDownSensitivity;
 	}
-
+	
+	const float rightLeftSensitivity = 0.5f;
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
 	{
-		rotation *= kRightRotation;
+		m_leftAngle = 0.0f;
+		rotation *= glm::rotate(glm::mat4(1.0f), glm::radians(m_rightAngle), kRightAxis);
+		if (m_rightAngle < kMaxLeftRightAngle)
+			m_rightAngle += rightLeftSensitivity;
 	}
-	else if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
 	{
-		rotation *= kLeftRotation;
+		m_rightAngle = 0.0f;
+		rotation *= glm::rotate(glm::mat4(1.0f), glm::radians(m_leftAngle), kLeftAxis);
+		if (m_leftAngle < kMaxLeftRightAngle)
+			m_leftAngle += rightLeftSensitivity;
 	}
+	
+
 	SetTransformations(kNoViewTranslation, kScale, rotation);
 }
 

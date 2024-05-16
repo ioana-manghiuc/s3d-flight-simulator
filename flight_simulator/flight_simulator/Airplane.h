@@ -19,7 +19,20 @@ public:
 	const glm::mat4 kBaseRotation = glm::rotate(glm::mat4(1.0f), glm::radians(90.f), glm::vec3(0.0f, 1.0f, 0.0f));
 	const glm::mat4 kUpRotation = glm::rotate(glm::mat4(1.0f), glm::radians(30.f), glm::vec3(0.0f, 0.0f, 1.0f));
 	const glm::mat4 kDownRotation = glm::rotate(glm::mat4(1.0f), glm::radians(30.f), glm::vec3(0.0f, 0.0f, -1.0f));
-	const glm::mat4 kLeftRotation = glm::rotate(glm::mat4(1.0f), glm::radians(30.f), glm::vec3(-1.0f, 0.0f, 0.0f));
 	const glm::mat4 kRightRotation = glm::rotate(glm::mat4(1.0f), glm::radians(30.f), glm::vec3(1.0f, 0.0f, 0.0f));
+	const glm::mat4 kLeftRotation = glm::rotate(glm::mat4(1.0f), glm::radians(30.f), glm::vec3(-1.0f, 0.0f, 0.0f));
+
+	const glm::vec3 kUpAxis = glm::vec3(0.0f, 0.0f, 1.0f);
+	const glm::vec3 kDownAxis = glm::vec3(0.0f, 0.0f, -1.0f);
+	const glm::vec3 kRightAxis = glm::vec3(1.0f, 0.0f, 0.0f);
+	const glm::vec3 kLeftAxis = glm::vec3(-1.0f, 0.0f, 0.0f);
+
+	const float kMaxUpDownAngle = 20.f;
+	const float kMaxLeftRightAngle = 30.f;
+
+	float m_upAngle = 0.0f;
+	float m_downAngle = 0.0f;
+	float m_rightAngle = 0.0f;
+	float m_leftAngle = 0.0f;
 };
 #endif
