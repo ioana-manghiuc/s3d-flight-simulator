@@ -28,13 +28,6 @@ bool attachPlane = false;
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 int main()
 {
-	irrklang::ISoundEngine* engine = irrklang::createIrrKlangDevice();
-
-	if (!engine)
-	{
-		std::cout << "Error starting up engine!\n" << std::endl;
-	}
-
 	GLFWwindow* window = glfwCreateWindow(width, height, "Title", NULL, NULL);
 	InitializeWindow(window);
 
@@ -108,6 +101,13 @@ int main()
 
 
 	//Point point(camera.kBasePosition, camera.kBasePosition + 10.f);
+	irrklang::ISoundEngine* engine = irrklang::createIrrKlangDevice();
+
+	if (!engine)
+	{
+		std::cout << "Error starting up engine!\n" << std::endl;
+	}
+
 	int countCollisions = 0;
 	irrklang::ISound* collisionSound = nullptr;
 
@@ -143,6 +143,7 @@ int main()
 			if (countCollisions == 0)
 			{
 				collisionSound = engine->play2D("sounds/arcade-retro-game-over.wav", false, false, true);
+				//collisionSound = engine->play2D("sounds/crash-with-explosion.wav", false, false, true);
 				countCollisions++;
 			}
 		}
@@ -165,6 +166,9 @@ int main()
 
 		//airplane.Draw(shaderProgram, camera);		
 		//airplane.NoViewDraw(shaderProgram, camera);
+
+		//std::cout << "CAMERA POS: (" << camera.Position.x << ", " << camera.Position.y << ", " << camera.Position.z << ")\n";
+		//std::cout << "CAMERA ORIENTATION: (" << camera.Orientation.x << ", " << camera.Orientation.y << ", " << camera.Orientation.z << ")\n";
 		
 		airplane.Draw(shaderProgram, camera, attachPlane);
 
@@ -179,18 +183,13 @@ int main()
 		hangar.SetTransformations(glm::vec3(1625.0f, 1450.0f, 2.0f), glm::vec3(7.0f, 7.0f, 7.0f), hangarRotation);
 		hangar.Draw(shaderProgram, camera);
 
-		//old control tower coords
-		//glm::mat4 towerRotation = glm::rotate(glm::mat4(1.0f), glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		//controlTower.SetTransformations(glm::vec3(1621.21, 1100.91, 420.0), glm::vec3(7.0f, 7.0f, 7.0f), towerRotation);
-		//controlTower.Draw(shaderProgram, camera);
-
 		glm::mat4 towerRotation = glm::rotate(glm::mat4(1.0f), glm::radians(90.0f), glm::vec3(0.0f, -1.0f, 0.0f));
 		controlTower.SetTransformations(glm::vec3(1620.0f, 100.0f, -1300.0), glm::vec3(100.0f, 100.0f, 100.0f));
 		controlTower.Draw(shaderProgram, camera);
 
-		//glm::mat4 catRotation = glm::rotate(glm::mat4(1.0f), glm::radians(90.0f), glm::vec3(0.0f, -1.0f, 0.0f));
-		//cat.SetTransformations(glm::vec3(1620.0f, 100.0f, -1300.0), glm::vec3(100.0f, 100.0f, 100.0f));
-		//cat.Draw(shaderProgram, camera);
+		glm::mat4 catRotation = glm::rotate(glm::mat4(1.0f), glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		cat.SetTransformations(glm::vec3(1580.55, 113.919, -1297.43), glm::vec3(3.0f, 3.0f, 3.0f), catRotation);
+		cat.Draw(shaderProgram, camera);
 
 		//fire.SetTransformations(glm::vec3(1621.21, 1700.91, 420.0), glm::vec3(10.0f, 10.0f,10.0f), towerRotation);
 		//fire.Draw(shaderProgram, camera);
