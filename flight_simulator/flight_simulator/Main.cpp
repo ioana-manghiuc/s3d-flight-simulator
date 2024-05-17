@@ -5,14 +5,14 @@
 #include "Init.h"
 #include "Airplane.h"
 #include "Point.h"
-#include <SFML/Audio.hpp>
+#include "irrKlang.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 
 #pragma comment (lib, "glfw3dll.lib")
 #pragma comment (lib, "glew32.lib")
 #pragma comment (lib, "OpenGL32.lib")
-#pragma comment(lib, "sfml-audio.lib")
+#pragma comment(lib, "irrKlang.lib")
 
 float scale = 1.0f;
 float shaderLocation;
@@ -20,6 +20,7 @@ float skyboxLocation;
 
 Shader shaderProgram;
 Shader skyboxShader;
+Shader shadowProgram;
 
 bool cameraControl = true;
 bool attachPlane = false;
@@ -27,6 +28,13 @@ bool attachPlane = false;
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 int main()
 {
+	irrklang::ISoundEngine* engine = irrklang::createIrrKlangDevice();
+
+	if (!engine)
+	{
+		std::cout << "Error starting up engine!\n" << std::endl;
+	}
+
 	GLFWwindow* window = glfwCreateWindow(width, height, "Title", NULL, NULL);
 	InitializeWindow(window);
 
@@ -54,9 +62,11 @@ int main()
 	Model hangar("models/hangar/scene.gltf");
 	Model controlTower("models/control_tower/scene.gltf");
 	Model fire("models/fire/scene.gltf");
+	Model cat("models/cat/scene.gltf");	
 
 	shaderProgram = Shader("default.vert", "default.frag");
 	skyboxShader = Shader("skybox.vert", "skybox.frag");
+	shadowProgram = Shader("shadowMap.vert", "shadowMap.frag");
 	glm::vec4 lightColor = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 	glm::vec3 lightPos = glm::vec3(0.5f, 0.5f, 0.5f);
 	glm::mat4 lightModel = glm::mat4(1.0f);
@@ -84,12 +94,29 @@ int main()
 	glfwSetScrollCallback(window, ScrollCallback);
 	glfwSetKeyCallback(window, key_callback);   
 
+
+	glm::mat4 orthgonalProjection = glm::ortho(-35.0f, 35.0f, -35.0f, 35.0f, 0.1f, 75.0f);
+	glm::mat4 lightView = glm::lookAt(20.0f * lightPos, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	glm::mat4 lightProjection = orthgonalProjection * lightView;
+
+	//shadowProgram.Activate();
+	//glUniformMatrix4fv(glGetUniformLocation(shadowProgram.ID, "lightProjection"), 1, GL_FALSE, glm::value_ptr(lightProjection));
+
+	//unsigned int FBO;
+	//glGenFramebuffers(1, &FBO);
+	//glBindFramebuffer(GL_FRAMEBUFFER, FBO);
+
+
 	//Point point(camera.kBasePosition, camera.kBasePosition + 10.f);
+	int countCollisions = 0;
+	irrklang::ISound* collisionSound = nullptr;
 
 	while (!glfwWindowShouldClose(window))
 	{
 		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	//	airplane.Draw(shadowProgram, camera, attachPlane);
 
 		if (cameraControl)
 		{
@@ -107,11 +134,25 @@ int main()
 			//hangar.Translation(window);
 			//fire.Translation(window);
 		}
-
+		
 		camera.UpdateMatrix(45.0f, 0.1f, 50000.0f);
 
-		if(camera.hasCollided)
+		if (camera.hasCollided)
+		{
 			particles.Draw(particleShader, camera);
+			if (countCollisions == 0)
+			{
+				collisionSound = engine->play2D("sounds/arcade-retro-game-over.wav", false, false, true);
+				countCollisions++;
+			}
+		}
+		else if (collisionSound != nullptr)
+		{
+			collisionSound->stop();
+			collisionSound->drop();
+			collisionSound = nullptr;
+			countCollisions = 0;
+		}
 		
 		camera.SetIsAttached(attachPlane);
 		if (attachPlane && !camera.hasCollided)
@@ -125,7 +166,6 @@ int main()
 		//airplane.Draw(shaderProgram, camera);		
 		//airplane.NoViewDraw(shaderProgram, camera);
 		
-
 		airplane.Draw(shaderProgram, camera, attachPlane);
 
 		glm::vec3 landScale = glm::vec3(500.0f, 500.0f, 500.0f);
@@ -147,6 +187,10 @@ int main()
 		glm::mat4 towerRotation = glm::rotate(glm::mat4(1.0f), glm::radians(90.0f), glm::vec3(0.0f, -1.0f, 0.0f));
 		controlTower.SetTransformations(glm::vec3(1620.0f, 100.0f, -1300.0), glm::vec3(100.0f, 100.0f, 100.0f));
 		controlTower.Draw(shaderProgram, camera);
+
+		//glm::mat4 catRotation = glm::rotate(glm::mat4(1.0f), glm::radians(90.0f), glm::vec3(0.0f, -1.0f, 0.0f));
+		//cat.SetTransformations(glm::vec3(1620.0f, 100.0f, -1300.0), glm::vec3(100.0f, 100.0f, 100.0f));
+		//cat.Draw(shaderProgram, camera);
 
 		//fire.SetTransformations(glm::vec3(1621.21, 1700.91, 420.0), glm::vec3(10.0f, 10.0f,10.0f), towerRotation);
 		//fire.Draw(shaderProgram, camera);
@@ -177,6 +221,8 @@ int main()
 
 	shaderProgram.Delete();
 	skyboxShader.Delete();
+	shadowProgram.Delete();
+	engine->drop();
 
 	glfwDestroyWindow(window);
 	glfwTerminate();
