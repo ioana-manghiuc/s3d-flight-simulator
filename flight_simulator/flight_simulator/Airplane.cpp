@@ -54,7 +54,6 @@ void Airplane::Inputs(GLFWwindow* window)
 			m_leftAngle += rightLeftSensitivity;
 	}
 	
-
 	SetTransformations(kNoViewTranslation, kScale, rotation);
 }
 

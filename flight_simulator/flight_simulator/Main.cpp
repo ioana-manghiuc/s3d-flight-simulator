@@ -6,6 +6,8 @@
 #include "Airplane.h"
 #include "Point.h"
 #include "irrKlang.h"
+#include <chrono>
+#include <thread>
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 
@@ -24,6 +26,8 @@ Shader shadowProgram;
 
 bool cameraControl = true;
 bool attachPlane = false;
+bool collisionDetected = false;
+std::chrono::time_point<std::chrono::high_resolution_clock> collisionTime;
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 int main()
@@ -43,19 +47,18 @@ int main()
 
 	Particles particles;
 	Shader particleShader("particles.vert", "particles.frag");
-
-	Model propeller("models/airplane_propeller/scene.gltf");
 	
 	Camera camera(width, height);
-	camera.Orientation = glm::vec3(0.748736, -0.0161596, 0.662668);
+	camera.Orientation = glm::vec3(0.0444789, 0.0468481, 0.997907);
 
 	Airplane airplane;
 	Model landModel("models/terrain/scene.gltf");
-	//Model road("models/road/scene.gltf");
+	Model road("models/road/scene.gltf");
 	Model hangar("models/hangar/scene.gltf");
 	Model controlTower("models/control_tower/scene.gltf");
 	Model fire("models/fire/scene.gltf");
 	Model cat("models/cat/scene.gltf");	
+	Model tent("models/tent/scene.gltf");
 
 	shaderProgram = Shader("default.vert", "default.frag");
 	skyboxShader = Shader("skybox.vert", "skybox.frag");
@@ -101,14 +104,12 @@ int main()
 
 
 	//Point point(camera.kBasePosition, camera.kBasePosition + 10.f);
+
 	irrklang::ISoundEngine* engine = irrklang::createIrrKlangDevice();
 
 	if (!engine)
-	{
 		std::cout << "Error starting up engine!\n" << std::endl;
-	}
 
-	int countCollisions = 0;
 	irrklang::ISound* collisionSound = nullptr;
 
 	while (!glfwWindowShouldClose(window))
@@ -140,11 +141,21 @@ int main()
 		if (camera.hasCollided)
 		{
 			particles.Draw(particleShader, camera);
-			if (countCollisions == 0)
+			if (!collisionDetected)
 			{
 				collisionSound = engine->play2D("sounds/arcade-retro-game-over.wav", false, false, true);
-				//collisionSound = engine->play2D("sounds/crash-with-explosion.wav", false, false, true);
-				countCollisions++;
+				collisionDetected = true;
+				collisionTime = std::chrono::high_resolution_clock::now();
+			}
+			else
+			{
+				auto currentTime = std::chrono::high_resolution_clock::now();
+				auto elapsed = std::chrono::duration_cast<std::chrono::seconds>(currentTime - collisionTime).count();
+				if (elapsed >= 5) // delay for five seconds
+				{
+					attachPlane = !attachPlane;
+					collisionDetected = false;
+				}
 			}
 		}
 		else if (collisionSound != nullptr)
@@ -152,7 +163,6 @@ int main()
 			collisionSound->stop();
 			collisionSound->drop();
 			collisionSound = nullptr;
-			countCollisions = 0;
 		}
 		
 		camera.SetIsAttached(attachPlane);
@@ -162,25 +172,22 @@ int main()
 		}
 		
 		//point.Draw(camera);
-		//floor.Draw(shaderProgram, camera, floorTranslation, floorRotation, floorScale);
 
 		//airplane.Draw(shaderProgram, camera);		
 		//airplane.NoViewDraw(shaderProgram, camera);
 
-		//std::cout << "CAMERA POS: (" << camera.Position.x << ", " << camera.Position.y << ", " << camera.Position.z << ")\n";
+		std::cout << "CAMERA POS: (" << camera.Position.x << ", " << camera.Position.y << ", " << camera.Position.z << ")\n";
 		//std::cout << "CAMERA ORIENTATION: (" << camera.Orientation.x << ", " << camera.Orientation.y << ", " << camera.Orientation.z << ")\n";
 		
 		airplane.Draw(shaderProgram, camera, attachPlane);
 
 		glm::vec3 landScale = glm::vec3(500.0f, 500.0f, 500.0f);
 		glm::vec3 landRotation = glm::vec3(1, -232, 0);
-		//road.Draw(shaderProgram, camera,glm::vec3( 1.0f,1.0f,1.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(10.0f, 10.0f, 10.0f));
-		//propeller.Draw(shaderProgram, camera,glm::vec3( 1.0f,1.0f,1.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(10.0f, 10.0f, 10.0f));
 		landModel.SetTransformations(glm::vec3(0.0f, -100.0f, 0.0f), landScale);
 		landModel.Draw(shaderProgram, camera);
 
 		glm::mat4 hangarRotation = glm::rotate(glm::mat4(1.0f), glm::radians(90.0f), glm::vec3(0.0f, -1.0f,0.0f));
-		hangar.SetTransformations(glm::vec3(1625.0f, 1450.0f, 2.0f), glm::vec3(7.0f, 7.0f, 7.0f), hangarRotation);
+		hangar.SetTransformations(glm::vec3(1625.0f, 1450.0f, 2.0f), glm::vec3(8.0f, 8.0f, 8.0f), hangarRotation);
 		hangar.Draw(shaderProgram, camera);
 
 		glm::mat4 towerRotation = glm::rotate(glm::mat4(1.0f), glm::radians(90.0f), glm::vec3(0.0f, -1.0f, 0.0f));
@@ -188,8 +195,16 @@ int main()
 		controlTower.Draw(shaderProgram, camera);
 
 		glm::mat4 catRotation = glm::rotate(glm::mat4(1.0f), glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		cat.SetTransformations(glm::vec3(1580.55, 113.919, -1297.43), glm::vec3(3.0f, 3.0f, 3.0f), catRotation);
+		cat.SetTransformations(glm::vec3(1575.5f, 114.5f, -1300.0f), glm::vec3(3.0f, 3.0f, 3.0f), catRotation);
 		cat.Draw(shaderProgram, camera);
+
+		glm::mat4 roadRotation = glm::rotate(glm::mat4(1.0f), glm::radians(90.0f), glm::vec3(0.0f, -1.0f, 0.0f));
+		road.SetTransformations(glm::vec3(350.7f, 150.0f, 110.13f), glm::vec3(20.0f, 20.0f, 20.0f),roadRotation);
+		road.Draw(shaderProgram, camera);
+
+		glm::mat4 tentRotation = glm::rotate(glm::mat4(1.0f), glm::radians(90.0f), glm::vec3(0.0f, -1.0f, 0.0f));
+		tent.SetTransformations(glm::vec3(1485.0f, 1850.0f, 2.0f), glm::vec3(4.0f, 4.0f, 4.0f), tentRotation);
+		tent.Draw(shaderProgram, camera);
 
 		//fire.SetTransformations(glm::vec3(1621.21, 1700.91, 420.0), glm::vec3(10.0f, 10.0f,10.0f), towerRotation);
 		//fire.Draw(shaderProgram, camera);

@@ -19,8 +19,8 @@ class Camera
 public:
 	float kSlowSpeed = 0.1f;
 	float kFastSpeed = 1.1f;
-	const glm::vec3 kBasePosition = glm::vec3(1162.91, 45.038, -1905.58);
-	const glm::vec3 kBaseOrientation = glm::vec3(0.748736, -0.0161596, 0.662668);
+	const glm::vec3 kBasePosition = glm::vec3(1483.25, 23.6388, -1878.91);
+	const glm::vec3 kBaseOrientation = glm::vec3(0.0444789, 0.0468481, 0.997907);
 public:
 	Camera(int width, int height); // Camera constructor to set up initial values
 

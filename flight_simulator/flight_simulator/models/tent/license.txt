@@ -1,0 +1,11 @@
+Model Information:
+* title:	Cloth Hangar
+* source:	https://sketchfab.com/3d-models/cloth-hangar-dd53c69aa57b4c048d32363149b9966c
+* author:	CommonSpence (https://sketchfab.com/commonspence)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Cloth Hangar" (https://sketchfab.com/3d-models/cloth-hangar-dd53c69aa57b4c048d32363149b9966c) by CommonSpence (https://sketchfab.com/commonspence) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
