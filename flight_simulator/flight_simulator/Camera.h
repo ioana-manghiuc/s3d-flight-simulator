@@ -19,6 +19,7 @@ class Camera
 public:
 	float kSlowSpeed = 0.1f;
 	float kFastSpeed = 1.1f;
+	const glm::vec3 kOrigin = glm::vec3(0.0, 0.0, 0.0);
 	const glm::vec3 kBasePosition = glm::vec3(1213.9, 35.5961, -1823.53);
 	const glm::vec3 kBaseOrientation = glm::vec3(0.871424, 1.7049e-07, 0.49052);
 	const glm::vec3 kStartFlightPos = glm::vec3(1485.68, 22.1405, -1934.44);

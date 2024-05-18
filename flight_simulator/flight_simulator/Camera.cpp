@@ -4,7 +4,8 @@ Camera::Camera(int width, int height)
 {
 	Camera::width = width;
 	Camera::height = height;
-	Position = kBasePosition;
+	//Position = kBasePosition;
+	Position = kOrigin;
 	Orientation = kBaseOrientation;
     //PlanePosition = position;
 }

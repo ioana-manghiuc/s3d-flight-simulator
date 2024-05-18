@@ -115,6 +115,14 @@ int main()
 
 	irrklang::ISound* collisionSound = nullptr;
 
+	glm::mat4 r90 = glm::rotate(glm::mat4(1.0f), glm::radians(90.0f), glm::vec3(0.0f, -1.0f, 0.0f));
+	glm::mat4 r180 = glm::rotate(glm::mat4(1.0f), glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	glm::mat4 r120 = glm::rotate(glm::mat4(1.0f), glm::radians(120.0f), glm::vec3(-1.0f, -1.0f, -1.0f));
+
+	//glm::vec3 fireTrans = glm::vec3(1621.21, 1700.91, 420.0);
+	glm::vec3 fireTrans = glm::vec3(-3.78998, 3740.91, -410);
+	glm::vec3 fireScale = glm::vec3(5.0f, 5.0f, 5.0f);
+	fire.SetTransformations(fireTrans, fireScale, r90);
 	while (!glfwWindowShouldClose(window))
 	{
 		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
@@ -132,11 +140,11 @@ int main()
 			//model you want to move here
 			//! only one model and one movement type
 			// ex. model.Rotation() / model.Translation()
-			airplane.Translation(window);
+			//airplane.Translation(window);
 			//road.Rotation(window);
 			//FloorRotation(window);
 			//hangar.Translation(window);
-			//fire.Translation(window);
+			fire.Translation(window);
 		}
 		
 		camera.UpdateMatrix(45.0f, 0.1f, 50000.0f);
@@ -156,8 +164,9 @@ int main()
 				auto elapsed = std::chrono::duration_cast<std::chrono::seconds>(currentTime - collisionTime).count();
 				if (elapsed >= 5) // delay for five seconds
 				{
-					attachPlane = !attachPlane;
-					collisionDetected = false;
+					fire.NoViewDraw(shaderProgram, camera);
+					//attachPlane = !attachPlane;
+					
 				}
 			}
 		}
@@ -183,10 +192,6 @@ int main()
 		landModel.SetTransformations(glm::vec3(0.0f, -100.0f, 0.0f), landScale);
 		landModel.Draw(shaderProgram, camera);
 
-		glm::mat4 r90 = glm::rotate(glm::mat4(1.0f), glm::radians(90.0f), glm::vec3(0.0f, -1.0f, 0.0f));
-		glm::mat4 r180 = glm::rotate(glm::mat4(1.0f), glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		glm::mat4 r120 = glm::rotate(glm::mat4(1.0f), glm::radians(120.0f), glm::vec3(-1.0f, -1.0f, -1.0f));
-
 		hangar.SetTransformations(glm::vec3(1625.0f, 1450.0f, 2.0f), glm::vec3(7.5f, 7.5f, 7.5f), r90);
 		hangar.Draw(shaderProgram, camera);
 
@@ -204,8 +209,10 @@ int main()
 		points1.Draw(camera);
 		points2.Draw(camera);
 
-		//fire.SetTransformations(glm::vec3(1621.21, 1700.91, 420.0), glm::vec3(10.0f, 10.0f,10.0f), r90);
+		float distanceFromCamera = 50.f;
+		//fire.SetTransformations(fireTrans + camera.Position * 10.f + distanceFromCamera * camera.Orientation, fireScale, r90);
 		//fire.Draw(shaderProgram, camera);
+		//fire.NoViewDraw(shaderProgram, camera);
 
 		glDepthFunc(GL_LEQUAL);
 		glDisable(GL_CULL_FACE);
@@ -278,5 +285,6 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 	if (glfwGetKey(window, GLFW_KEY_Z) == GLFW_PRESS)
 	{
 		attachPlane = !attachPlane;
+		collisionDetected = false;
 	}
 }
