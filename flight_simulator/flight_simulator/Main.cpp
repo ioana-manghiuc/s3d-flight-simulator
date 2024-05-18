@@ -60,6 +60,9 @@ int main()
 	Model cat("models/cat/scene.gltf");	
 	Model tent("models/tent/scene.gltf");
 
+	Point points1(glm::vec3(-788.f, 41.f, -1047.f), glm::vec3(-520.f, 154.f, -843.f));
+	Point points2(glm::vec3(-900.f, 41.f, -864.f), glm::vec3(-620.f, 280.f, -306.f));
+
 	shaderProgram = Shader("default.vert", "default.frag");
 	skyboxShader = Shader("skybox.vert", "skybox.frag");
 	shadowProgram = Shader("shadowMap.vert", "shadowMap.frag");
@@ -198,6 +201,8 @@ int main()
 
 		tent.SetTransformations(glm::vec3(1485.0f, 1850.0f, 2.0f), glm::vec3(4.0f, 4.0f, 4.0f), r90);
 		tent.Draw(shaderProgram, camera);
+		points1.Draw(camera);
+		points2.Draw(camera);
 
 		//fire.SetTransformations(glm::vec3(1621.21, 1700.91, 420.0), glm::vec3(10.0f, 10.0f,10.0f), r90);
 		//fire.Draw(shaderProgram, camera);
