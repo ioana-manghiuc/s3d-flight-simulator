@@ -64,6 +64,13 @@ int main()
 
 	Point points1(glm::vec3(-788.f, 41.f, -1047.f), glm::vec3(-520.f, 154.f, -843.f));
 	Point points2(glm::vec3(-900.f, 41.f, -864.f), glm::vec3(-620.f, 280.f, -306.f));
+	Point points3(glm::vec3(-946.f, 41.f, -308.f), glm::vec3(-604.f, 340.f, 255.f));
+	Point points4(glm::vec3(-888.f, 41.f, 290.f), glm::vec3(-667.f, 441.f, 481.f));
+	Point points5(glm::vec3(-775.f, 41.f, 513.f), glm::vec3(-559.f, 475.f, 796.f));
+	Point points6(glm::vec3(-683.f, 41.f, 805.f), glm::vec3(-505.f, 419.f, 968.f));
+	Point points7(glm::vec3(-649.f, 41.f, 993.f), glm::vec3(-524.f, 260.f, 1017.f));
+	Point points8(glm::vec3(311.f, 41.f, 134.f), glm::vec3(471.f, 329.f, 315.f));
+	Point points9(glm::vec3(184.f, 41.f, -10.f), glm::vec3(224.f, 246.f, 48.f));
 
 	shaderProgram = Shader("default.vert", "default.frag");
 	skyboxShader = Shader("skybox.vert", "skybox.frag");
@@ -213,6 +220,13 @@ int main()
 		tent.Draw(shaderProgram, camera);
 		points1.Draw(camera);
 		points2.Draw(camera);
+		points3.Draw(camera);
+		points4.Draw(camera);
+		points5.Draw(camera);
+		points6.Draw(camera);
+		points7.Draw(camera);
+		points8.Draw(camera);
+		points9.Draw(camera);
 
 		float distanceFromCamera = 50.f;
 		//fire.SetTransformations(fireTrans + camera.Position * 10.f + distanceFromCamera * camera.Orientation, fireScale, r90);
