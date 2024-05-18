@@ -54,7 +54,7 @@ void Airplane::Inputs(GLFWwindow* window)
 			m_leftAngle += rightLeftSensitivity;
 	}
 	
-	SetTransformations(kNoViewTranslation, kScale, rotation);
+	SetTransformations(kNoViewTranslation, kNoViewScale, rotation);
 }
 
 void Airplane::NoViewDraw(Shader& shader, Camera& camera)

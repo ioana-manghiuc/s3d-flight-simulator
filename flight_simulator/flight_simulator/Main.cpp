@@ -27,6 +27,8 @@ Shader shadowProgram;
 bool cameraControl = true;
 bool attachPlane = false;
 bool collisionDetected = false;
+bool planeDestroyed = false;
+
 std::chrono::time_point<std::chrono::high_resolution_clock> collisionTime;
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
@@ -121,8 +123,9 @@ int main()
 
 	//glm::vec3 fireTrans = glm::vec3(1621.21, 1700.91, 420.0);
 	glm::vec3 fireTrans = glm::vec3(-3.78998, 3740.91, -410);
-	glm::vec3 fireScale = glm::vec3(5.0f, 5.0f, 5.0f);
+	glm::vec3 fireScale = glm::vec3(3.0f, 3.0f, 3.0f);
 	fire.SetTransformations(fireTrans, fireScale, r90);
+
 	while (!glfwWindowShouldClose(window))
 	{
 		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
@@ -165,6 +168,8 @@ int main()
 				if (elapsed >= 5) // delay for five seconds
 				{
 					fire.NoViewDraw(shaderProgram, camera);
+					planeDestroyed = true;
+					//collisionDetected = false;
 					//attachPlane = !attachPlane;
 					
 				}
@@ -184,8 +189,8 @@ int main()
 		}
 		
 		//point.Draw(camera);
-		
-		airplane.Draw(shaderProgram, camera, attachPlane);
+		if(!planeDestroyed)
+			airplane.Draw(shaderProgram, camera, attachPlane);
 
 		glm::vec3 landScale = glm::vec3(500.0f, 500.0f, 500.0f);
 		glm::vec3 landRotation = glm::vec3(1, -232, 0);
@@ -286,5 +291,6 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 	{
 		attachPlane = !attachPlane;
 		collisionDetected = false;
+		planeDestroyed = false;
 	}
 }
