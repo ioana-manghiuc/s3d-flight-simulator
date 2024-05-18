@@ -49,11 +49,11 @@ int main()
 	Shader particleShader("particles.vert", "particles.frag");
 	
 	Camera camera(width, height);
-	camera.Orientation = glm::vec3(0.0444789, 0.0468481, 0.997907);
+	camera.Orientation = glm::vec3(0.871424, 1.7049e-07, 0.49052);
 
 	Airplane airplane;
 	Model landModel("models/terrain/scene.gltf");
-	Model road("models/road/scene.gltf");
+	Model airstrip("models/airstrip/scene.gltf");
 	Model hangar("models/hangar/scene.gltf");
 	Model controlTower("models/control_tower/scene.gltf");
 	Model fire("models/fire/scene.gltf");
@@ -172,12 +172,6 @@ int main()
 		}
 		
 		//point.Draw(camera);
-
-		//airplane.Draw(shaderProgram, camera);		
-		//airplane.NoViewDraw(shaderProgram, camera);
-
-		std::cout << "CAMERA POS: (" << camera.Position.x << ", " << camera.Position.y << ", " << camera.Position.z << ")\n";
-		//std::cout << "CAMERA ORIENTATION: (" << camera.Orientation.x << ", " << camera.Orientation.y << ", " << camera.Orientation.z << ")\n";
 		
 		airplane.Draw(shaderProgram, camera, attachPlane);
 
@@ -186,27 +180,26 @@ int main()
 		landModel.SetTransformations(glm::vec3(0.0f, -100.0f, 0.0f), landScale);
 		landModel.Draw(shaderProgram, camera);
 
-		glm::mat4 hangarRotation = glm::rotate(glm::mat4(1.0f), glm::radians(90.0f), glm::vec3(0.0f, -1.0f,0.0f));
-		hangar.SetTransformations(glm::vec3(1625.0f, 1450.0f, 2.0f), glm::vec3(8.0f, 8.0f, 8.0f), hangarRotation);
+		glm::mat4 r90 = glm::rotate(glm::mat4(1.0f), glm::radians(90.0f), glm::vec3(0.0f, -1.0f, 0.0f));
+		glm::mat4 r180 = glm::rotate(glm::mat4(1.0f), glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		glm::mat4 r120 = glm::rotate(glm::mat4(1.0f), glm::radians(120.0f), glm::vec3(-1.0f, -1.0f, -1.0f));
+
+		hangar.SetTransformations(glm::vec3(1625.0f, 1450.0f, 2.0f), glm::vec3(7.5f, 7.5f, 7.5f), r90);
 		hangar.Draw(shaderProgram, camera);
 
-		glm::mat4 towerRotation = glm::rotate(glm::mat4(1.0f), glm::radians(90.0f), glm::vec3(0.0f, -1.0f, 0.0f));
-		controlTower.SetTransformations(glm::vec3(1620.0f, 100.0f, -1300.0), glm::vec3(100.0f, 100.0f, 100.0f));
+		controlTower.SetTransformations(glm::vec3(1620.0f, 110.0f, -1300.0), glm::vec3(110.0f, 110.0f, 110.0f));
 		controlTower.Draw(shaderProgram, camera);
 
-		glm::mat4 catRotation = glm::rotate(glm::mat4(1.0f), glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		cat.SetTransformations(glm::vec3(1575.5f, 114.5f, -1300.0f), glm::vec3(3.0f, 3.0f, 3.0f), catRotation);
+		cat.SetTransformations(glm::vec3(1575.5f, 125.5f, -1300.0f), glm::vec3(3.0f, 3.0f, 3.0f), r180);
 		cat.Draw(shaderProgram, camera);
+		
+		airstrip.SetTransformations(glm::vec3(372.35f, 430.0f, 24.4f), glm::vec3(12.0f, 12.0f, 12.0f), r120);
+		airstrip.Draw(shaderProgram, camera);
 
-		glm::mat4 roadRotation = glm::rotate(glm::mat4(1.0f), glm::radians(90.0f), glm::vec3(0.0f, -1.0f, 0.0f));
-		road.SetTransformations(glm::vec3(350.7f, 150.0f, 110.13f), glm::vec3(20.0f, 20.0f, 20.0f),roadRotation);
-		road.Draw(shaderProgram, camera);
-
-		glm::mat4 tentRotation = glm::rotate(glm::mat4(1.0f), glm::radians(90.0f), glm::vec3(0.0f, -1.0f, 0.0f));
-		tent.SetTransformations(glm::vec3(1485.0f, 1850.0f, 2.0f), glm::vec3(4.0f, 4.0f, 4.0f), tentRotation);
+		tent.SetTransformations(glm::vec3(1485.0f, 1850.0f, 2.0f), glm::vec3(4.0f, 4.0f, 4.0f), r90);
 		tent.Draw(shaderProgram, camera);
 
-		//fire.SetTransformations(glm::vec3(1621.21, 1700.91, 420.0), glm::vec3(10.0f, 10.0f,10.0f), towerRotation);
+		//fire.SetTransformations(glm::vec3(1621.21, 1700.91, 420.0), glm::vec3(10.0f, 10.0f,10.0f), r90);
 		//fire.Draw(shaderProgram, camera);
 
 		glDepthFunc(GL_LEQUAL);

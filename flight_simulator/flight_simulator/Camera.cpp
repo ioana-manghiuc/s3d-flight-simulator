@@ -178,8 +178,11 @@ void Camera::SetIsAttached(bool isAttached)
 	if (this->isPlaneAttached == isAttached)
 		return;
 
-	Position = kBasePosition;
-	Orientation = kBaseOrientation;
+	//Position = kBasePosition;
+	//Orientation = kBaseOrientation;
+	Position = kStartFlightPos;
+	Orientation = kStartFlightOrientation;
+
 	this->isPlaneAttached = isAttached;
 	if (isAttached)
 		speed = 0.0f;

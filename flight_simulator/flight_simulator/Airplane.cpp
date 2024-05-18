@@ -65,7 +65,7 @@ void Airplane::NoViewDraw(Shader& shader, Camera& camera)
 void Airplane::Draw(Shader& shader, Camera& camera)
 {
 	glm::mat4 rotation = glm::rotate(glm::mat4(1.0f), glm::radians(90.f), glm::vec3(0.f, -1.f, 0.f));
-	SetTransformations(glm::vec3(119907.f, 1893.52f, -127622.f), kScale, rotation);
+	SetTransformations(glm::vec3(148500.f, 1050.0f, -179900.f), kScale, rotation);
 	Model::Draw(shader, camera);
 }
 
