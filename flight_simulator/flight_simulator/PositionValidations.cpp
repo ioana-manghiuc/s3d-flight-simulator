@@ -65,7 +65,25 @@ bool MountainsValidations(const glm::vec3& position)
 
     return true;
 }
+bool BuildingsValidations(const glm::vec3& position)
+{
+    //hangar.SetTransformations(glm::vec3(1625.0f, 1450.0f, 2.0f), glm::vec3(7.5f, 7.5f, 7.5f), r90);
+
+    if (position.y >= 1442.5f && position.y <= 1457.5f &&
+        position.x >= 1617.5f && position.x <= 1632.5f &&
+        position.z >= -5.5f && position.z <= 9.5f) {
+        return false;
+    }
+
+    // controlTower.SetTransformations(glm::vec3(1620.0f, 110.0f, -1300.0), glm::vec3(110.0f, 110.0f, 110.0f));
+    if (position.y >= 0.0f && position.y <= 220.0f &&
+        position.x >= 1510.0f && position.x <= 1730.0f &&
+        position.z >= -1410.0f && position.z <= -1190.0f) {
+        return false;
+    }
+    return true;
+}
 bool IsValidPosition(const glm::vec3& position)
 {
-    return BorderValidation(position) && MountainsValidations(position);
+    return BorderValidation(position) && MountainsValidations(position) && BuildingsValidations(position);
 }

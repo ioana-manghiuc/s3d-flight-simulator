@@ -187,7 +187,7 @@ int main()
 		hangar.SetTransformations(glm::vec3(1625.0f, 1450.0f, 2.0f), glm::vec3(7.5f, 7.5f, 7.5f), r90);
 		hangar.Draw(shaderProgram, camera);
 
-		controlTower.SetTransformations(glm::vec3(1620.0f, 110.0f, -1300.0), glm::vec3(110.0f, 110.0f, 110.0f));
+		controlTower.SetTransformations(glm::vec3(1620.0f, 110.0f, -1300.0f), glm::vec3(110.0f, 110.0f, 110.0f));
 		controlTower.Draw(shaderProgram, camera);
 
 		cat.SetTransformations(glm::vec3(1575.5f, 125.5f, -1300.0f), glm::vec3(3.0f, 3.0f, 3.0f), r180);
