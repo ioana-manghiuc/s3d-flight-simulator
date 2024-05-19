@@ -1,6 +1,8 @@
 #include "Particles.h"
 #include<random>
 
+float Particles::timer = 1;
+
 float vertices[] = {
     // Front face
     -0.5f,  0.5f, 0.5f,   1.0f, 0.0f, 0.0f,
@@ -83,6 +85,7 @@ float GetRandomNum(int min_value, int max_value)
 
 Particles::Particles()
 {
+    timer += 1.0f;
 	VAO1.Bind();
 
 	VBO VBO1(vertices, sizeof(vertices));
@@ -97,6 +100,8 @@ Particles::Particles()
 
 void Particles::Draw(Shader& shader, Camera& camera)
 {
+    Particles::timer += 0.3f;
+    //std::cout << Particles::timer << " ";
     glDisable(GL_CULL_FACE);
 
 	shader.Activate();
@@ -104,7 +109,7 @@ void Particles::Draw(Shader& shader, Camera& camera)
 	glUniform3f(glGetUniformLocation(shader.ID, "camPos"), camera.Position.x, camera.Position.y, camera.Position.z);
 	camera.Matrix(shader, "camMatrix");
 
-	int max = 20;
+	int max = 300;
     float scaleFactor = 0.5f;
     float distanceFromCamera = 30.f;
 
@@ -117,7 +122,9 @@ void Particles::Draw(Shader& shader, Camera& camera)
 		VAO1.Bind();
 		glm::mat4 model = glm::mat4(1.0f);
 		//glm::vec3 translation = glm::vec3(GetRandomNum(-i / 5, i / 5), GetRandomNum(-i , i), GetRandomNum(-i / 5, i / 5));
-		glm::vec3 translation = glm::vec3(GetRandomNum(-xRange, xRange), GetRandomNum(-yRange, yRange), GetRandomNum(-zRange, zRange));
+		//glm::vec3 translation = glm::vec3(GetRandomNum(-xRange, xRange), GetRandomNum(-yRange, yRange), GetRandomNum(-zRange, zRange));
+        float factor = i % (int)timer;
+		glm::vec3 translation = glm::vec3(GetRandomNum(-factor, factor), GetRandomNum(-factor, factor), GetRandomNum(-factor, factor));
         model = glm::translate(model, glm::vec3(0.0, -3.0, 0.0));
 		model = glm::translate(model, translation);
 		model = glm::translate(model, camera.Position + distanceFromCamera * camera.Orientation);

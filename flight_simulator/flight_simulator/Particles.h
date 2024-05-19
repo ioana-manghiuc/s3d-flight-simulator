@@ -20,6 +20,8 @@
 class Particles
 {
 public:
+	static float timer;
+public:
 	Particles();
 
 	void Draw(Shader& shader, Camera& camera);

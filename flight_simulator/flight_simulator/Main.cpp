@@ -365,6 +365,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 	if (glfwGetKey(window, GLFW_KEY_Z) == GLFW_PRESS)
 	{
 		attachPlane = !attachPlane;
+		Particles::timer = 1;
 		collisionDetected = false;
 		planeDestroyed = false;
 	}
