@@ -1,5 +1,4 @@
 #version 330 core
-
 out vec4 FragColor;
 
 in vec3 crntPos;
@@ -15,107 +14,52 @@ uniform vec4 lightColor;
 uniform vec3 lightPos;
 uniform vec3 camPos;
 
-
-vec4 pointLight()
-{	
-	vec3 lightVec = lightPos - crntPos;
-
-	float dist = length(lightVec);
-	float a = 3.0;
-	float b = 0.7;
-	float inten = 1.0f / (a * dist * dist + b * dist + 1.0f);
-
-	float ambient = 0.20f;
-
-	vec3 normal = normalize(Normal);
-	vec3 lightDirection = normalize(lightVec);
-	float diffuse = max(dot(normal, lightDirection), 0.0f);
-
-	float specular = 0.0f;
-	if (diffuse != 0.0f)
-	{
-		float specularLight = 0.50f;
-		vec3 viewDirection = normalize(camPos - crntPos);
-		vec3 halfwayVec = normalize(viewDirection + lightDirection);
-		float specAmount = pow(max(dot(normal, halfwayVec), 0.0f), 16);
-		specular = specAmount * specularLight;
-	};
-
-	return (texture(diffuse0, texCoord) * (diffuse * inten + ambient) + texture(specular0, texCoord).r * specular * inten) * lightColor;
-}
-
-vec4 direcLight()
+float ShadowCalculation(vec4 fragPosLight, vec3 lightDirection, vec3 normal)
 {
-	float ambient = 0.20f;
+    vec3 projCoords = fragPosLight.xyz / fragPosLight.w;
+    projCoords = projCoords * 0.5 + 0.5;
+    float closestDepth = texture(shadowMap, projCoords.xy).r; 
+    float currentDepth = projCoords.z;
+    float bias = max(0.025 * (1.0 - dot(normal, lightDirection)), 0.0005);
+    float shadow = currentDepth > closestDepth + bias ? 1.0 : 0.0;
 
-	vec3 normal = normalize(Normal);
-	vec3 lightDirection = normalize(lightPos);
-	float diffuse = max(dot(normal, lightDirection), 0.0f);
+    // PCF (Percentage-Closer Filtering)
+    vec2 texelSize = 1.0 / textureSize(shadowMap, 0);
+    for (int x = -1; x <= 1; ++x)
+    {
+        for (int y = -1; y <= 1; ++y)
+        {
+            float pcfDepth = texture(shadowMap, projCoords.xy + vec2(x, y) * texelSize).r; 
+            shadow += currentDepth > pcfDepth + bias ? 1.0 : 0.0;
+        }
+    }
+    shadow /= 9.0;
 
-	float specular = 0.0f;
-	if (diffuse != 0.0f)
-	{
-		float specularLight = 0.50f;
-		vec3 viewDirection = normalize(camPos - crntPos);
-		vec3 halfwayVec = normalize(viewDirection + lightDirection);
-		float specAmount = pow(max(dot(normal, halfwayVec), 0.0f), 16);
-		specular = specAmount * specularLight;
-	};
-
-	float shadow = 0.0f;
-	vec3 lightCoords = fragPosLight.xyz / fragPosLight.w;
-	if(lightCoords.z <= 1.0f)
-	{
-		lightCoords = (lightCoords + 1.0f) / 2.0f;
-		float currentDepth = lightCoords.z;
-		float bias = max(0.025f * (1.0f - dot(normal, lightDirection)), 0.0005f);
-
-		int sampleRadius = 2;
-		vec2 pixelSize = 1.0 / textureSize(shadowMap, 0);
-		for(int y = -sampleRadius; y <= sampleRadius; y++)
-		{
-		    for(int x = -sampleRadius; x <= sampleRadius; x++)
-		    {
-		        float closestDepth = texture(shadowMap, lightCoords.xy + vec2(x, y) * pixelSize).r;
-				if (currentDepth > closestDepth + bias)
-					shadow += 1.0f;     
-		    }    
-		}
-		shadow /= pow((sampleRadius * 2 + 1), 2);
-
-	}
-
-	return (texture(diffuse0, texCoord) * (diffuse * (1.0f - shadow) + ambient) + texture(specular0, texCoord).r * specular  * (1.0f - shadow)) * lightColor;
+    return shadow;
 }
 
-vec4 spotLight()
+vec4 CalculateLighting(vec3 lightDirection, vec3 normal)
 {
-	float outerCone = 0.90f;
-	float innerCone = 0.95f;
+    float ambient = 0.2;
+    float diffuse = max(dot(normal, lightDirection), 0.0);
+    float specular = 0.0;
+    if (diffuse != 0.0)
+    {
+        vec3 viewDir = normalize(camPos - crntPos);
+        vec3 halfwayDir = normalize(viewDir + lightDirection);
+        specular = pow(max(dot(normal, halfwayDir), 0.0), 16);
+    }
 
-	float ambient = 0.20f;
-	vec3 normal = normalize(Normal);
-	vec3 lightDirection = normalize(lightPos - crntPos);
-	float diffuse = max(dot(normal, lightDirection), 0.0f);
+    float shadow = ShadowCalculation(fragPosLight, lightDirection, normal);
 
-	float specular = 0.0f;
-	if (diffuse != 0.0f)
-	{
-		float specularLight = 0.50f;
-		vec3 viewDirection = normalize(camPos - crntPos);
-		vec3 halfwayVec = normalize(viewDirection + lightDirection);
-		float specAmount = pow(max(dot(normal, halfwayVec), 0.0f), 16);
-		specular = specAmount * specularLight;
-	};
-
-	float angle = dot(vec3(0.0f, -1.0f, 0.0f), -lightDirection);
-	float inten = clamp((angle - outerCone) / (innerCone - outerCone), 0.0f, 1.0f);
-
-	return (texture(diffuse0, texCoord) * (diffuse * inten + ambient) + texture(specular0, texCoord).r * specular * inten) * lightColor;
+    vec4 lighting = (ambient + (1.0 - shadow) * (diffuse + specular)) * lightColor;
+    return lighting;
 }
-
 
 void main()
 {
-	FragColor = direcLight();
+    vec3 normal = normalize(Normal);
+    vec3 lightDirection = normalize(lightPos - crntPos);
+    vec4 lighting = CalculateLighting(lightDirection, normal);
+    FragColor = lighting * texture(diffuse0, texCoord);
 }
