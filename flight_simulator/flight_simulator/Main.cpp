@@ -59,8 +59,24 @@ int main()
 	Point points5(glm::vec3(-775.f, 41.f, 513.f), glm::vec3(-559.f, 475.f, 796.f));
 	Point points6(glm::vec3(-683.f, 41.f, 805.f), glm::vec3(-505.f, 419.f, 968.f));
 	Point points7(glm::vec3(-649.f, 41.f, 993.f), glm::vec3(-524.f, 260.f, 1017.f));
-	Point points8(glm::vec3(311.f, 41.f, 134.f), glm::vec3(471.f, 329.f, 315.f));
+	Point points8(glm::vec3(312.f, 41.f, 133.f), glm::vec3(439.f, 329.f, 283.f));
 	Point points9(glm::vec3(184.f, 41.f, -10.f), glm::vec3(224.f, 246.f, 48.f));
+	Point points10(glm::vec3(431.f, 41.f,292.f), glm::vec3(483.f, 280.f, 324.f));
+	Point points11(glm::vec3(478.f, 41.f,323.f), glm::vec3(510.f, 240.f, 351.f));
+	Point points12(glm::vec3(477.f, 41.f,360.f), glm::vec3(540.f, 169.f, 388.f));
+	Point points13(glm::vec3(586.f, 41.f,261.f), glm::vec3(638.f, 114.f, 409.f));
+	Point points14(glm::vec3(248.f, 41.f,-14.f), glm::vec3(353.f, 277.f, 125.f));
+	Point points15(glm::vec3(216.f, 41.f,-271.f), glm::vec3(524.f, 203.f, -83.f));
+	Point points16(glm::vec3(346.f, 41.f,-334.f), glm::vec3(411.f, 299.f, -296.f));
+	Point points17(glm::vec3(403.f, 41.f,-361.f), glm::vec3(431.f, 335.f, -671.f));
+	Point points18(glm::vec3(407.f, 41.f,-671.f), glm::vec3(538.f, 443.f, -369.f));
+	Point points19(glm::vec3(445.f, 41.f,-1009.f), glm::vec3(562.f, 502.f, -697.f));
+	Point points20(glm::vec3(429.f, 41.f,-1119.f), glm::vec3(523.f, 395.f, -1008.f));
+	Point points21(glm::vec3(473.f, 41.f,-1180.f), glm::vec3(544.f, 354.f, -1109.f));
+	Point points22(glm::vec3(467.f, 41.f,-1235.f), glm::vec3(535.f, 318.f, -1174.f));
+	Point points23(glm::vec3(447.f, 41.f,-1251.f), glm::vec3(552.f, 310.f, -1183.f));
+	Point points24(glm::vec3(314.f, 41.f,-1417.f), glm::vec3(481.f, 232.f, -1221.f));
+	Point points25(glm::vec3(537.f, 41.f,-1251.f), glm::vec3(583.f, 232.f, -1157.f));
 
 	// --------------------------------------------------------------------------------------------
 
@@ -220,6 +236,22 @@ int main()
 		points7.Draw(camera);
 		points8.Draw(camera);
 		points9.Draw(camera);
+		points10.Draw(camera);
+		points11.Draw(camera);
+		points12.Draw(camera);
+		points13.Draw(camera);
+		points14.Draw(camera);
+		points15.Draw(camera);
+		points16.Draw(camera);
+		points17.Draw(camera);
+		points18.Draw(camera);
+		points19.Draw(camera);
+		points20.Draw(camera);
+		points21.Draw(camera);
+		points22.Draw(camera);
+		points23.Draw(camera);
+		points24.Draw(camera);
+		points25.Draw(camera);
 
 		float distanceFromCamera = 50.f;
 		//fire.SetTransformations(fireTrans + camera.Position * 10.f + distanceFromCamera * camera.Orientation, fireScale, r90);
