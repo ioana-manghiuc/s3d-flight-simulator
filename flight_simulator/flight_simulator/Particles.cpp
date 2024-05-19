@@ -104,7 +104,7 @@ void Particles::Draw(Shader& shader, Camera& camera)
 	glUniform3f(glGetUniformLocation(shader.ID, "camPos"), camera.Position.x, camera.Position.y, camera.Position.z);
 	camera.Matrix(shader, "camMatrix");
 
-	int max = 5;
+	int max = 20;
     float scaleFactor = 0.5f;
     float distanceFromCamera = 30.f;
 
