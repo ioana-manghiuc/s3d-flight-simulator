@@ -70,7 +70,7 @@ int main()
 	Point points14(glm::vec3(248.f, 41.f, -14.f), glm::vec3(353.f, 277.f, 125.f));
 	Point points15(glm::vec3(216.f, 41.f, -271.f), glm::vec3(524.f, 203.f, -83.f));
 	Point points16(glm::vec3(346.f, 41.f, -334.f), glm::vec3(411.f, 299.f, -296.f));
-	Point points17(glm::vec3(403.f, 41.f, -361.f), glm::vec3(431.f, 335.f, -671.f));
+	Point points17(glm::vec3(403.f, 41.f, -671.f), glm::vec3(431.f, 335.f, -361.f));
 	Point points18(glm::vec3(407.f, 41.f, -671.f), glm::vec3(538.f, 443.f, -369.f));
 	Point points19(glm::vec3(445.f, 41.f, -1009.f), glm::vec3(562.f, 502.f, -697.f));
 	Point points20(glm::vec3(429.f, 41.f, -1119.f), glm::vec3(523.f, 395.f, -1008.f));
@@ -79,6 +79,9 @@ int main()
 	Point points23(glm::vec3(447.f, 41.f, -1251.f), glm::vec3(552.f, 310.f, -1183.f));
 	Point points24(glm::vec3(314.f, 41.f, -1417.f), glm::vec3(481.f, 232.f, -1221.f));
 	Point points25(glm::vec3(537.f, 41.f, -1251.f), glm::vec3(583.f, 232.f, -1157.f));
+
+	Point bpoint01(glm::vec3(1581.26, 10.6445, -1794.53), glm::vec3(1839.84, 68.7172, -1396.4));
+	Point bpoint04(glm::vec3(1567.14, 21.0349, -1325.99), glm::vec3(1674.79, 233.561, -1272.87));
 
 	// --------------------------------------------------------------------------------------------
 
@@ -226,7 +229,7 @@ int main()
 		}
 
 		camera.SetIsAttached(attachPlane);
-		if (attachPlane && !camera.hasCollided)
+		if (attachPlane && !camera.hasCollided && camera.speed > camera.kSlowSpeed)
 		{
 			airplane.Inputs(window);
 		}
@@ -279,6 +282,9 @@ int main()
 		points23.Draw(camera);
 		points24.Draw(camera);
 		points25.Draw(camera);
+
+		bpoint01.Draw(camera);
+		bpoint04.Draw(camera);
 
 		float distanceFromCamera = 50.f;
 		//fire.SetTransformations(fireTrans + camera.Position * 10.f + distanceFromCamera * camera.Orientation, fireScale, r90);

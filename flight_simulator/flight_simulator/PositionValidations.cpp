@@ -28,14 +28,14 @@ bool BuildingsValidations(const glm::vec3& position)
    // Point bpoint01(glm::vec3(1581.26, 10.6445, -1396.4), glm::vec3(1839.84, 68.7172, -1794.53));
    // Point bpoint04(glm::vec3(1567.14, 21.0349, -1325.99), glm::vec3(1674.79, 233.561, -1272.87));
 
-   /* if (IsInParallelepiped(glm::vec3(1581.26, 10.6445, -1396.4), glm::vec3(1839.84, 68.7172, -1794.53), position))
+    if (IsInParallelepiped(glm::vec3(1581.26, 10.6445, -1794.53), glm::vec3(1839.84, 68.7172, -1396.4), position))
     {
         return false;
     }
     if (IsInParallelepiped(glm::vec3(1567.14, 21.0349, -1325.99), glm::vec3(1674.79, 233.561, -1272.87), position))
     {
         return false;
-    }*/
+    }
    /* if (IsInParallelepiped(glm::vec3(1418.85, 24.4246, -1900.11), glm::vec3(1436.31, 31.6876, -1808.66), position))
     {
         return false;

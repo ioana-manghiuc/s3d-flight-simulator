@@ -56,7 +56,6 @@ void Camera::Inputs(GLFWwindow* window)
 
 void Camera::AttachedInputs(GLFWwindow* window)
 {
-	Position += speed * Orientation;
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
 	{
 		if (speed <= 2 * kFastSpeed)
@@ -68,12 +67,16 @@ void Camera::AttachedInputs(GLFWwindow* window)
 		if (speed < 0.0)
 			speed = 0;
 	}
-	glm::vec3 planePosition = Position + 50.f * Orientation;
+	Position += speed * Orientation;
+	glm::vec3 planePosition = Position + 100.f * Orientation;
 	if (!IsValidPosition(planePosition))
 	{
 		Position = LastPosition;
 		hasCollided = true;
 	}
+
+	if (speed <= kSlowSpeed)
+		return;
 
 	float leftRightSensitivity = 0.25;
 	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
