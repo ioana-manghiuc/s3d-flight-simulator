@@ -67,20 +67,37 @@ bool MountainsValidations(const glm::vec3& position)
 }
 bool BuildingsValidations(const glm::vec3& position)
 {
-    //hangar.SetTransformations(glm::vec3(1625.0f, 1450.0f, 2.0f), glm::vec3(7.5f, 7.5f, 7.5f), r90);
+   // Point bpoint01(glm::vec3(1581.26, 10.6445, -1396.4), glm::vec3(1839.84, 68.7172, -1794.53));
+   // Point bpoint04(glm::vec3(1567.14, 21.0349, -1325.99), glm::vec3(1674.79, 233.561, -1272.87));
 
-    if (position.y >= 1442.5f && position.y <= 1457.5f &&
-        position.x >= 1617.5f && position.x <= 1632.5f &&
-        position.z >= -5.5f && position.z <= 9.5f) {
+
+    if (position.y >= 10.6445f && position.y <= 68.7172f &&
+        position.x >= 1581.26f && position.x <= 1839.84f &&
+        position.z >= -1794.53f && position.z <= -1396.4f) {
+		return false;
+	}
+
+    if (position.y >= 21.0349f && position.y <= 233.561f &&
+        		position.x >= 1567.14f && position.x <= 1674.79f &&
+        position.z >= -1325.99f && position.z <= -1272.87f) {
         return false;
     }
 
-    // controlTower.SetTransformations(glm::vec3(1620.0f, 110.0f, -1300.0), glm::vec3(110.0f, 110.0f, 110.0f));
-    if (position.y >= 0.0f && position.y <= 220.0f &&
-        position.x >= 1510.0f && position.x <= 1730.0f &&
-        position.z >= -1410.0f && position.z <= -1190.0f) {
-        return false;
-    }
+    //Point bpoint03(glm::vec3(1418.85, 24.4246, -1900.11), glm::vec3(1436.31, 31.6876, -1808.66));
+    //Point bpoint04(glm::vec3(1545.34, 22.0622, -1897.39), glm::vec3(1531, 31.0776, -1804.88));
+
+    if (position.y >= 24.4246f && position.y <= 31.6876f &&
+        position.x >= 1418.85f && position.x <= 1436.31f &&
+        position.z >= -1900.11f && position.z <= -1808.66f) {
+		return false;
+	}
+
+    if (position.y >= 22.0622f && position.y <= 31.0776f &&
+        position.x >= 1545.34f && position.x <= 1531.f &&
+        position.z >= -1897.39f && position.z <= -1804.88f) {
+		return false;
+	}
+
     return true;
 }
 bool IsValidPosition(const glm::vec3& position)

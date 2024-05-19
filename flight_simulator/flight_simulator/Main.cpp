@@ -37,16 +37,6 @@ int main()
 	GLFWwindow* window = glfwCreateWindow(width, height, "Title", NULL, NULL);
 	InitializeWindow(window);
 
-	auto campos = glm::vec3(205.0f, 83.0f, -444.0f);
-	auto planepos = glm::vec3(-96.0f, 400.0f, 50.0f);
-	auto dist = campos - planepos;
-	std::cout << "offset: " << dist.x << "," << dist.y << "," << dist.z << std::endl;
-	Texture textures[]
-	{
-		Texture("planks.png", "diffuse",0),
-		Texture("planksSpec.png", "specular",1),
-	};
-
 	Particles particles;
 	Shader particleShader("particles.vert", "particles.frag");
 	
@@ -71,6 +61,9 @@ int main()
 	Point points7(glm::vec3(-649.f, 41.f, 993.f), glm::vec3(-524.f, 260.f, 1017.f));
 	Point points8(glm::vec3(311.f, 41.f, 134.f), glm::vec3(471.f, 329.f, 315.f));
 	Point points9(glm::vec3(184.f, 41.f, -10.f), glm::vec3(224.f, 246.f, 48.f));
+
+	// --------------------------------------------------------------------------------------------
+
 
 	shaderProgram = Shader("default.vert", "default.frag");
 	skyboxShader = Shader("skybox.vert", "skybox.frag");
@@ -213,7 +206,7 @@ int main()
 		cat.SetTransformations(glm::vec3(1575.5f, 125.5f, -1300.0f), glm::vec3(3.0f, 3.0f, 3.0f), r180);
 		cat.Draw(shaderProgram, camera);
 		
-		airstrip.SetTransformations(glm::vec3(372.35f, 430.0f, 24.4f), glm::vec3(12.0f, 12.0f, 12.0f), r120);
+		airstrip.SetTransformations(glm::vec3(372.35f, 430.0f, 27.4f), glm::vec3(12.0f, 12.0f, 12.0f), r120);
 		airstrip.Draw(shaderProgram, camera);
 
 		tent.SetTransformations(glm::vec3(1485.0f, 1850.0f, 2.0f), glm::vec3(4.0f, 4.0f, 4.0f), r90);
