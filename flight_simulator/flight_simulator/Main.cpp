@@ -16,6 +16,8 @@
 #pragma comment (lib, "OpenGL32.lib")
 #pragma comment(lib, "irrKlang.lib")
 
+#pragma region variables
+
 float scale = 1.0f;
 float shaderLocation;
 float skyboxLocation;
@@ -31,9 +33,10 @@ bool planeDestroyed = false;
 bool gameOverSoundPlayed = false;
 
 std::chrono::time_point<std::chrono::high_resolution_clock> collisionTime;
-std::chrono::time_point<std::chrono::high_resolution_clock> crashTime;
+#pragma endregion
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
+
 int main()
 {
 	GLFWwindow* window = glfwCreateWindow(width, height, "Title", NULL, NULL);
@@ -45,16 +48,14 @@ int main()
 	Camera camera(width, height);
 	camera.Orientation = glm::vec3(0.871424, 1.7049e-07, 0.49052);
 
+#pragma region Model definitions
 	Airplane airplane;
 	Model landModel("models/terrain/scene.gltf");
 	Model airstrip("models/airstrip/scene.gltf");
 	Model hangar("models/hangar/scene.gltf");
 	Model controlTower("models/control_tower/scene.gltf");
-	Model fire("models/fire/scene.gltf");
 	Model cat("models/cat/scene.gltf");
 	Model tent("models/tent/scene.gltf");
-
-	// -------------------------------------------------------------------------------------
 
 	Point points1(glm::vec3(-788.f, 41.f, -1047.f), glm::vec3(-520.f, 154.f, -843.f));
 	Point points2(glm::vec3(-900.f, 41.f, -864.f), glm::vec3(-620.f, 280.f, -306.f));
@@ -81,34 +82,41 @@ int main()
 	Point points23(glm::vec3(447.f, 41.f, -1251.f), glm::vec3(552.f, 310.f, -1183.f));
 	Point points24(glm::vec3(314.f, 41.f, -1417.f), glm::vec3(481.f, 232.f, -1221.f));
 	Point points25(glm::vec3(537.f, 41.f, -1251.f), glm::vec3(583.f, 232.f, -1157.f));
-	Point points26(glm::vec3(-432.f, 41.f, 670.f), glm::vec3(-314.f, 330.f, 1100.f));
-	Point points27(glm::vec3(-530.f, 41.f, 189.f), glm::vec3(360.f, 230.f, 330.f));
-	Point points28(glm::vec3(-345.f, 41.f, 662.f), glm::vec3(-169.f, 250.f, 1033.f));
-	Point points29(glm::vec3(-490.f, 120.f, -1097.f), glm::vec3(100.f, 175.f, -100.f));
-	Point points30(glm::vec3(30.f, 140.f, -1250.f), glm::vec3(241.f, 142.f, -1110.f));
 
 	Point bpoint01(glm::vec3(1581.26, 10.6445, -1794.53), glm::vec3(1839.84, 68.7172, -1396.4));
 	Point bpoint04(glm::vec3(1567.14, 21.0349, -1325.99), glm::vec3(1674.79, 233.561, -1272.87));
+#pragma endregion
 
-	// --------------------------------------------------------------------------------------------
+#pragma region Rotations and Scale
+	glm::mat4 r90 = glm::rotate(glm::mat4(1.0f), glm::radians(90.0f), glm::vec3(0.0f, -1.0f, 0.0f));
+	glm::mat4 r180 = glm::rotate(glm::mat4(1.0f), glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	glm::mat4 r120 = glm::rotate(glm::mat4(1.0f), glm::radians(120.0f), glm::vec3(-1.0f, -1.0f, -1.0f));
 
+	glm::vec3 landScale = glm::vec3(500.0f, 500.0f, 500.0f);
+#pragma endregion
 
+#pragma region Set Transformations
+	landModel.SetTransformations(glm::vec3(0.0f, -100.0f, 0.0f), landScale);
+	hangar.SetTransformations(glm::vec3(1625.0f, 1450.0f, 2.0f), glm::vec3(7.5f, 7.5f, 7.5f), r90);
+	controlTower.SetTransformations(glm::vec3(1620.0f, 110.0f, -1300.0f), glm::vec3(110.0f, 110.0f, 110.0f));
+	cat.SetTransformations(glm::vec3(1575.5f, 125.5f, -1300.0f), glm::vec3(3.0f, 3.0f, 3.0f), r180);
+	airstrip.SetTransformations(glm::vec3(372.35f, 430.0f, 27.4f), glm::vec3(12.0f, 12.0f, 12.0f), r120);
+	tent.SetTransformations(glm::vec3(1485.0f, 1850.0f, 2.0f), glm::vec3(4.0f, 4.0f, 4.0f), r90);
+#pragma endregion
+
+#pragma region Shaders and Skybox
 	shaderProgram = Shader("default.vert", "default.frag");
 	skyboxShader = Shader("skybox.vert", "skybox.frag");
 	shadowProgram = Shader("shadowMap.vert", "shadowMap.frag");
-
 	glm::vec4 lightColor = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 	glm::vec3 lightPos = glm::vec3(0.5f, 0.5f, 0.5f);
 	glm::mat4 lightModel = glm::mat4(1.0f);
 	lightModel = glm::translate(lightModel, lightPos);
 	shaderLocation = glGetUniformLocation(shaderProgram.ID, "colorScale");
 	skyboxLocation = glGetUniformLocation(skyboxShader.ID, "colorScale");
-
 	shaderProgram.Activate();
 	glUniform4f(glGetUniformLocation(shaderProgram.ID, "lightColor"), lightColor.x, lightColor.y, lightColor.z, lightColor.w);
 	glUniform3f(glGetUniformLocation(shaderProgram.ID, "lightPos"), lightPos.x, lightPos.y, lightPos.z);
-	glUniform1f(shaderLocation, scale);
-
 	skyboxShader.Activate();
 	glUniform1i(glGetUniformLocation(skyboxShader.ID, "skybox"), 0);
 	glUniform1f(skyboxLocation, scale);
@@ -124,20 +132,32 @@ int main()
 	glfwSetScrollCallback(window, ScrollCallback);
 	glfwSetKeyCallback(window, key_callback);
 
+	unsigned int shadowMapFBO;
+	glGenFramebuffers(1, &shadowMapFBO);
+	const unsigned int SHADOW_WIDTH = 1920, SHADOW_HEIGHT = 1080;
+	unsigned int shadowMap;
+	glGenTextures(1, &shadowMap);
+	glBindTexture(GL_TEXTURE_2D, shadowMap);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, SHADOW_WIDTH, SHADOW_HEIGHT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, nullptr);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+	float borderColor[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
+	glBindFramebuffer(GL_FRAMEBUFFER, shadowMapFBO);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, shadowMap, 0);
+	glDrawBuffer(GL_NONE);
+	glReadBuffer(GL_NONE);
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 	glm::mat4 orthgonalProjection = glm::ortho(-35.0f, 35.0f, -35.0f, 35.0f, 0.1f, 75.0f);
 	glm::mat4 lightView = glm::lookAt(20.0f * lightPos, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	glm::mat4 lightProjection = orthgonalProjection * lightView;
 
-	//shadowProgram.Activate();
-	//glUniformMatrix4fv(glGetUniformLocation(shadowProgram.ID, "lightProjection"), 1, GL_FALSE, glm::value_ptr(lightProjection));
-
-	//unsigned int FBO;
-	//glGenFramebuffers(1, &FBO);
-	//glBindFramebuffer(GL_FRAMEBUFFER, FBO);
-
-
-	//Point point(camera.kBasePosition, camera.kBasePosition + 10.f);
+	shadowProgram.Activate();
+	glUniformMatrix4fv(glGetUniformLocation(shadowProgram.ID, "lightProjection"), 1, GL_FALSE, glm::value_ptr(lightProjection));
+#pragma endregion
 
 	irrklang::ISoundEngine* engine = irrklang::createIrrKlangDevice();
 	if (!engine)
@@ -147,17 +167,17 @@ int main()
 	irrklang::ISound* gameOverSound = nullptr;
 	irrklang::ISound* restartSound = nullptr;
 
-	glm::mat4 r90 = glm::rotate(glm::mat4(1.0f), glm::radians(90.0f), glm::vec3(0.0f, -1.0f, 0.0f));
-	glm::mat4 r180 = glm::rotate(glm::mat4(1.0f), glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	glm::mat4 r120 = glm::rotate(glm::mat4(1.0f), glm::radians(120.0f), glm::vec3(-1.0f, -1.0f, -1.0f));
-
-	//glm::vec3 fireTrans = glm::vec3(1621.21, 1700.91, 420.0);
-	glm::vec3 fireTrans = glm::vec3(-8.78998, 2655.91, -625);
-	glm::vec3 fireScale = glm::vec3(3.0f, 3.0f, 3.0f);
-	fire.SetTransformations(fireTrans, fireScale, r90);
-
 	while (!glfwWindowShouldClose(window))
 	{
+
+		glEnable(GL_DEPTH_TEST);
+		glViewport(0, 0, SHADOW_WIDTH, SHADOW_HEIGHT);
+		glBindFramebuffer(GL_FRAMEBUFFER, shadowMapFBO);
+		glClear(GL_DEPTH_BUFFER_BIT);
+
+		hangar.Draw(shadowProgram, camera);
+
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -177,21 +197,26 @@ int main()
 			//road.Rotation(window);
 			//FloorRotation(window);
 			//hangar.Translation(window);
-			fire.Translation(window);
 		}
 
 		camera.UpdateMatrix(45.0f, 0.1f, 50000.0f);
+
+		shaderProgram.Activate();
+		glUniformMatrix4fv(glGetUniformLocation(shaderProgram.ID, "lightProjection"), 1, GL_FALSE, glm::value_ptr(lightProjection));
+		glActiveTexture(GL_TEXTURE0 + 2);
+		glBindTexture(GL_TEXTURE_2D, shadowMap);
+		glUniform1i(glGetUniformLocation(shaderProgram.ID, "shadowMap"), 2);
 
 		if (camera.hasCollided)
 		{
 			particles.Draw(particleShader, camera);
 			if (!collisionDetected)
 			{
-				// Play the arcade sound and set its volume
-				collisionSound = engine->play2D("sounds/arcade-retro-game-over.wav", false, false, true);
+				collisionSound = engine->play2D("sounds/crash.mp3", false, false, true);
 				if (collisionSound)
-					collisionSound->setVolume(0.5f);
-
+				{
+					collisionSound->setVolume(0.2f);
+				}
 				collisionDetected = true;
 				collisionTime = std::chrono::high_resolution_clock::now();
 				gameOverSoundPlayed = false;
@@ -200,32 +225,18 @@ int main()
 			{
 				auto currentTime = std::chrono::high_resolution_clock::now();
 				auto elapsed = std::chrono::duration_cast<std::chrono::seconds>(currentTime - collisionTime).count();
-				if (elapsed >= 3) // delay for five seconds
+				if (elapsed >= 3)
 				{
-					fire.NoViewDraw(shaderProgram, camera);
 					if (!gameOverSoundPlayed) {
-						// Play the crash sound and set its volume
-						collisionSound = engine->play2D("sounds/crash.mp3", false, false, true);
+						collisionSound = engine->play2D("sounds/arcade-retro-game-over.wav", false, false, true);
 						if (collisionSound)
 						{
-							collisionSound->setVolume(0.2f);
+							collisionSound->setVolume(0.5f);
 						}
+
 						gameOverSoundPlayed = true;
-						crashTime = std::chrono::high_resolution_clock::now();
-
-
 					}
 					planeDestroyed = true;
-					//collisionDetected = false;
-					//attachPlane = !attachPlane;
-					auto currentTime = std::chrono::high_resolution_clock::now();
-					auto newelapsed = std::chrono::duration_cast<std::chrono::seconds>(currentTime - crashTime).count();
-					if (newelapsed >= 4) // Adjust this value as needed for your desired delay
-					{
-						attachPlane = !attachPlane;
-						collisionDetected = false;
-						planeDestroyed = false;
-					}
 				}
 			}
 		}
@@ -237,33 +248,19 @@ int main()
 		}
 
 		camera.SetIsAttached(attachPlane);
-		if (attachPlane && !camera.hasCollided && camera.speed > camera.kSlowSpeed)
+		if (attachPlane && !camera.hasCollided)
 		{
 			airplane.Inputs(window);
 		}
 
-		//point.Draw(camera);
 		if (!planeDestroyed)
 			airplane.Draw(shaderProgram, camera, attachPlane);
 
-		glm::vec3 landScale = glm::vec3(500.0f, 500.0f, 500.0f);
-		glm::vec3 landRotation = glm::vec3(1, -232, 0);
-		landModel.SetTransformations(glm::vec3(0.0f, -100.0f, 0.0f), landScale);
 		landModel.Draw(shaderProgram, camera);
-
-		hangar.SetTransformations(glm::vec3(1625.0f, 1450.0f, 2.0f), glm::vec3(7.5f, 7.5f, 7.5f), r90);
 		hangar.Draw(shaderProgram, camera);
-
-		controlTower.SetTransformations(glm::vec3(1620.0f, 110.0f, -1300.0f), glm::vec3(110.0f, 110.0f, 110.0f));
 		controlTower.Draw(shaderProgram, camera);
-
-		cat.SetTransformations(glm::vec3(1575.5f, 125.5f, -1300.0f), glm::vec3(3.0f, 3.0f, 3.0f), r180);
 		cat.Draw(shaderProgram, camera);
-
-		airstrip.SetTransformations(glm::vec3(372.35f, 430.0f, 27.4f), glm::vec3(12.0f, 12.0f, 12.0f), r120);
 		airstrip.Draw(shaderProgram, camera);
-
-		tent.SetTransformations(glm::vec3(1485.0f, 1850.0f, 2.0f), glm::vec3(4.0f, 4.0f, 4.0f), r90);
 		tent.Draw(shaderProgram, camera);
 
 		points1.Draw(camera);
@@ -291,19 +288,11 @@ int main()
 		points23.Draw(camera);
 		points24.Draw(camera);
 		points25.Draw(camera);
-		points26.Draw(camera);
-		points27.Draw(camera);
-		points28.Draw(camera);
-		points29.Draw(camera);
-		points30.Draw(camera);
 
 		bpoint01.Draw(camera);
 		bpoint04.Draw(camera);
 
 		float distanceFromCamera = 50.f;
-		//fire.SetTransformations(fireTrans + camera.Position * 10.f + distanceFromCamera * camera.Orientation, fireScale, r90);
-		//fire.Draw(shaderProgram, camera);
-		//fire.NoViewDraw(shaderProgram, camera);
 
 		glDepthFunc(GL_LEQUAL);
 		glDisable(GL_CULL_FACE);
