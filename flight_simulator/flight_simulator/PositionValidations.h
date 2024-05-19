@@ -9,3 +9,4 @@ bool BuildingsValidations(const glm::vec3& position);
 
 bool IsValidPosition(const glm::vec3& position);
 
+bool IsInParallelepiped(const glm::vec3& lowerCorner, const glm::vec3& upperCorner, const glm::vec3& position);
