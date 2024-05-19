@@ -21,7 +21,6 @@ bool MountainsValidations(const glm::vec3& position)
     if (IsInParallelepiped(glm::vec3(-788.f, 41.f, -1047.f), glm::vec3(-520.f, 154.f, -843.f), position))
         return false;
 
-
     return true;
 }
 bool BuildingsValidations(const glm::vec3& position)
@@ -29,7 +28,22 @@ bool BuildingsValidations(const glm::vec3& position)
    // Point bpoint01(glm::vec3(1581.26, 10.6445, -1396.4), glm::vec3(1839.84, 68.7172, -1794.53));
    // Point bpoint04(glm::vec3(1567.14, 21.0349, -1325.99), glm::vec3(1674.79, 233.561, -1272.87));
 
-
+   /* if (IsInParallelepiped(glm::vec3(1581.26, 10.6445, -1396.4), glm::vec3(1839.84, 68.7172, -1794.53), position))
+    {
+        return false;
+    }
+    if (IsInParallelepiped(glm::vec3(1567.14, 21.0349, -1325.99), glm::vec3(1674.79, 233.561, -1272.87), position))
+    {
+        return false;
+    }*/
+   /* if (IsInParallelepiped(glm::vec3(1418.85, 24.4246, -1900.11), glm::vec3(1436.31, 31.6876, -1808.66), position))
+    {
+        return false;
+    }*/
+    /*if (IsInParallelepiped(glm::vec3(1545.34, 22.0622, -1897.39), glm::vec3(1531, 31.0776, -1804.88), position))
+    {
+        return false;
+    }*/
     if (position.y >= 10.6445f && position.y <= 68.7172f &&
         position.x >= 1581.26f && position.x <= 1839.84f &&
         position.z >= -1794.53f && position.z <= -1396.4f) {
@@ -56,7 +70,6 @@ bool BuildingsValidations(const glm::vec3& position)
         position.z >= -1897.39f && position.z <= -1804.88f) {
 		return false;
 	}
-
     return true;
 }
 bool IsValidPosition(const glm::vec3& position)

@@ -28,8 +28,10 @@ bool cameraControl = true;
 bool attachPlane = false;
 bool collisionDetected = false;
 bool planeDestroyed = false;
+bool gameOverSoundPlayed = false;
 
 std::chrono::time_point<std::chrono::high_resolution_clock> collisionTime;
+std::chrono::time_point<std::chrono::high_resolution_clock> crashTime;
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 int main()
@@ -39,7 +41,7 @@ int main()
 
 	Particles particles;
 	Shader particleShader("particles.vert", "particles.frag");
-	
+
 	Camera camera(width, height);
 	camera.Orientation = glm::vec3(0.871424, 1.7049e-07, 0.49052);
 
@@ -49,7 +51,7 @@ int main()
 	Model hangar("models/hangar/scene.gltf");
 	Model controlTower("models/control_tower/scene.gltf");
 	Model fire("models/fire/scene.gltf");
-	Model cat("models/cat/scene.gltf");	
+	Model cat("models/cat/scene.gltf");
 	Model tent("models/tent/scene.gltf");
 
 	Point points1(glm::vec3(-788.f, 41.f, -1047.f), glm::vec3(-520.f, 154.f, -843.f));
@@ -61,22 +63,22 @@ int main()
 	Point points7(glm::vec3(-649.f, 41.f, 993.f), glm::vec3(-524.f, 260.f, 1017.f));
 	Point points8(glm::vec3(312.f, 41.f, 133.f), glm::vec3(439.f, 329.f, 283.f));
 	Point points9(glm::vec3(184.f, 41.f, -10.f), glm::vec3(224.f, 246.f, 48.f));
-	Point points10(glm::vec3(431.f, 41.f,292.f), glm::vec3(483.f, 280.f, 324.f));
-	Point points11(glm::vec3(478.f, 41.f,323.f), glm::vec3(510.f, 240.f, 351.f));
-	Point points12(glm::vec3(477.f, 41.f,360.f), glm::vec3(540.f, 169.f, 388.f));
-	Point points13(glm::vec3(586.f, 41.f,261.f), glm::vec3(638.f, 114.f, 409.f));
-	Point points14(glm::vec3(248.f, 41.f,-14.f), glm::vec3(353.f, 277.f, 125.f));
-	Point points15(glm::vec3(216.f, 41.f,-271.f), glm::vec3(524.f, 203.f, -83.f));
-	Point points16(glm::vec3(346.f, 41.f,-334.f), glm::vec3(411.f, 299.f, -296.f));
-	Point points17(glm::vec3(403.f, 41.f,-671.f), glm::vec3(431.f, 335.f, -361.f));
-	Point points18(glm::vec3(407.f, 41.f,-671.f), glm::vec3(538.f, 443.f, -369.f));
-	Point points19(glm::vec3(445.f, 41.f,-1009.f), glm::vec3(562.f, 502.f, -697.f));
-	Point points20(glm::vec3(429.f, 41.f,-1119.f), glm::vec3(523.f, 395.f, -1008.f));
-	Point points21(glm::vec3(473.f, 41.f,-1180.f), glm::vec3(544.f, 354.f, -1109.f));
-	Point points22(glm::vec3(467.f, 41.f,-1235.f), glm::vec3(535.f, 318.f, -1174.f));
-	Point points23(glm::vec3(447.f, 41.f,-1251.f), glm::vec3(552.f, 310.f, -1183.f));
-	Point points24(glm::vec3(314.f, 41.f,-1417.f), glm::vec3(481.f, 232.f, -1221.f));
-	Point points25(glm::vec3(537.f, 41.f,-1251.f), glm::vec3(583.f, 232.f, -1157.f));
+	Point points10(glm::vec3(431.f, 41.f, 292.f), glm::vec3(483.f, 280.f, 324.f));
+	Point points11(glm::vec3(478.f, 41.f, 323.f), glm::vec3(510.f, 240.f, 351.f));
+	Point points12(glm::vec3(477.f, 41.f, 360.f), glm::vec3(540.f, 169.f, 388.f));
+	Point points13(glm::vec3(586.f, 41.f, 261.f), glm::vec3(638.f, 114.f, 409.f));
+	Point points14(glm::vec3(248.f, 41.f, -14.f), glm::vec3(353.f, 277.f, 125.f));
+	Point points15(glm::vec3(216.f, 41.f, -271.f), glm::vec3(524.f, 203.f, -83.f));
+	Point points16(glm::vec3(346.f, 41.f, -334.f), glm::vec3(411.f, 299.f, -296.f));
+	Point points17(glm::vec3(403.f, 41.f, -361.f), glm::vec3(431.f, 335.f, -671.f));
+	Point points18(glm::vec3(407.f, 41.f, -671.f), glm::vec3(538.f, 443.f, -369.f));
+	Point points19(glm::vec3(445.f, 41.f, -1009.f), glm::vec3(562.f, 502.f, -697.f));
+	Point points20(glm::vec3(429.f, 41.f, -1119.f), glm::vec3(523.f, 395.f, -1008.f));
+	Point points21(glm::vec3(473.f, 41.f, -1180.f), glm::vec3(544.f, 354.f, -1109.f));
+	Point points22(glm::vec3(467.f, 41.f, -1235.f), glm::vec3(535.f, 318.f, -1174.f));
+	Point points23(glm::vec3(447.f, 41.f, -1251.f), glm::vec3(552.f, 310.f, -1183.f));
+	Point points24(glm::vec3(314.f, 41.f, -1417.f), glm::vec3(481.f, 232.f, -1221.f));
+	Point points25(glm::vec3(537.f, 41.f, -1251.f), glm::vec3(583.f, 232.f, -1157.f));
 
 	// --------------------------------------------------------------------------------------------
 
@@ -109,7 +111,7 @@ int main()
 
 	glfwSetWindowUserPointer(window, &camera);
 	glfwSetScrollCallback(window, ScrollCallback);
-	glfwSetKeyCallback(window, key_callback);   
+	glfwSetKeyCallback(window, key_callback);
 
 
 	glm::mat4 orthgonalProjection = glm::ortho(-35.0f, 35.0f, -35.0f, 35.0f, 0.1f, 75.0f);
@@ -127,11 +129,12 @@ int main()
 	//Point point(camera.kBasePosition, camera.kBasePosition + 10.f);
 
 	irrklang::ISoundEngine* engine = irrklang::createIrrKlangDevice();
-
 	if (!engine)
 		std::cout << "Error starting up engine!\n" << std::endl;
 
 	irrklang::ISound* collisionSound = nullptr;
+	irrklang::ISound* gameOverSound = nullptr;
+	irrklang::ISound* restartSound = nullptr;
 
 	glm::mat4 r90 = glm::rotate(glm::mat4(1.0f), glm::radians(90.0f), glm::vec3(0.0f, -1.0f, 0.0f));
 	glm::mat4 r180 = glm::rotate(glm::mat4(1.0f), glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
@@ -147,11 +150,11 @@ int main()
 		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	//	airplane.Draw(shadowProgram, camera, attachPlane);
+		//	airplane.Draw(shadowProgram, camera, attachPlane);
 
 		if (cameraControl)
 		{
-			if(!camera.hasCollided)
+			if (!camera.hasCollided)
 				camera.Inputs(window);
 		}
 		else
@@ -165,7 +168,7 @@ int main()
 			//hangar.Translation(window);
 			fire.Translation(window);
 		}
-		
+
 		camera.UpdateMatrix(45.0f, 0.1f, 50000.0f);
 
 		if (camera.hasCollided)
@@ -173,21 +176,45 @@ int main()
 			particles.Draw(particleShader, camera);
 			if (!collisionDetected)
 			{
+				// Play the arcade sound and set its volume
 				collisionSound = engine->play2D("sounds/arcade-retro-game-over.wav", false, false, true);
+				if (collisionSound)
+					collisionSound->setVolume(0.5f);
+
 				collisionDetected = true;
 				collisionTime = std::chrono::high_resolution_clock::now();
+				gameOverSoundPlayed = false;
 			}
 			else
 			{
 				auto currentTime = std::chrono::high_resolution_clock::now();
 				auto elapsed = std::chrono::duration_cast<std::chrono::seconds>(currentTime - collisionTime).count();
-				if (elapsed >= 5) // delay for five seconds
+				if (elapsed >= 3) // delay for five seconds
 				{
 					fire.NoViewDraw(shaderProgram, camera);
+					if (!gameOverSoundPlayed) {
+						// Play the crash sound and set its volume
+						collisionSound = engine->play2D("sounds/crash.mp3", false, false, true);
+						if (collisionSound)
+						{
+							collisionSound->setVolume(0.2f);
+						}
+						gameOverSoundPlayed = true;
+						crashTime = std::chrono::high_resolution_clock::now();
+
+
+					}
 					planeDestroyed = true;
 					//collisionDetected = false;
 					//attachPlane = !attachPlane;
-					
+					auto currentTime = std::chrono::high_resolution_clock::now();
+					auto newelapsed = std::chrono::duration_cast<std::chrono::seconds>(currentTime - crashTime).count();
+					if (newelapsed >= 4) // Adjust this value as needed for your desired delay
+					{
+						attachPlane = !attachPlane;
+						collisionDetected = false;
+						planeDestroyed = false;
+					}
 				}
 			}
 		}
@@ -197,15 +224,15 @@ int main()
 			collisionSound->drop();
 			collisionSound = nullptr;
 		}
-		
+
 		camera.SetIsAttached(attachPlane);
 		if (attachPlane && !camera.hasCollided)
 		{
 			airplane.Inputs(window);
 		}
-		
+
 		//point.Draw(camera);
-		if(!planeDestroyed)
+		if (!planeDestroyed)
 			airplane.Draw(shaderProgram, camera, attachPlane);
 
 		glm::vec3 landScale = glm::vec3(500.0f, 500.0f, 500.0f);
@@ -221,7 +248,7 @@ int main()
 
 		cat.SetTransformations(glm::vec3(1575.5f, 125.5f, -1300.0f), glm::vec3(3.0f, 3.0f, 3.0f), r180);
 		cat.Draw(shaderProgram, camera);
-		
+
 		airstrip.SetTransformations(glm::vec3(372.35f, 430.0f, 27.4f), glm::vec3(12.0f, 12.0f, 12.0f), r120);
 		airstrip.Draw(shaderProgram, camera);
 

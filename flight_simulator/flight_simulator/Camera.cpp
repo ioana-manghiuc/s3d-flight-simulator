@@ -104,42 +104,42 @@ void Camera::DetachedInputs(GLFWwindow* window)
 	{
 		Position += speed * Orientation;
 
-		std::cout << Position.x << ", " << Position.y << ", " << Position.z << '\n';
+		//std::cout << Position.x << ", " << Position.y << ", " << Position.z << '\n';
 	}
 	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
 	{
 		Position += speed * -Orientation;
-		std::cout << Position.x << ", " << Position.y << ", " << Position.z << '\n';
+		//std::cout << Position.x << ", " << Position.y << ", " << Position.z << '\n';
 	}
 	if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
 	{
 		speed = kFastSpeed;
-		std::cout << Position.x << ", " << Position.y << ", " << Position.z << '\n';
+		//std::cout << Position.x << ", " << Position.y << ", " << Position.z << '\n';
 	}
 	else if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_RELEASE)
 	{
 		speed = kSlowSpeed;
-		std::cout << Position.x << ", " << Position.y << ", " << Position.z << '\n';
+		//std::cout << Position.x << ", " << Position.y << ", " << Position.z << '\n';
 	}
 	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
 	{
 		Position += speed * Up;
-		std::cout << Position.x << ", " << Position.y << ", " << Position.z << '\n';
+		//std::cout << Position.x << ", " << Position.y << ", " << Position.z << '\n';
 	}
 	if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
 	{
 		Position += speed * -Up;
-		std::cout << Position.x << ", " << Position.y << ", " << Position.z << '\n';
+		//std::cout << Position.x << ", " << Position.y << ", " << Position.z << '\n';
 	}
 	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
 	{
 		Position += speed * -glm::normalize(glm::cross(Orientation, Up));
-		std::cout << Position.x << ", " << Position.y << ", " << Position.z << '\n';
+		//std::cout << Position.x << ", " << Position.y << ", " << Position.z << '\n';
 	}
 	else if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
 	{
 		Position += speed * glm::normalize(glm::cross(Orientation, Up));
-		std::cout << Position.x << ", " << Position.y << ", " << Position.z << '\n';
+		//std::cout << Position.x << ", " << Position.y << ", " << Position.z << '\n';
 	}
 	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
 	{
