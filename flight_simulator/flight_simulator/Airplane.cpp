@@ -15,6 +15,7 @@ Airplane::Airplane() :
 	//SetTransformations(glm::vec3(119907.f, 1893.52f, -127622.f), glm::vec3(0.f, -1.f, 0.f), glm::vec3(5.1f, 5.1f, 5.1f), glm::radians(90.f));
 
 	//-104.995 35.023 - 9.0504
+	//SetTransformations(kNoViewTranslation, kScale, kBaseRotation);
 }
 
 void Airplane::Inputs(GLFWwindow* window)
@@ -22,7 +23,7 @@ void Airplane::Inputs(GLFWwindow* window)
 	glm::mat4 rotation = glm::mat4(1.0f);
 	rotation *= kBaseRotation;
 
-	const float upDownSensitivity = 0.08;
+	const float upDownSensitivity = 0.05;
 	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
 	{
 		m_downAngle = 0.0f;
@@ -54,7 +55,7 @@ void Airplane::Inputs(GLFWwindow* window)
 			m_leftAngle += rightLeftSensitivity;
 	}
 	
-	SetTransformations(kNoViewTranslation, kNoViewScale, rotation);
+	SetTransformations(kNoViewTranslation, kScale, rotation);
 }
 
 void Airplane::NoViewDraw(Shader& shader, Camera& camera)

@@ -129,7 +129,7 @@ int main()
 	glm::mat4 r120 = glm::rotate(glm::mat4(1.0f), glm::radians(120.0f), glm::vec3(-1.0f, -1.0f, -1.0f));
 
 	//glm::vec3 fireTrans = glm::vec3(1621.21, 1700.91, 420.0);
-	glm::vec3 fireTrans = glm::vec3(-3.78998, 3740.91, -410);
+	glm::vec3 fireTrans = glm::vec3(-8.78998, 2655.91, -625);
 	glm::vec3 fireScale = glm::vec3(3.0f, 3.0f, 3.0f);
 	fire.SetTransformations(fireTrans, fireScale, r90);
 

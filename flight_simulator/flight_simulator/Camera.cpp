@@ -68,7 +68,7 @@ void Camera::AttachedInputs(GLFWwindow* window)
 		if (speed < 0.0)
 			speed = 0;
 	}
-	glm::vec3 planePosition = Position + 100.f * Orientation;
+	glm::vec3 planePosition = Position + 50.f * Orientation;
 	if (!IsValidPosition(planePosition))
 	{
 		Position = LastPosition;
@@ -87,7 +87,7 @@ void Camera::AttachedInputs(GLFWwindow* window)
 	if (speed < 0.5)
 		return;
 
-	float upDownSensitivity = 0.3;
+	float upDownSensitivity = 0.15;
 	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
 	{
 		ChangeOrientation(-upDownSensitivity, 0.0);

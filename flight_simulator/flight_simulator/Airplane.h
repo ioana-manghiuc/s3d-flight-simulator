@@ -13,7 +13,8 @@ public:
 	void Draw(Shader& shader, Camera& camera, bool attached);
 
 public:
-	const glm::vec3 kNoViewTranslation = glm::vec3(48.f, -1809.f, -23014.5f);
+	 
+	const glm::vec3 kNoViewTranslation = glm::vec3(48.f, -1704.f, -10209.5f);
 	const glm::vec3 kScale = glm::vec3(2.7f, 2.7f, 2.7f);
 	const glm::vec3 kNoViewScale = glm::vec3(4.7f, 4.7f, 4.7f);
 

@@ -106,7 +106,7 @@ void Particles::Draw(Shader& shader, Camera& camera)
 
 	int max = 5;
     float scaleFactor = 0.5f;
-    float distanceFromCamera = 50.f;
+    float distanceFromCamera = 30.f;
 
     float xRange = 10.0f;
     float zRange = 10.0f;
