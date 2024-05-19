@@ -54,6 +54,8 @@ int main()
 	Model cat("models/cat/scene.gltf");
 	Model tent("models/tent/scene.gltf");
 
+	// -------------------------------------------------------------------------------------
+
 	Point points1(glm::vec3(-788.f, 41.f, -1047.f), glm::vec3(-520.f, 154.f, -843.f));
 	Point points2(glm::vec3(-900.f, 41.f, -864.f), glm::vec3(-620.f, 280.f, -306.f));
 	Point points3(glm::vec3(-946.f, 41.f, -308.f), glm::vec3(-604.f, 340.f, 255.f));
@@ -79,6 +81,11 @@ int main()
 	Point points23(glm::vec3(447.f, 41.f, -1251.f), glm::vec3(552.f, 310.f, -1183.f));
 	Point points24(glm::vec3(314.f, 41.f, -1417.f), glm::vec3(481.f, 232.f, -1221.f));
 	Point points25(glm::vec3(537.f, 41.f, -1251.f), glm::vec3(583.f, 232.f, -1157.f));
+	Point points26(glm::vec3(-432.f, 41.f, 670.f), glm::vec3(-314.f, 330.f, 1100.f));
+	Point points27(glm::vec3(-530.f, 41.f, 189.f), glm::vec3(360.f, 230.f, 330.f));
+	Point points28(glm::vec3(-345.f, 41.f, 662.f), glm::vec3(-169.f, 250.f, 1033.f));
+	Point points29(glm::vec3(-490.f, 120.f, -1097.f), glm::vec3(100.f, 175.f, -100.f));
+	Point points30(glm::vec3(30.f, 140.f, -1250.f), glm::vec3(241.f, 142.f, -1110.f));
 
 	Point bpoint01(glm::vec3(1581.26, 10.6445, -1794.53), glm::vec3(1839.84, 68.7172, -1396.4));
 	Point bpoint04(glm::vec3(1567.14, 21.0349, -1325.99), glm::vec3(1674.79, 233.561, -1272.87));
@@ -89,6 +96,7 @@ int main()
 	shaderProgram = Shader("default.vert", "default.frag");
 	skyboxShader = Shader("skybox.vert", "skybox.frag");
 	shadowProgram = Shader("shadowMap.vert", "shadowMap.frag");
+
 	glm::vec4 lightColor = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 	glm::vec3 lightPos = glm::vec3(0.5f, 0.5f, 0.5f);
 	glm::mat4 lightModel = glm::mat4(1.0f);
@@ -257,6 +265,7 @@ int main()
 
 		tent.SetTransformations(glm::vec3(1485.0f, 1850.0f, 2.0f), glm::vec3(4.0f, 4.0f, 4.0f), r90);
 		tent.Draw(shaderProgram, camera);
+
 		points1.Draw(camera);
 		points2.Draw(camera);
 		points3.Draw(camera);
@@ -282,6 +291,11 @@ int main()
 		points23.Draw(camera);
 		points24.Draw(camera);
 		points25.Draw(camera);
+		points26.Draw(camera);
+		points27.Draw(camera);
+		points28.Draw(camera);
+		points29.Draw(camera);
+		points30.Draw(camera);
 
 		bpoint01.Draw(camera);
 		bpoint04.Draw(camera);
