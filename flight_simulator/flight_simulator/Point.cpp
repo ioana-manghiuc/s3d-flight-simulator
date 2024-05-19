@@ -56,6 +56,8 @@ std::vector<GLuint> inds = {
 Point::Point(const glm::vec3& lower, const glm::vec3& upper):
 	m_shader("particles.vert", "particles.frag")
 {
+    if (lower.x > upper.x or lower.y > upper.y or lower.z > lower.z)
+        std::cout << "invalid point";
 	VAO1.Bind();
 
 	VBO VBO1(verts, sizeof(verts));

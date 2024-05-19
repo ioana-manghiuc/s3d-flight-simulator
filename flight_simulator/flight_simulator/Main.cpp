@@ -68,7 +68,7 @@ int main()
 	Point points14(glm::vec3(248.f, 41.f,-14.f), glm::vec3(353.f, 277.f, 125.f));
 	Point points15(glm::vec3(216.f, 41.f,-271.f), glm::vec3(524.f, 203.f, -83.f));
 	Point points16(glm::vec3(346.f, 41.f,-334.f), glm::vec3(411.f, 299.f, -296.f));
-	Point points17(glm::vec3(403.f, 41.f,-361.f), glm::vec3(431.f, 335.f, -671.f));
+	Point points17(glm::vec3(403.f, 41.f,-671.f), glm::vec3(431.f, 335.f, -361.f));
 	Point points18(glm::vec3(407.f, 41.f,-671.f), glm::vec3(538.f, 443.f, -369.f));
 	Point points19(glm::vec3(445.f, 41.f,-1009.f), glm::vec3(562.f, 502.f, -697.f));
 	Point points20(glm::vec3(429.f, 41.f,-1119.f), glm::vec3(523.f, 395.f, -1008.f));
